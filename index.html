@@ -23,23 +23,43 @@
         <!-- Add spacer, to align navigation to the right -->
         <div class="mdl-layout-spacer"></div>
 
-        <!-- Navigation. We hide it in small screens. -->
-        <nav class="mdl-navigation mdl-layout--large-screen-only">
-          <span class="mdl-navigation__link">Link</span>
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
-        </nav>
+        <button id="add-feature-button"
+                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+          ビューの追加
+          <i class="material-icons">add</i>
+        </button>
+
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+            for="add-feature-button">
+          <li class="mdl-menu__item" data-feature-name="happen_count">
+            発生頻度
+          </li>
+          <li class="mdl-menu__item" data-feature-name="">
+            特に多く発生している時間帯
+          </li>
+        </ul>
       </div>
     </header>
 
     <div class="mdl-layout__drawer">
       <span class="mdl-layout-title">Global Setting</span>
+
       <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
+        <span class="mdl-navigation__link avoid-hover-css">
+          開始時刻 : <span>2014年</span>
+        </span>
+        <input class="mdl-slider mdl-js-slider" type="range"
+               min="0" max="100" value="0" tabindex="0"/>
+        <span class="mdl-navigation__link avoid-hover-css">
+          <div style="float:left; line-height:24px;">Linking Line</div>
+          <div style="float:right;">
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+              <input type="checkbox" id="switch-1" class="mdl-switch__input" checked />
+              <span class="mdl-switch__label"></span>
+            </label>
+          </div>
+          <div style="clear:both;"></div>
+        </span>
       </nav>
     </div>
 
