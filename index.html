@@ -4,14 +4,55 @@
   <meta charset="utf-8">
   <title>Temp Page</title>
   <link rel="stylesheet/less" type="text/css" href="less/main.less">
-  <link rel="stylesheet/css" type="text/css" href="lib_material.min.css">
+  <link rel="stylesheet" type="text/css" href="lib/material.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script type="text/javascript" src="lib/jquery-1.11.2.min.js"></script>
   <script type="text/javascript" src="lib/d3.min.js"></script>
   <script type="text/javascript" src="lib/material.min.js"></script>
   <script type="text/javascript" src="lib/less.js"></script>
 </head>
 <body>
-  <h1>Temp Page</h1>
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title">
+          Pattern Vis
+        </span>
+
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+
+        <!-- Navigation. We hide it in small screens. -->
+        <nav class="mdl-navigation mdl-layout--large-screen-only">
+          <span class="mdl-navigation__link">Link</span>
+          <a class="mdl-navigation__link" href="">Link</a>
+          <a class="mdl-navigation__link" href="">Link</a>
+          <a class="mdl-navigation__link" href="">Link</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">Global Setting</span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+      </nav>
+    </div>
+
+    <main class="mdl-layout__content">
+      <div class="page-content">
+        main area
+      </div>
+    </main>
+  </div>
+
+  <script type="text/javascript">
+    var vis = {test: "test"};
+  </script>
   <script type="text/javascript" src="js/init.js"></script>
 </body>
 </html>

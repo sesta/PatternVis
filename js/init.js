@@ -1,3 +1,3 @@
 $( function(){
-	alert( "Javascript Running!" );
+  //alert( "Javascript Running!" );
 } );
