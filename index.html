@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script type="text/javascript" src="lib/jquery-1.11.2.min.js"></script>
   <script type="text/javascript" src="lib/d3.min.js"></script>
-  <script type="text/javascript" src="lib/material.min.js"></script>
   <script type="text/javascript" src="lib/less.js"></script>
 </head>
 <body>
@@ -65,24 +64,8 @@
 
     <main class="mdl-layout__content">
       <div class="page-content">
-        <div id="vrew-area">
-          <div class="mdl-card mdl-shadow--2dp view"
-               style="top:100px; left:100px;">
-            <svg class="graph area" style=" width:300px; height:300px
-            ">
-            </svg>
-            <div class="mdl-card__actions mdl-card--border">
-              <span class="mdl-button mdl-button--colored">
-                発生頻度
-              </span>
-            </div>
-            <div class="mdl-card__menu">
-              <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                <i class="material-icons">share</i>
-              </button>
-            </div>
-          </div>
-        <div>
+        <div id="view-area">
+        </div>
       </div>
     </main>
   </div>
@@ -99,6 +82,10 @@
       views: []
     };
   </script>
+  <script type="text/javascript" src="js/View/View.js"></script>
+  <script type="text/javascript" src="js/View/create_view_dom.js"></script>
+  <script type="text/javascript" src="js/View/draw.js"></script>
   <script type="text/javascript" src="js/init.js"></script>
+  <script type="text/javascript" src="lib/material.min.js"></script>
 </body>
 </html>
