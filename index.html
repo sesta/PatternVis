@@ -65,13 +65,39 @@
 
     <main class="mdl-layout__content">
       <div class="page-content">
-        main area
+        <div id="vrew-area">
+          <div class="mdl-card mdl-shadow--2dp view"
+               style="top:100px; left:100px;">
+            <svg class="graph area" style=" width:300px; height:300px
+            ">
+            </svg>
+            <div class="mdl-card__actions mdl-card--border">
+              <span class="mdl-button mdl-button--colored">
+                発生頻度
+              </span>
+            </div>
+            <div class="mdl-card__menu">
+              <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                <i class="material-icons">share</i>
+              </button>
+            </div>
+          </div>
+        <div>
       </div>
     </main>
   </div>
 
   <script type="text/javascript">
-    var vis = {test: "test"};
+    var pattern_vis = {
+      test: "test",
+      margin: {
+        top: 10,
+        bottom: 10,
+        left: 10,
+        right: 10
+      },
+      views: []
+    };
   </script>
   <script type="text/javascript" src="js/init.js"></script>
 </body>
