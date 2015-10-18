@@ -9,12 +9,14 @@ pattern_vis.View = ( function(){
       feature_name: "発生頻度",
       $view: null,
       d3_graph: null,
+      pos_x: 0,
+      pos_y: 0,
+      size_aspect: 2,
       svg_width: 200,
-      svg_height: 300,
+      svg_height: 400
     } );
 
     this.create_view_dom();
-    this.draw();
 
     id_num++;
   };
