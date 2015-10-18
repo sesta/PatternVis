@@ -1,6 +1,8 @@
 pattern_vis.View.prototype.draw = function(){
-  var graph_width = this.svg_width - pattern_vis.margin.left - pattern_vis.margin.right;
-  var graph_height = this.svg_height - pattern_vis.margin.top - pattern_vis.margin.bottom;
+  var that = this;
+
+  var graph_width = this.svg_width - pattern_vis.graph_margin.left - pattern_vis.graph_margin.right;
+  var graph_height = this.svg_height - pattern_vis.graph_margin.top - pattern_vis.graph_margin.bottom;
 
   var x = d3.scale.ordinal()
     .rangeRoundBands( [ 0, graph_width ], .05 );
@@ -20,13 +22,13 @@ pattern_vis.View.prototype.draw = function(){
     .attr( "width", this.svg_width )
     .attr( "height", this.svg_height )
     .append( "g" )
-    .attr( "transform", "translate(" + pattern_vis.margin.left + "," + pattern_vis.margin.top + ")");
+    .attr( "transform", "translate(" + pattern_vis.graph_margin.left + "," + pattern_vis.graph_margin.top + ")");
 
   data = [];
   this.event_ids.forEach( function( id ){
     data.push( {
       id: id,
-      value: pattern_vis.feature.happen_count[ id ]
+      value: features[ that.feature_id ][ id ]
     } );
   } );
   x.domain( this.event_ids );

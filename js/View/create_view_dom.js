@@ -2,12 +2,11 @@ pattern_vis.View.prototype.create_view_dom = function(){
   var $view = $( "<div></div>", {
     id: "view_" + this.id,
     "class": "mdl-card mdl-shadow--2dp view"
-  } ).css( "width", this.svg_width + "px");;
+  } );
 
   var $svg = $( "<div></div>", {
     "class": "graph-area"
-  } ).css( "height", this.svg_height + "px" )
-     .css( "width", this.svg_width + "px");
+  } );
 
   var $title = $( "<div></div>", {
     "class": "mdl-card__actions mdl-card--border",
@@ -29,4 +28,5 @@ pattern_vis.View.prototype.create_view_dom = function(){
 
   $( "#view-area" ).append( $view );
   this.$view = $view;
+  this.$svg = $svg;
 };

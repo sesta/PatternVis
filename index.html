@@ -28,7 +28,7 @@
           <i class="material-icons">add</i>
         </button>
 
-        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect add-feature-buttons"
             for="show-feature-list">
           <li class="mdl-menu__item add-feature-button" data-feature-name="happen_count">
             発生頻度
@@ -72,22 +72,38 @@
 
   <script type="text/javascript">
     var pattern_vis = {
-      test: "test",
-      margin: {
+      view_margin: {
+        top: 30,
+        bottom: 30,
+        left: 30,
+        right: 30,
+        space: 20
+      },
+      graph_margin: {
         top: 50,
         bottom: 50,
         left: 70,
         right: 40
       },
-      views: [],
-      feature: {}
+      views: []
     };
 
-    pattern_vis.feature.happen_count = {
-      0: 32,
-      1: 43
+    var features = {
+      happen_count: {
+        name_ja: "発生頻度",
+        size_aspect: 1.5,
+        0: 32,
+        1: 43
+      },
+      test_feature: {
+        name_ja: "テスト",
+        size_aspect: 2,
+        0: 1231,
+        1: 123
+      }
     };
   </script>
+  <script type="text/javascript" src="js/make_add_feature_buttons.js"></script>
   <script type="text/javascript" src="js/View/View.js"></script>
   <script type="text/javascript" src="js/View/create_view_dom.js"></script>
   <script type="text/javascript" src="js/View/draw.js"></script>

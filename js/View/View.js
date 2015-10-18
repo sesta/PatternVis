@@ -6,12 +6,13 @@ pattern_vis.View = ( function(){
       id: id_num,
       event_ids: [ "0", "1" ],
       feature_id: feature_id,
-      feature_name: "発生頻度",
+      feature_name: features[ feature_id ].name_ja,
       $view: null,
+      $svg: null,
       d3_graph: null,
       pos_x: 0,
       pos_y: 0,
-      size_aspect: 2,
+      size_aspect: features[ feature_id ].size_aspect,
       svg_width: 200,
       svg_height: 400
     } );
