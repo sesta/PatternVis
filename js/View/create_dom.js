@@ -1,11 +1,9 @@
-pattern_vis.View.prototype.create_view_dom = function(){
+pattern_vis.View.prototype.create_dom = function(){
+  var that = this;
+
   var $view = $( "<div></div>", {
     id: "view_" + this.id,
     "class": "mdl-card mdl-shadow--2dp view"
-  } );
-
-  var $svg = $( "<div></div>", {
-    "class": "graph-area"
   } );
 
   var $title = $( "<div></div>", {
@@ -22,11 +20,25 @@ pattern_vis.View.prototype.create_view_dom = function(){
     "class": "material-icons",
   } ).text( "share" ) ) );
 
-  $view.append( $svg );
-  $view.append( $title );
-  $view.append( $menu );
-
   $( "#view-area" ).append( $view );
   this.$view = $view;
-  this.$svg = $svg;
+
+  make_graph();
+
+  this.$view.append( $title );
+  this.$view.append( $menu );
+
+  function make_graph(){
+    that.d3_svg = d3.select( "#view_" + that.id ).append( "svg" );
+
+    that.d3_graph = that.d3_svg.append( "g" )
+      .attr( "transform", "translate(" + MARGIN.graph.left + "," + MARGIN.graph.top + ")");
+
+    that.d3_graph.append( "g" )
+      .attr( "class", "x axis" );
+
+    that.d3_graph.append( "g" )
+      .attr( "class", "y axis" )
+      .append( "text" );
+  }
 };

@@ -4,11 +4,11 @@ pattern_vis.View = ( function(){
   return function( feature_id ){
     $.extend( this, {
       id: id_num,
-      event_ids: [ "0", "1" ],
+      event_ids: [ "a", "b" ],
       feature_id: feature_id,
       feature_name: features[ feature_id ].name_ja,
       $view: null,
-      $svg: null,
+      d3_svg: null,
       d3_graph: null,
       pos_x: 0,
       pos_y: 0,
@@ -17,7 +17,7 @@ pattern_vis.View = ( function(){
       svg_height: 400
     } );
 
-    this.create_view_dom();
+    this.create_dom();
 
     id_num++;
   };

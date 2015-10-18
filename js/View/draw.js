@@ -18,12 +18,6 @@ pattern_vis.View.prototype.draw = function(){
     .scale( y )
     .orient( "left" );
 
-  var graph = d3.select( "#view_" + this.id + " .graph-area" ).append( "svg" )
-    .attr( "width", this.svg_width )
-    .attr( "height", this.svg_height )
-    .append( "g" )
-    .attr( "transform", "translate(" + MARGIN.graph.left + "," + MARGIN.graph.top + ")");
-
   data = [];
   this.event_ids.forEach( function( id ){
     data.push( {
@@ -34,28 +28,26 @@ pattern_vis.View.prototype.draw = function(){
   x.domain( this.event_ids );
   y.domain( [ 0, d3.max( data, function(d){ return d.value; } ) ] );
 
-  graph.append( "g" )
-    .attr( "class", "x axis" )
+  this.d3_graph.select( ".x.axis" )
     .attr( "transform", "translate(0," + graph_height + ")" )
     .call( xAxis );
 
-  graph.append( "g" )
-    .attr( "class", "y axis" )
+  this.d3_graph.select( ".y.axis" )
     .call( yAxis )
-    .append( "text" )
+    .select( "text" )
     .attr( "transform", "rotate(-90)" )
     .attr( "y", 6 )
     .attr( "dy", ".71em" )
     .style( "text-anchor", "end" );
 
-  graph.selectAll( ".bar" )
+  this.d3_graph.selectAll( ".bar" )
     .data( data )
     .enter().append( "rect" )
-    .attr( "class", "bar" )
+    .attr( "class", "bar" );
+
+  this.d3_graph.selectAll( ".bar" )
     .attr( "x", function( d ) { return x( d.id ); } )
     .attr( "width", x.rangeBand() )
     .attr( "y", function( d ) { return y( d.value ); } )
     .attr( "height", function( d ) { return graph_height - y( d.value ); } );
-
-  this.d3_graph = graph;
 };
