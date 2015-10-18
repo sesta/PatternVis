@@ -20,3 +20,10 @@ pattern_vis.View = ( function(){
   };
 } )();
 
+pattern_vis.View.prototype.getHeight = function(){
+  return this.svg_height + 50;
+};
+
+pattern_vis.View.prototype.getWidth = function(){
+  return this.svg_width;
+};

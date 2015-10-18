@@ -22,18 +22,18 @@
         <!-- Add spacer, to align navigation to the right -->
         <div class="mdl-layout-spacer"></div>
 
-        <button id="add-feature-button"
+        <button id="show-feature-list"
                 class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
           ビューの追加
           <i class="material-icons">add</i>
         </button>
 
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-            for="add-feature-button">
-          <li class="mdl-menu__item" data-feature-name="happen_count">
+            for="show-feature-list">
+          <li class="mdl-menu__item add-feature-button" data-feature-name="happen_count">
             発生頻度
           </li>
-          <li class="mdl-menu__item" data-feature-name="">
+          <li class="mdl-menu__item add-feature-button" data-feature-name="">
             特に多く発生している時間帯
           </li>
         </ul>
@@ -91,6 +91,7 @@
   <script type="text/javascript" src="js/View/View.js"></script>
   <script type="text/javascript" src="js/View/create_view_dom.js"></script>
   <script type="text/javascript" src="js/View/draw.js"></script>
+  <script type="text/javascript" src="js/Ui/add_view.js"></script>
   <script type="text/javascript" src="js/init.js"></script>
   <script type="text/javascript" src="lib/material.min.js"></script>
 </body>
