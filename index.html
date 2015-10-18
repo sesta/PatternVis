@@ -30,12 +30,6 @@
 
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect add-feature-buttons"
             for="show-feature-list">
-          <li class="mdl-menu__item add-feature-button" data-feature-name="happen_count">
-            発生頻度
-          </li>
-          <li class="mdl-menu__item add-feature-button" data-feature-name="">
-            特に多く発生している時間帯
-          </li>
         </ul>
       </div>
     </header>
@@ -71,22 +65,25 @@
   </div>
 
   <script type="text/javascript">
-    var pattern_vis = {
-      view_margin: {
+    var pattern_vis = {};
+
+    var MARGIN = {
+      view: {
         top: 30,
         bottom: 30,
         left: 30,
         right: 30,
         space: 20
       },
-      graph_margin: {
+      graph: {
         top: 50,
         bottom: 50,
         left: 70,
         right: 40
-      },
-      views: []
+      }
     };
+
+    var views =  []
 
     var features = {
       happen_count: {

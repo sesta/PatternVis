@@ -1,8 +1,8 @@
 pattern_vis.View.prototype.draw = function(){
   var that = this;
 
-  var graph_width = this.svg_width - pattern_vis.graph_margin.left - pattern_vis.graph_margin.right;
-  var graph_height = this.svg_height - pattern_vis.graph_margin.top - pattern_vis.graph_margin.bottom;
+  var graph_width = this.svg_width - MARGIN.graph.left - MARGIN.graph.right;
+  var graph_height = this.svg_height - MARGIN.graph.top - MARGIN.graph.bottom;
 
   var x = d3.scale.ordinal()
     .rangeRoundBands( [ 0, graph_width ], .05 );
@@ -22,7 +22,7 @@ pattern_vis.View.prototype.draw = function(){
     .attr( "width", this.svg_width )
     .attr( "height", this.svg_height )
     .append( "g" )
-    .attr( "transform", "translate(" + pattern_vis.graph_margin.left + "," + pattern_vis.graph_margin.top + ")");
+    .attr( "transform", "translate(" + MARGIN.graph.left + "," + MARGIN.graph.top + ")");
 
   data = [];
   this.event_ids.forEach( function( id ){
