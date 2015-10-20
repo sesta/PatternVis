@@ -1,8 +1,8 @@
-for( id in features ){
+for( id in Feature ){
   var $li = $( "<li></li>", {
     "class": "mdl-menu__item add-feature-button",
     "data-feature-name": id
-  } ).text( features[ id ].name_ja );
+  } ).text( Feature[ id ].name_ja );
 
   $( ".add-feature-buttons" ).append( $li );
 };

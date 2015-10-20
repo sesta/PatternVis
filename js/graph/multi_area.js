@@ -46,7 +46,7 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
 
   this.event_ids.forEach( function( event_id ){
     var data = [];
-    features[ that.feature_id ][ event_id ].forEach( function( value, index ){
+    Feature[ that.feature_id ][ event_id ].forEach( function( value, index ){
       data.push( {
         id: index,
         value: value

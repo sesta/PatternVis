@@ -4,16 +4,16 @@ pattern_vis.View = ( function(){
   return function( feature_id ){
     $.extend( this, {
       id: id_num,
-      event_ids: [ "a", "b" ],
+      event_ids: [ "0", "1", "2", "3" ],
       feature_id: feature_id,
-      feature_name: features[ feature_id ].name_ja,
-      graph_type: features[ feature_id ].graph_type,
+      feature_name: Feature[ feature_id ].name_ja,
+      graph_type: Feature[ feature_id ].graph_type,
       $view: null,
       d3_svg: null,
       d3_graph: null,
       pos_x: 0,
       pos_y: 0,
-      size_aspect: features[ feature_id ].size_aspect,
+      size_aspect: Feature[ feature_id ].size_aspect,
       svg_width: 200,
       svg_height: 400
     } );

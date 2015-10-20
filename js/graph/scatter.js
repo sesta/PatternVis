@@ -38,7 +38,7 @@ pattern_vis.View.prototype.scatterDraw = function(){
   this.event_ids.forEach( function( id ){
     data.push( {
       id: id,
-      value: features[ that.feature_id ][ id ]
+      value: Feature[ that.feature_id ][ id ]
     } );
   } );
   x.domain( this.event_ids );

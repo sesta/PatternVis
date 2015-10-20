@@ -35,11 +35,13 @@ pattern_vis.View.prototype.barDraw = function(){
 
   var data = [];
   this.event_ids.forEach( function( id ){
+    var value = Feature[ that.feature_id ][ id ];
     data.push( {
       id: id,
-      value: features[ that.feature_id ][ id ]
+      value: value ? value : Feature[ "compute_" + that.feature_id ]( id )
     } );
   } );
+
   x.domain( this.event_ids );
   y.domain( [ 0, d3.max( data, function(d){ return d.value; } ) ] );
 
