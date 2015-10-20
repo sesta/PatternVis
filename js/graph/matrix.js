@@ -37,7 +37,7 @@ pattern_vis.View.prototype.matrixDraw = function(){
       data.push( {
         id_1: event_id_1,
         id_2: event_id_2,
-        value: Feature[ that.feature_id ][ event_id_1 ][ event_id_2 ]
+        value: Feature.get( that.feature_id, event_id_1, event_id_2 )
       } );
     } );
   } );

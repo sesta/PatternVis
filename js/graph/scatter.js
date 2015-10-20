@@ -35,10 +35,10 @@ pattern_vis.View.prototype.scatterDraw = function(){
     .orient( "left" );
 
   var data = [];
-  this.event_ids.forEach( function( id ){
+  this.event_ids.forEach( function( event_id ){
     data.push( {
-      id: id,
-      value: Feature[ that.feature_id ][ id ]
+      id: event_id,
+      value: Feature.get( that.feature_id, event_id )
     } );
   } );
   x.domain( this.event_ids );

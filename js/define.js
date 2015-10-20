@@ -54,17 +54,17 @@ var Feature = {
     size_aspect: 1.0,
     graph_type: "multi_bar"
   },
-  average_time_defference: {
+  average_time_difference: {
     name_ja: "発生しやすい時刻の近さ",
     size_aspect: 1.0,
     graph_type: "matrix"
   },
-  similar_by_vector: {
+  similar: {
     name_ja: "発生時間帯の類似性",
     size_aspect: 1.0,
     graph_type: "matrix"
   },
-  crowd_count_by_count: {
+  crowd_time: {
     name_ja: "特に多く発生している時間帯",
     size_aspect: 1.0,
     graph_type: "scatter"

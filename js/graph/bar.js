@@ -34,11 +34,10 @@ pattern_vis.View.prototype.barDraw = function(){
     .orient( "left" );
 
   var data = [];
-  this.event_ids.forEach( function( id ){
-    var value = Feature[ that.feature_id ][ id ];
+  this.event_ids.forEach( function( event_id ){
     data.push( {
-      id: id,
-      value: value ? value : Feature[ "compute_" + that.feature_id ]( id )
+      id: event_id,
+      value: Feature.get( that.feature_id, event_id )
     } );
   } );
 

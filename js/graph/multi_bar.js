@@ -43,7 +43,7 @@ pattern_vis.View.prototype.multi_barDraw = function(){
 
   this.event_ids.forEach( function( event_id ){
     var data = [];
-    Feature[ that.feature_id ][ event_id ].forEach( function( value, index ){
+    Feature.get( that.feature_id, event_id ).forEach( function( value, index ){
       data.push( {
         id: index,
         value: value
