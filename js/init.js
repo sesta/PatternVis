@@ -1,3 +1,3 @@
 $( function(){
-  pattern_vis.input_data( "data/shop_itemTrans.csv" );
+  pattern_vis.input_data( "data/Crimes_100000_fix.csv" );
 } );

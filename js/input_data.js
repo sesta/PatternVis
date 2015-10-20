@@ -46,6 +46,12 @@ pattern_vis.input_data = (function(){
       }
     });
 
+    if( date > setting.time.end )
+      setting.time.end = date;
+
+    if( date < setting.time.start )
+      setting.time.start = date;
+
     return {
       ms: date.getTime(),
       date: date

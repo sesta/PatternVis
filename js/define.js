@@ -4,6 +4,16 @@ var data = {};
 
 var id_map = {};
 
+var setting = {
+  time: {
+    step: 1000 * 60 * 60 * 24,
+    start: new Date(),
+    end: new Date(0)
+  },
+  sampling_num: 200,
+  sampling_interval: 1000 * 60 * 60 * 6
+};
+
 var MARGIN = {
   view: {
     top: 30,
