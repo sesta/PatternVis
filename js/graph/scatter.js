@@ -20,11 +20,11 @@ pattern_vis.View.prototype.scatterDraw = function(){
   var graph_width = this.svg_width - MARGIN.graph.left - MARGIN.graph.right;
   var graph_height = this.svg_height - MARGIN.graph.top - MARGIN.graph.bottom;
 
-  var x = d3.scale.ordinal()
-    .rangePoints( [ 0, graph_width ], 1 );
+  var x = d3.scale.linear()
+    .range( [ 0, graph_width ] );
 
-  var y = d3.scale.linear()
-    .range( [ graph_height, 0 ] );
+  var y = d3.scale.ordinal()
+    .rangePoints( [ graph_height, 0 ], 1 );
 
   var xAxis = d3.svg.axis()
     .scale( x )
@@ -36,13 +36,15 @@ pattern_vis.View.prototype.scatterDraw = function(){
 
   var data = [];
   this.event_ids.forEach( function( event_id ){
-    data.push( {
-      id: event_id,
-      value: Feature.get( that.feature_id, event_id )
+    Feature.get( that.feature_id, event_id ).forEach( function( value ){
+      data.push( {
+        id: event_id,
+        value: value
+      } );
     } );
   } );
-  x.domain( this.event_ids );
-  y.domain( [ 0, d3.max( data, function(d){ return d.value; } ) ] );
+  x.domain( [ 0, d3.max( data, function(d){ return d.value; } ) ] );
+  y.domain( this.event_ids );
 
   this.d3_graph.select( ".x.axis" )
     .attr( "transform", "translate(0," + graph_height + ")" )
@@ -57,7 +59,7 @@ pattern_vis.View.prototype.scatterDraw = function(){
     .attr( "class", "dot vis-val" );
 
   this.d3_graph.selectAll( ".dot" )
-    .attr( "cx", function( d ) { return x( d.id ); } )
-    .attr( "cy", function( d ) { return y( d.value ); } )
+    .attr( "cx", function( d ) { return x( d.value ); } )
+    .attr( "cy", function( d ) { return y( d.id ); } )
     .attr( "r", 6 );
 };

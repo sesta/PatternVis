@@ -1,3 +1,3 @@
 Feature.compute_average_time = function(){
-  return 4;
+  return [4];
 }
