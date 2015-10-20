@@ -13,7 +13,7 @@ var MARGIN = {
     bottom: 50,
     left: 70,
     right: 40,
-    space: 30
+    space: 40
   }
 };
 
@@ -31,8 +31,8 @@ var features = {
     name_ja: "発生分布",
     size_aspect: 1.0,
     graph_type: "multi_area",
-    a: 1231,
-    b: 123
+    a: [ 1, 23, 34, 15],
+    b: [ 43, 4, 30, 22]
   },
   event_count_max_time: {
     name_ja: "最頻時間帯",

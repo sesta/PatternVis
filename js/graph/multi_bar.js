@@ -11,7 +11,9 @@ pattern_vis.View.prototype.multi_barCreate = function(){
       .attr( "class", "x axis event-id-" + event_id );
 
     that.d3_graph.append( "g" )
-      .attr( "class", "y axis event-id-" + event_id );
+      .attr( "class", "y axis event-id-" + event_id )
+      .append( "text" )
+      .attr( "class", "event_name" );
   } );
 }
 
@@ -57,7 +59,11 @@ pattern_vis.View.prototype.multi_barDraw = function(){
 
     that.d3_graph.select( ".y.axis.event-id-" + event_id )
       .attr( "transform", "translate(0," + base_height + ")" )
-      .call( yAxis );
+      .call( yAxis )
+      .select( "text" )
+      .attr( "transform", "translate( -" + ( MARGIN.graph.left - 20 ) + ", 0 )" )
+      .attr( "dy", "3em" )
+      .text( event_id );
 
     that.d3_graph.selectAll( ".bar.event-id-" + event_id )
       .data( data )

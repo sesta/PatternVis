@@ -1,15 +1,23 @@
 pattern_vis.View.prototype.multi_areaCreate = function(){
+  var that = this;
+
   this.d3_svg = d3.select( "#view-" + this.id ).append( "svg" );
 
   this.d3_graph = this.d3_svg.append( "g" )
     .attr( "transform", "translate(" + MARGIN.graph.left + "," + MARGIN.graph.top + ")");
 
-  this.d3_graph.append( "g" )
-    .attr( "class", "x axis" );
+  this.event_ids.forEach( function( event_id ){
+    that.d3_graph.append( "g" )
+      .attr( "class", "x axis event-id-" + event_id );
 
-  this.d3_graph.append( "g" )
-    .attr( "class", "y axis" )
-    .append( "text" );
+    that.d3_graph.append( "g" )
+      .attr( "class", "y axis event-id-" + event_id )
+      .append( "text" )
+      .attr( "class", "event_name" );
+
+    that.d3_graph.append( "path" )
+      .attr( "class", "area vis-val event-id-" + event_id );
+  } );
 }
 
 pattern_vis.View.prototype.multi_areaDraw = function(){
@@ -18,11 +26,15 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
   var graph_width = this.svg_width - MARGIN.graph.left - MARGIN.graph.right;
   var graph_height = this.svg_height - MARGIN.graph.top - MARGIN.graph.bottom;
 
+  var one_graph_height = ( graph_height - MARGIN.graph.space * ( this.event_ids.length - 1 ) )
+                            / this.event_ids.length;
+  var base_height = 0;
+
   var x = d3.scale.ordinal()
-    .rangeRoundBands( [ 0, graph_width ], .05 );
+    .rangePoints( [ 0, graph_width ] );
 
   var y = d3.scale.linear()
-    .range( [ graph_height, 0 ] );
+    .range( [ one_graph_height, 0 ] );
 
   var xAxis = d3.svg.axis()
     .scale( x )
@@ -32,40 +44,40 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
     .scale( y )
     .orient( "left" );
 
-  data = [];
-  this.event_ids.forEach( function( id ){
-    data.push( {
-      id: id,
-      value: features[ that.feature_id ][ id ]
+  this.event_ids.forEach( function( event_id ){
+    var data = [];
+    features[ that.feature_id ][ event_id ].forEach( function( value, index ){
+      data.push( {
+        id: index,
+        value: value
+      } );
     } );
+
+    var area = d3.svg.area()
+          .x( function( d ){ return x( d.id ); } )
+          .y0( one_graph_height )
+          .y1( function( d ){ return y( d.value); } );
+
+    x.domain( d3.range( data.length ) );
+    y.domain( [ 0, d3.max( data, function(d){ return d.value; } ) ] );
+
+    that.d3_graph.select( ".x.axis.event-id-" + event_id )
+      .attr( "transform", "translate(0," + ( one_graph_height + base_height ) + ")" )
+      .call( xAxis );
+
+    that.d3_graph.select( ".y.axis.event-id-" + event_id )
+      .attr( "transform", "translate(0," + base_height + ")" )
+      .call( yAxis )
+      .select( "text" )
+      .attr( "transform", "translate( -" + ( MARGIN.graph.left - 20 ) + ", 0 )" )
+      .attr( "dy", "3em" )
+      .text( event_id );
+
+    that.d3_graph.selectAll( ".area.event-id-" + event_id )
+      .datum( data )
+      .attr( "transform", "translate(0," + base_height + ")" )
+      .attr( "d", area );
+
+    base_height += one_graph_height + MARGIN.graph.space;
   } );
-  x.domain( this.event_ids );
-  y.domain( [ 0, d3.max( data, function(d){ return d.value; } ) ] );
-
-  this.d3_graph.select( ".x.axis" )
-    .attr( "transform", "translate(0," + graph_height + ")" )
-    .call( xAxis );
-
-  this.d3_graph.select( ".y.axis" )
-    .call( yAxis )
-    .select( "text" )
-    .attr( "transform", "rotate(-90)" )
-    .attr( "y", 6 )
-    .attr( "dy", ".71em" )
-    .style( "text-anchor", "end" );
-
-  update_dom();
-
-  function update_dom(){
-    that.d3_graph.selectAll( ".bar" )
-      .data( data )
-      .enter().append( "rect" )
-      .attr( "class", "bar" );
-
-    that.d3_graph.selectAll( ".bar" )
-      .attr( "x", function( d ) { return x( d.id ); } )
-      .attr( "width", x.rangeBand() )
-      .attr( "y", function( d ) { return y( d.value ); } )
-      .attr( "height", function( d ) { return graph_height - y( d.value ); } );
-  }
 };
