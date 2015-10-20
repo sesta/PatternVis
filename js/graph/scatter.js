@@ -43,7 +43,7 @@ pattern_vis.View.prototype.scatterDraw = function(){
       } );
     } );
   } );
-  x.domain( [ 0, d3.max( data, function(d){ return d.value; } ) ] );
+  x.domain( [ 0, 24 ] );
   y.domain( this.event_ids );
 
   this.d3_graph.select( ".x.axis" )
