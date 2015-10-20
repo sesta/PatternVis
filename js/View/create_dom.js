@@ -23,22 +23,8 @@ pattern_vis.View.prototype.create_dom = function(){
   $( "#view-area" ).append( $view );
   this.$view = $view;
 
-  make_graph();
+  this[ this.graph_type + "Create" ]();
 
   this.$view.append( $title );
   this.$view.append( $menu );
-
-  function make_graph(){
-    that.d3_svg = d3.select( "#view_" + that.id ).append( "svg" );
-
-    that.d3_graph = that.d3_svg.append( "g" )
-      .attr( "transform", "translate(" + MARGIN.graph.left + "," + MARGIN.graph.top + ")");
-
-    that.d3_graph.append( "g" )
-      .attr( "class", "x axis" );
-
-    that.d3_graph.append( "g" )
-      .attr( "class", "y axis" )
-      .append( "text" );
-  }
 };

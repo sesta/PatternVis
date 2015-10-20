@@ -7,6 +7,7 @@ pattern_vis.View = ( function(){
       event_ids: [ "a", "b" ],
       feature_id: feature_id,
       feature_name: features[ feature_id ].name_ja,
+      graph_type: features[ feature_id ].graph_type,
       $view: null,
       d3_svg: null,
       d3_graph: null,

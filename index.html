@@ -89,12 +89,14 @@
       happen_count: {
         name_ja: "発生頻度",
         size_aspect: 1.5,
+        graph_type: "bar",
         a: 32,
         b: 43
       },
       test_feature: {
         name_ja: "テスト",
-        size_aspect: 0.3,
+        size_aspect: 1.0,
+        graph_type: "scatter",
         a: 1231,
         b: 123
       }
@@ -103,9 +105,13 @@
   <script type="text/javascript" src="js/make_add_feature_buttons.js"></script>
   <script type="text/javascript" src="js/View/View.js"></script>
   <script type="text/javascript" src="js/View/create_dom.js"></script>
-  <script type="text/javascript" src="js/View/draw.js"></script>
-  <script type="text/javascript" src="js/Ui/add_view.js"></script>
+
+  <script type="text/javascript" src="js/graph/bar.js"></script>
+  <script type="text/javascript" src="js/graph/scatter.js"></script>
+
+  <script type="text/javascript" src="js/ui/add_view.js"></script>
   <script type="text/javascript" src="js/layout.js"></script>
+
   <script type="text/javascript" src="js/init.js"></script>
   <script type="text/javascript" src="lib/material.min.js"></script>
 </body>

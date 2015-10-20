@@ -1,4 +1,18 @@
-pattern_vis.View.prototype.draw = function(){
+pattern_vis.View.prototype.scatterCreate = function(){
+  this.d3_svg = d3.select( "#view_" + this.id ).append( "svg" );
+
+  this.d3_graph = this.d3_svg.append( "g" )
+    .attr( "transform", "translate(" + MARGIN.graph.left + "," + MARGIN.graph.top + ")");
+
+  this.d3_graph.append( "g" )
+    .attr( "class", "x axis" );
+
+  this.d3_graph.append( "g" )
+    .attr( "class", "y axis" )
+    .append( "text" );
+}
+
+pattern_vis.View.prototype.scatterDraw = function(){
   var that = this;
 
   var graph_width = this.svg_width - MARGIN.graph.left - MARGIN.graph.right;
@@ -40,14 +54,18 @@ pattern_vis.View.prototype.draw = function(){
     .attr( "dy", ".71em" )
     .style( "text-anchor", "end" );
 
-  this.d3_graph.selectAll( ".bar" )
-    .data( data )
-    .enter().append( "rect" )
-    .attr( "class", "bar" );
+  update_dom();
 
-  this.d3_graph.selectAll( ".bar" )
-    .attr( "x", function( d ) { return x( d.id ); } )
-    .attr( "width", x.rangeBand() )
-    .attr( "y", function( d ) { return y( d.value ); } )
-    .attr( "height", function( d ) { return graph_height - y( d.value ); } );
+  function update_dom(){
+    that.d3_graph.selectAll( ".bar" )
+      .data( data )
+      .enter().append( "rect" )
+      .attr( "class", "bar" );
+
+    that.d3_graph.selectAll( ".bar" )
+      .attr( "x", function( d ) { return x( d.id ); } )
+      .attr( "width", x.rangeBand() )
+      .attr( "y", function( d ) { return y( d.value ); } )
+      .attr( "height", function( d ) { return graph_height - y( d.value ); } );
+  }
 };
