@@ -21,6 +21,7 @@ pattern_vis.input_data = (function(){
             id_map[ id_num ] = event_name;
             data[ id_num ] = {
               data_path: data_path,
+              record_index: i,
               times: []
             };
 
