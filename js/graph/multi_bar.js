@@ -1,8 +1,7 @@
 pattern_vis.View.prototype.multi_barCreate = function(){
   this.size_aspect = 4.0 / this.event_ids.length;
 
-  console.log(this.size_aspect);
-  this.d3_svg = d3.select( "#view_" + this.id ).append( "svg" );
+  this.d3_svg = d3.select( "#view-" + this.id ).append( "svg" );
 
   this.d3_graph = this.d3_svg.append( "g" )
     .attr( "transform", "translate(" + MARGIN.graph.left + "," + MARGIN.graph.top + ")");
@@ -11,7 +10,7 @@ pattern_vis.View.prototype.multi_barCreate = function(){
     .attr( "class", "x axis" );
 
   this.d3_graph.append( "g" )
-    .attr( "class", "y axis" )
+    .attr( "class", "y axis event-id-" + this.event_id )
     .append( "text" );
 }
 

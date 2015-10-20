@@ -2,7 +2,7 @@ pattern_vis.View.prototype.create_dom = function(){
   var that = this;
 
   var $view = $( "<div></div>", {
-    id: "view_" + this.id,
+    id: "view-" + this.id,
     "class": "mdl-card mdl-shadow--2dp view"
   } );
 

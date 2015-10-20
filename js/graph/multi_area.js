@@ -1,8 +1,5 @@
 pattern_vis.View.prototype.multi_areaCreate = function(){
-  this.size_aspect = 4.0 / this.event_ids.length;
-
-  console.log(this.size_aspect);
-  this.d3_svg = d3.select( "#view_" + this.id ).append( "svg" );
+  this.d3_svg = d3.select( "#view-" + this.id ).append( "svg" );
 
   this.d3_graph = this.d3_svg.append( "g" )
     .attr( "transform", "translate(" + MARGIN.graph.left + "," + MARGIN.graph.top + ")");
