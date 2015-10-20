@@ -14,12 +14,13 @@ pattern_vis.View.prototype.scatterCreate = function(){
 
 pattern_vis.View.prototype.scatterDraw = function(){
   var that = this;
+  var circle_size = 6;
 
   var graph_width = this.svg_width - MARGIN.graph.left - MARGIN.graph.right;
   var graph_height = this.svg_height - MARGIN.graph.top - MARGIN.graph.bottom;
 
   var x = d3.scale.ordinal()
-    .rangeRoundBands( [ 0, graph_width ], .05 );
+    .rangePoints( [ 0, graph_width ], 0.1 );
 
   var y = d3.scale.linear()
     .range( [ graph_height, 0 ] );
@@ -50,22 +51,21 @@ pattern_vis.View.prototype.scatterDraw = function(){
     .call( yAxis )
     .select( "text" )
     .attr( "transform", "rotate(-90)" )
-    .attr( "y", 6 )
+    .attr( "y", circle_size )
     .attr( "dy", ".71em" )
     .style( "text-anchor", "end" );
 
   update_dom();
 
   function update_dom(){
-    that.d3_graph.selectAll( ".bar" )
+    that.d3_graph.selectAll( ".dot" )
       .data( data )
-      .enter().append( "rect" )
-      .attr( "class", "bar" );
+      .enter().append( "circle" )
+      .attr( "class", "dot vis-val" );
 
-    that.d3_graph.selectAll( ".bar" )
-      .attr( "x", function( d ) { return x( d.id ); } )
-      .attr( "width", x.rangeBand() )
-      .attr( "y", function( d ) { return y( d.value ); } )
-      .attr( "height", function( d ) { return graph_height - y( d.value ); } );
+    that.d3_graph.selectAll( ".dot" )
+      .attr( "cx", function( d ) { return x( d.id ); } )
+      .attr( "cy", function( d ) { return y( d.value ); } )
+      .attr( "r", 6 );
   }
 };

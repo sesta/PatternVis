@@ -22,7 +22,7 @@ pattern_vis.View.prototype.barDraw = function(){
   var graph_height = this.svg_height - MARGIN.graph.top - MARGIN.graph.bottom;
 
   var x = d3.scale.ordinal()
-    .rangeRoundBands( [ 0, graph_width ], .05 );
+    .rangeRoundBands( [ 0, graph_width ], .1 );
 
   var y = d3.scale.linear()
     .range( [ graph_height, 0 ] );
@@ -63,7 +63,7 @@ pattern_vis.View.prototype.barDraw = function(){
     that.d3_graph.selectAll( ".bar" )
       .data( data )
       .enter().append( "rect" )
-      .attr( "class", "bar" );
+      .attr( "class", "bar vis-val" );
 
     that.d3_graph.selectAll( ".bar" )
       .attr( "x", function( d ) { return x( d.id ); } )
