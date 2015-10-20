@@ -10,8 +10,7 @@ pattern_vis.View.prototype.barCreate = function(){
     .attr( "class", "x axis" );
 
   this.d3_graph.append( "g" )
-    .attr( "class", "y axis" )
-    .append( "text" );
+    .attr( "class", "y axis" );
 }
 
 pattern_vis.View.prototype.barDraw = function(){
@@ -34,7 +33,7 @@ pattern_vis.View.prototype.barDraw = function(){
     .scale( y )
     .orient( "left" );
 
-  data = [];
+  var data = [];
   this.event_ids.forEach( function( id ){
     data.push( {
       id: id,
@@ -49,12 +48,7 @@ pattern_vis.View.prototype.barDraw = function(){
     .call( xAxis );
 
   this.d3_graph.select( ".y.axis" )
-    .call( yAxis )
-    .select( "text" )
-    .attr( "transform", "rotate(-90)" )
-    .attr( "y", 6 )
-    .attr( "dy", ".71em" )
-    .style( "text-anchor", "end" );
+    .call( yAxis );
 
   this.d3_graph.selectAll( ".bar" )
     .data( data )
