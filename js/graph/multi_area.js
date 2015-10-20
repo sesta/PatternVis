@@ -70,7 +70,7 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
       .call( yAxis )
       .select( "text" )
       .attr( "transform", "translate( -" + ( MARGIN.graph.left - 20 ) + ", 0 )" )
-      .attr( "dy", "3em" )
+      .attr( "dy", one_graph_height / 2 )
       .text( event_id );
 
     that.d3_graph.selectAll( ".area.event-id-" + event_id )

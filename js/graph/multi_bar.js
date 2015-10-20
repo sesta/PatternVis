@@ -28,7 +28,7 @@ pattern_vis.View.prototype.multi_barDraw = function(){
   var base_height = 0;
 
   var x = d3.scale.ordinal()
-    .rangeRoundBands( [ 0, graph_width ], .05 );
+    .rangeRoundBands( [ 0, graph_width ], .4 );
 
   var y = d3.scale.linear()
     .range( [ one_graph_height, 0 ] );
@@ -62,7 +62,7 @@ pattern_vis.View.prototype.multi_barDraw = function(){
       .call( yAxis )
       .select( "text" )
       .attr( "transform", "translate( -" + ( MARGIN.graph.left - 20 ) + ", 0 )" )
-      .attr( "dy", "3em" )
+      .attr( "dy", one_graph_height / 2 )
       .text( event_id );
 
     that.d3_graph.selectAll( ".bar.event-id-" + event_id )

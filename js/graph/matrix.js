@@ -8,8 +8,7 @@ pattern_vis.View.prototype.matrixCreate = function(){
     .attr( "class", "x axis" );
 
   this.d3_graph.append( "g" )
-    .attr( "class", "y axis" )
-    .append( "text" );
+    .attr( "class", "y axis" );
 }
 
 pattern_vis.View.prototype.matrixDraw = function(){
@@ -19,10 +18,10 @@ pattern_vis.View.prototype.matrixDraw = function(){
   var graph_height = this.svg_height - MARGIN.graph.top - MARGIN.graph.bottom;
 
   var x = d3.scale.ordinal()
-    .rangeRoundBands( [ 0, graph_width ], .05 );
+    .rangeRoundBands( [ 0, graph_width ], .2 );
 
-  var y = d3.scale.linear()
-    .range( [ graph_height, 0 ] );
+  var y = d3.scale.ordinal()
+    .rangeRoundBands( [ graph_height, 0 ], .2 );
 
   var xAxis = d3.svg.axis()
     .scale( x )
@@ -32,40 +31,42 @@ pattern_vis.View.prototype.matrixDraw = function(){
     .scale( y )
     .orient( "left" );
 
-  data = [];
-  this.event_ids.forEach( function( id ){
-    data.push( {
-      id: id,
-      value: features[ that.feature_id ][ id ]
+  var data = [];
+  this.event_ids.forEach( function( event_id_1 ){
+    that.event_ids.forEach( function( event_id_2 ){
+      data.push( {
+        id_1: event_id_1,
+        id_2: event_id_2,
+        value: features[ that.feature_id ][ event_id_1 ][ event_id_2 ]
+      } );
     } );
   } );
+  var max_value = d3.max( data, function( d ){ return d.value; } );
+
   x.domain( this.event_ids );
-  y.domain( [ 0, d3.max( data, function(d){ return d.value; } ) ] );
+  y.domain( this.event_ids );
 
   this.d3_graph.select( ".x.axis" )
     .attr( "transform", "translate(0," + graph_height + ")" )
     .call( xAxis );
 
   this.d3_graph.select( ".y.axis" )
-    .call( yAxis )
-    .select( "text" )
-    .attr( "transform", "rotate(-90)" )
-    .attr( "y", 6 )
-    .attr( "dy", ".71em" )
-    .style( "text-anchor", "end" );
+    .call( yAxis );
 
-  update_dom();
+  this.d3_graph.selectAll( ".bar" )
+    .data( data )
+    .enter().append( "rect" )
+    .attr( "class", "bar" );
 
-  function update_dom(){
-    that.d3_graph.selectAll( ".bar" )
-      .data( data )
-      .enter().append( "rect" )
-      .attr( "class", "bar" );
+  this.d3_graph.selectAll( ".bar" )
+    .attr( "x", function( d ) { return x( d.id_1 ); } )
+    .attr( "width", x.rangeBand() )
+    .attr( "y", function( d ) { return y( d.id_2 ); } )
+    .attr( "height", y.rangeBand() )
+    .attr( "fill", getGrayScale );
 
-    that.d3_graph.selectAll( ".bar" )
-      .attr( "x", function( d ) { return x( d.id ); } )
-      .attr( "width", x.rangeBand() )
-      .attr( "y", function( d ) { return y( d.value ); } )
-      .attr( "height", function( d ) { return graph_height - y( d.value ); } );
+  function getGrayScale( d ){
+    var gray_scale = 255 - parseInt( 255 * d.value / max_value, 10 );
+    return "rgb( " + gray_scale + "," + gray_scale + "," + gray_scale + " )";
   }
 };

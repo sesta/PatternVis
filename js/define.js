@@ -66,15 +66,15 @@ var features = {
     name_ja: "発生しやすい時刻の近さ",
     size_aspect: 1.0,
     graph_type: "matrix",
-    a: 1231,
-    b: 123
+    a: { a: 1, b: 23 },
+    b: { a: 32, b: 49 }
   },
   similar_by_vector: {
     name_ja: "発生時間帯の類似性",
     size_aspect: 1.0,
     graph_type: "matrix",
-    a: 1231,
-    b: 123
+    a: { a: 1, b: 23 },
+    b: { a: 32, b: 49 }
   },
   crowd_count_by_count: {
     name_ja: "特に多く発生している時間帯",
@@ -87,7 +87,7 @@ var features = {
     name_ja: "同時に発生した回数",
     size_aspect: 1.0,
     graph_type: "uniq_matrix",
-    a: 1231,
-    b: 123
+    a: { a: 1, b: 23 },
+    b: { a: 32, b: 49 }
   }
 };
