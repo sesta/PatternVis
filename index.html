@@ -64,48 +64,21 @@
     </main>
   </div>
 
-  <script type="text/javascript">
-    var pattern_vis = {};
-
-    var MARGIN = {
-      view: {
-        top: 30,
-        bottom: 30,
-        left: 30,
-        right: 30,
-        space: 20
-      },
-      graph: {
-        top: 50,
-        bottom: 50,
-        left: 70,
-        right: 40
-      }
-    };
-
-    var views =  []
-
-    var features = {
-      happen_count: {
-        name_ja: "発生頻度",
-        size_aspect: 1.5,
-        a: 32,
-        b: 43
-      },
-      test_feature: {
-        name_ja: "テスト",
-        size_aspect: 0.3,
-        a: 1231,
-        b: 123
-      }
-    };
-  </script>
+  <script type="text/javascript" src="js/define.js"></script>
   <script type="text/javascript" src="js/make_add_feature_buttons.js"></script>
   <script type="text/javascript" src="js/View/View.js"></script>
   <script type="text/javascript" src="js/View/create_dom.js"></script>
-  <script type="text/javascript" src="js/View/draw.js"></script>
-  <script type="text/javascript" src="js/Ui/add_view.js"></script>
+
+  <script type="text/javascript" src="js/graph/bar.js"></script>
+  <script type="text/javascript" src="js/graph/scatter.js"></script>
+  <script type="text/javascript" src="js/graph/multi_area.js"></script>
+  <script type="text/javascript" src="js/graph/multi_bar.js"></script>
+  <script type="text/javascript" src="js/graph/matrix.js"></script>
+  <script type="text/javascript" src="js/graph/uniq_matrix.js"></script>
+
+  <script type="text/javascript" src="js/ui/add_view.js"></script>
   <script type="text/javascript" src="js/layout.js"></script>
+
   <script type="text/javascript" src="js/init.js"></script>
   <script type="text/javascript" src="lib/material.min.js"></script>
 </body>
