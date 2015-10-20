@@ -1,5 +1,9 @@
 var pattern_vis = {};
 
+var data = {};
+
+var id_map = {};
+
 var MARGIN = {
   view: {
     top: 30,
