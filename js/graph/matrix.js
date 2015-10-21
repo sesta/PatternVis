@@ -69,6 +69,12 @@ pattern_vis.View.prototype.matrixDraw = function(){
     .attr( "fill", getGrayScale )
     .on( "click", function( d, i ){
       Ui.click_vis_val( d3.select( this ) );
+    } )
+    .on( "mouseover", function( d, i ){
+      Ui.over_vis_val( d3.select( this ) );
+    } )
+    .on( "mouseout", function( d, i ){
+      Ui.out_vis_val( d3.select( this ) );
     } );
 
   function getGrayScale( d ){

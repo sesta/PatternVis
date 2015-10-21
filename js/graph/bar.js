@@ -68,5 +68,11 @@ pattern_vis.View.prototype.barDraw = function(){
     .attr( "height", function( d ){ return graph_height - y( d.value ); } )
     .on( "click", function( d, i ){
       Ui.click_vis_val( d3.select( this ) );
+    } )
+    .on( "mouseover", function( d, i ){
+      Ui.over_vis_val( d3.select( this ) );
+    } )
+    .on( "mouseout", function( d, i ){
+      Ui.out_vis_val( d3.select( this ) );
     } );
 };

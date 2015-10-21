@@ -20,6 +20,12 @@ pattern_vis.View.prototype.multi_areaCreate = function(){
       .attr( "class", "area vis-val event-id-" + event_id )
       .on( "click", function( d, i ){
         Ui.click_vis_val( d3.select( this ) );
+      } )
+      .on( "mouseover", function( d, i ){
+        Ui.over_vis_val( d3.select( this ) );
+      } )
+      .on( "mouseout", function( d, i ){
+        Ui.out_vis_val( d3.select( this ) );
       } );
   } );
 }
