@@ -54,11 +54,15 @@ pattern_vis.View.prototype.barDraw = function(){
   this.d3_graph.selectAll( ".bar" )
     .data( data )
     .enter().append( "rect" )
-    .attr( "class", "bar vis-val" );
+    .attr( "class", function( d ){ return "bar vis-val event-id-" + d.id;} );
 
   this.d3_graph.selectAll( ".bar" )
-    .attr( "x", function( d ) { return x( d.id ); } )
+    .attr( "event-id", function( d ){ return d.id; } )
+    .attr( "x", function( d ){ return x( d.id ); } )
     .attr( "width", x.rangeBand() )
-    .attr( "y", function( d ) { return y( d.value ); } )
-      .attr( "height", function( d ) { return graph_height - y( d.value ); } );
+    .attr( "y", function( d ){ return y( d.value ); } )
+    .attr( "height", function( d ){ return graph_height - y( d.value ); } )
+    .on( "click", function( d, i ){
+      Ui.click_vis_val( d3.select( this ) );
+    } );
 };

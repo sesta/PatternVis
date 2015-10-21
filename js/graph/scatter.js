@@ -56,10 +56,14 @@ pattern_vis.View.prototype.scatterDraw = function(){
   this.d3_graph.selectAll( ".dot" )
     .data( data )
     .enter().append( "circle" )
-    .attr( "class", "dot vis-val" );
+    .attr( "class", function( d ){ return "dot vis-val event-id-" + d.id;} );
 
   this.d3_graph.selectAll( ".dot" )
+    .attr( "event-id", function( d ){ return d.id; } )
     .attr( "cx", function( d ) { return x( d.value ); } )
     .attr( "cy", function( d ) { return y( d.id ); } )
-    .attr( "r", 6 );
+    .attr( "r", 6 )
+    .on( "click", function( d, i ){
+      Ui.click_vis_val( d3.select( this ) );
+    } );
 };

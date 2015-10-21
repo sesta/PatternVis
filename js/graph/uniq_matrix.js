@@ -53,17 +53,23 @@ pattern_vis.View.prototype.uniq_matrixDraw = function(){
   this.d3_graph.select( ".y.axis" )
     .call( yAxis );
 
-  this.d3_graph.selectAll( ".bar" )
+  this.d3_graph.selectAll( ".matrix" )
     .data( data )
     .enter().append( "rect" )
-    .attr( "class", "bar" );
+    .attr( "class", function( d ){
+      return "matrix vis-val event-id-" + d.id_1 + " event-id-" + d.id_2;
+    } );
 
-  this.d3_graph.selectAll( ".bar" )
+  this.d3_graph.selectAll( ".matrix" )
+    .attr( "event-id", function( d ){ return d.id_1 + "," + d.id_2; } )
     .attr( "x", function( d ) { return x( d.id_1 ); } )
     .attr( "width", x.rangeBand() )
     .attr( "y", function( d ) { return y( d.id_2 ); } )
     .attr( "height", y.rangeBand() )
-    .attr( "fill", getGrayScale );
+    .attr( "fill", getGrayScale )
+    .on( "click", function( d, i ){
+      Ui.click_vis_val( d3.select( this ) );
+    } );
 
   function getGrayScale( d ){
     var gray_scale = 255 - parseInt( 255 * d.value / max_value, 10 );

@@ -16,7 +16,11 @@ pattern_vis.View.prototype.multi_areaCreate = function(){
       .attr( "class", "event_name" );
 
     that.d3_graph.append( "path" )
-      .attr( "class", "area vis-val event-id-" + event_id );
+      .attr( "event-id", event_id )
+      .attr( "class", "area vis-val event-id-" + event_id )
+      .on( "click", function( d, i ){
+        Ui.click_vis_val( d3.select( this ) );
+      } );
   } );
 }
 

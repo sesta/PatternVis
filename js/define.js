@@ -85,3 +85,5 @@ var Feature = {
     graph_type: "uniq_matrix"
   }
 };
+
+var Ui = {};
