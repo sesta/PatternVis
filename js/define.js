@@ -2,7 +2,11 @@ var pattern_vis = {};
 
 var data = {};
 
-var id_map = {};
+var event_map = {
+  name: {},
+  id: {},
+  id_list: []
+};
 
 var setting = {
   time: {
@@ -27,7 +31,7 @@ var MARGIN = {
     bottom: 50,
     left: 70,
     right: 40,
-    space: 40
+    space: 10
   }
 };
 
@@ -62,7 +66,7 @@ var Feature = {
   period_spectrum: {
     name_ja: "周期性の強さ",
     size_aspect: 1.0,
-    graph_type: "multi_bar"
+    graph_type: "multi_area"
   },
   average_time_difference: {
     name_ja: "発生しやすい時刻の近さ",
@@ -86,4 +90,6 @@ var Feature = {
   }
 };
 
-var Ui = {};
+var Ui = {
+  selected_ids: []
+};

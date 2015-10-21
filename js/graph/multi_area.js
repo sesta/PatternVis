@@ -6,10 +6,10 @@ pattern_vis.View.prototype.multi_areaCreate = function(){
   this.d3_graph = this.d3_svg.append( "g" )
     .attr( "transform", "translate(" + MARGIN.graph.left + "," + MARGIN.graph.top + ")");
 
-  this.event_ids.forEach( function( event_id ){
-    that.d3_graph.append( "g" )
-      .attr( "class", "x axis event-id-" + event_id );
+  this.d3_graph.append( "g" )
+    .attr( "class", "x axis" );
 
+  this.event_ids.forEach( function( event_id ){
     that.d3_graph.append( "g" )
       .attr( "class", "y axis event-id-" + event_id )
       .append( "text" )
@@ -30,8 +30,7 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
   var graph_width = this.svg_width - MARGIN.graph.left - MARGIN.graph.right;
   var graph_height = this.svg_height - MARGIN.graph.top - MARGIN.graph.bottom;
 
-  var one_graph_height = ( graph_height - MARGIN.graph.space * ( this.event_ids.length - 1 ) )
-                            / this.event_ids.length;
+  var one_graph_height = graph_height / this.event_ids.length;
   var base_height = 0;
 
   var x = d3.scale.ordinal()
@@ -65,8 +64,8 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
     x.domain( d3.range( data.length ) );
     y.domain( [ 0, d3.max( data, function(d){ return d.value; } ) ] );
 
-    that.d3_graph.select( ".x.axis.event-id-" + event_id )
-      .attr( "transform", "translate(0," + ( one_graph_height + base_height ) + ")" )
+    that.d3_graph.select( ".x.axis" )
+      .attr( "transform", "translate(0," + graph_height + ")" )
       .call( xAxis );
 
     that.d3_graph.select( ".y.axis.event-id-" + event_id )
@@ -82,6 +81,6 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
       .attr( "transform", "translate(0," + base_height + ")" )
       .attr( "d", area );
 
-    base_height += one_graph_height + MARGIN.graph.space;
+    base_height += one_graph_height;
   } );
 };

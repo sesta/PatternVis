@@ -1,5 +1,9 @@
 pattern_vis.View.prototype.barCreate = function(){
   this.size_aspect = 4.0 / this.event_ids.length;
+  if( this.size_aspect < 0.5 )
+    this.size_aspect = 0.5;
+  if( this.size_aspect > 2 )
+    this.size_aspect = 2;
 
   this.d3_svg = d3.select( "#view-" + this.id ).append( "svg" );
 

@@ -6,9 +6,10 @@ pattern_vis.View.prototype.multi_barCreate = function(){
   this.d3_graph = this.d3_svg.append( "g" )
     .attr( "transform", "translate(" + MARGIN.graph.left + "," + MARGIN.graph.top + ")");
 
+  this.d3_graph.append( "g" )
+      .attr( "class", "x axis" );
+
   this.event_ids.forEach( function( event_id ){
-    that.d3_graph.append( "g" )
-      .attr( "class", "x axis event-id-" + event_id );
 
     that.d3_graph.append( "g" )
       .attr( "class", "y axis event-id-" + event_id )
@@ -53,8 +54,8 @@ pattern_vis.View.prototype.multi_barDraw = function(){
     x.domain( d3.range( data.length ) );
     y.domain( [ 0, d3.max( data, function(d){ return d.value; } ) ] );
 
-    that.d3_graph.select( ".x.axis.event-id-" + event_id )
-      .attr( "transform", "translate(0," + ( one_graph_height + base_height ) + ")" )
+    that.d3_graph.select( ".x.axis" )
+      .attr( "transform", "translate(0," + graph_height + ")" )
       .call( xAxis );
 
     that.d3_graph.select( ".y.axis.event-id-" + event_id )

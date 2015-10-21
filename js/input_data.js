@@ -16,9 +16,10 @@ pattern_vis.input_data = (function(){
 
         for( var i = 0 ; i < ( record.length - 1 ) ; i++ ){
           var event_name = record[ i ];
-          if( !( event_name in id_map ) ){
-            id_map[ event_name ] = id_num;
-            id_map[ id_num ] = event_name;
+          if( !( event_name in event_map.name ) ){
+            event_map.name[ event_name ] = id_num;
+            event_map.id[ id_num ] = event_name;
+            event_map.id_list.push( id_num );
             data[ id_num ] = {
               data_path: data_path,
               record_index: i,
@@ -28,7 +29,7 @@ pattern_vis.input_data = (function(){
             id_num ++;
           }
 
-          data[ id_map[ event_name ] ].times.push( time );
+          data[ event_map.name[ event_name ] ].times.push( time );
         }
       } );
 

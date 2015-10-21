@@ -4,7 +4,7 @@ pattern_vis.View = ( function(){
   return function( feature_id ){
     $.extend( this, {
       id: id_num,
-      event_ids: [ "0", "1", "2", "3" ],
+      event_ids: Ui.selected_ids.concat(),
       feature_id: feature_id,
       feature_name: Feature[ feature_id ].name_ja,
       graph_type: Feature[ feature_id ].graph_type,
@@ -17,6 +17,9 @@ pattern_vis.View = ( function(){
       svg_width: 200,
       svg_height: 400
     } );
+
+    if( this.event_ids.length == 0 )
+      this.event_ids = event_map.id_list;
 
     this.create_dom();
 
