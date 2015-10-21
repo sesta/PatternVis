@@ -91,5 +91,5 @@ var Feature = {
 };
 
 var Ui = {
-  selected_ids: []
+  selected_events: {}
 };

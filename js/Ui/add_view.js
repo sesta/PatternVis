@@ -3,6 +3,6 @@ $( ".add-feature-button" ).on( "click", function(){
     new pattern_vis.View( $( this ).data( "feature-name" ) )
   );
 
-  Ui.select_all();
+  Ui.cancel_all();
   pattern_vis.layout();
 } );

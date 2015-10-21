@@ -2,9 +2,15 @@ pattern_vis.View = ( function(){
   var id_num = 0;
 
   return function( feature_id ){
+    var event_ids = [];
+    for( event_id in Ui.selected_events ){
+      event_ids.push( event_id );
+    }
+
     $.extend( this, {
       id: id_num,
-      event_ids: Ui.selected_ids.concat(),
+      event_ids: event_ids,
+      event_history: $.extend( true, {}, Ui.selected_events ),
       feature_id: feature_id,
       feature_name: Feature[ feature_id ].name_ja,
       graph_type: Feature[ feature_id ].graph_type,

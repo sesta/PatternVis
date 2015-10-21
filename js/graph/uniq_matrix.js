@@ -75,7 +75,7 @@ pattern_vis.View.prototype.uniq_matrixDraw = function(){
     .attr( "height", y.rangeBand() )
     .attr( "fill", getGrayScale )
     .on( "click", function( d, i ){
-      Ui.click_vis_val( d3.select( this ) );
+      Ui.click_vis_val( d3.select( this, that ) );
     } )
     .on( "mouseover", function( d, i ){
       Ui.over_vis_val( d3.select( this ) );
