@@ -47,11 +47,17 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
 
   var xAxis = d3.svg.axis()
     .scale( x )
-    .orient( "bottom" );
+    .orient( "bottom" )
+    .tickFormat( function( d ){
+      if( ( d % 6 ) == 0 )
+        return d + "時";
+      return "";
+    } )
 
   var yAxis = d3.svg.axis()
     .scale( y )
-    .orient( "left" );
+    .orient( "left" )
+    .tickFormat( "" );
 
   this.event_ids.forEach( function( event_id ){
     var data = [];
@@ -80,7 +86,7 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
       .select( "text" )
       .attr( "transform", "translate( -" + ( MARGIN.graph.left - 20 ) + ", 0 )" )
       .attr( "dy", one_graph_height / 2 )
-      .text( event_id );
+      .text( event_map.id[ event_id ].slice( 0, 3 ) + "..." );
 
     that.d3_graph.selectAll( ".area.event-id-" + event_id )
       .datum( data )

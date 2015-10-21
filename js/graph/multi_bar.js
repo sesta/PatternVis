@@ -10,7 +10,6 @@ pattern_vis.View.prototype.multi_barCreate = function(){
       .attr( "class", "x axis" );
 
   this.event_ids.forEach( function( event_id ){
-
     that.d3_graph.append( "g" )
       .attr( "class", "y axis event-id-" + event_id )
       .append( "text" )
@@ -29,18 +28,24 @@ pattern_vis.View.prototype.multi_barDraw = function(){
   var base_height = 0;
 
   var x = d3.scale.ordinal()
-    .rangeRoundBands( [ 0, graph_width ], .4 );
+    .rangeRoundBands( [ 0, graph_width ], .7 );
 
   var y = d3.scale.linear()
     .range( [ one_graph_height, 0 ] );
 
   var xAxis = d3.svg.axis()
     .scale( x )
-    .orient( "bottom" );
+    .orient( "bottom" )
+    .tickFormat( function( d ){
+      if( ( d % 4 ) != 0 )
+        return "";
+      return d * setting.sampling_interval / ( 1000 * 60 * 60 * 24 );
+    } );
 
   var yAxis = d3.svg.axis()
     .scale( y )
-    .orient( "left" );
+    .orient( "left" )
+    .tickFormat( "" );
 
   this.event_ids.forEach( function( event_id ){
     var data = [];
@@ -64,7 +69,7 @@ pattern_vis.View.prototype.multi_barDraw = function(){
       .select( "text" )
       .attr( "transform", "translate( -" + ( MARGIN.graph.left - 20 ) + ", 0 )" )
       .attr( "dy", one_graph_height / 2 )
-      .text( event_id );
+      .text( event_map.id[ event_id ].slice( 0, 3 ) + "..."  );
 
     that.d3_graph.selectAll( ".bar.event-id-" + event_id )
       .data( data )

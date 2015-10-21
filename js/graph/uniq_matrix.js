@@ -25,11 +25,13 @@ pattern_vis.View.prototype.uniq_matrixDraw = function(){
 
   var xAxis = d3.svg.axis()
     .scale( x )
-    .orient( "bottom" );
+    .orient( "bottom" )
+    .tickFormat( function( d ){ return event_map.id[ d ].slice( 0, 3 ) + "..."; } );
 
   var yAxis = d3.svg.axis()
     .scale( y )
-    .orient( "left" );
+    .orient( "left" )
+    .tickFormat( function( d ){ return event_map.id[ d ].slice( 0, 3 ) + "..."; } );
 
   var data = [];
   this.event_ids.forEach( function( event_id_1 ){
@@ -48,7 +50,12 @@ pattern_vis.View.prototype.uniq_matrixDraw = function(){
 
   this.d3_graph.select( ".x.axis" )
     .attr( "transform", "translate(0," + graph_height + ")" )
-    .call( xAxis );
+    .call( xAxis )
+    .selectAll( "text" )
+    .style( "text-anchor", "end" )
+    .attr( "dx", "-.8em" )
+    .attr( "dy", ".15em" )
+    .attr( "transform", "rotate(-65)" );
 
   this.d3_graph.select( ".y.axis" )
     .call( yAxis );

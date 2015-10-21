@@ -1,5 +1,5 @@
 pattern_vis.input_data = (function(){
-  var id_num = 0;
+  var id_num = 1;
 
   return function( data_path ){
     d3.text( data_path, function( err, text ){

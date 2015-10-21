@@ -32,11 +32,17 @@ pattern_vis.View.prototype.scatterDraw = function(){
 
   var xAxis = d3.svg.axis()
     .scale( x )
-    .orient( "bottom" );
+    .orient( "bottom" )
+    .tickFormat( function( d ){
+      if( ( d % 6 ) == 0 )
+        return d + "時";
+      return "";
+    } )
 
   var yAxis = d3.svg.axis()
     .scale( y )
-    .orient( "left" );
+    .orient( "left" )
+    .tickFormat( function( d ){ return event_map.id[ d ].slice( 0, 3 ) + "..."; } );
 
   var data = [];
   this.event_ids.forEach( function( event_id ){

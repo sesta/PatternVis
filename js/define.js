@@ -31,7 +31,7 @@ var MARGIN = {
     bottom: 50,
     left: 70,
     right: 40,
-    space: 10
+    space: 5
   }
 };
 
@@ -66,7 +66,7 @@ var Feature = {
   period_spectrum: {
     name_ja: "周期性の強さ",
     size_aspect: 1.0,
-    graph_type: "multi_area"
+    graph_type: "multi_bar"
   },
   average_time_difference: {
     name_ja: "発生しやすい時刻の近さ",

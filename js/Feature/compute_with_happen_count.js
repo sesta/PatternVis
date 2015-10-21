@@ -7,10 +7,11 @@ Feature.compute_with_happen_count = function( event_id_1, event_id_2 ){
   var count = 0;
 
   data_records.forEach( function( record ){
-    if( ( record[ record_index_1 ] == event_name_1 )
-        && ( record[ record_index_2 ] == event_name_2 ) )
+    if( ( record[ record_index_1 ] === event_name_1 )
+        && ( record[ record_index_2 ] === event_name_2 ) )
       count++;
-  });
+  } );
 
-  return count;
+  return count / ( this.get( "event_count", event_id_1 )
+                  + this.get( "event_count", event_id_2 ) - count );
 }
