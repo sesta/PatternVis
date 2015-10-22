@@ -6,7 +6,10 @@ Ui.click_vis_val = function( d3_dom, view ){
     if( selected )
       delete Ui.selected_events[ event_id ];
     else
-      Ui.selected_events[ event_id ] = view;
+      Ui.selected_events[ event_id ] = {
+        from_view: view,
+        from_d3_vis_val: d3_dom
+      };
 
     d3.selectAll( ".vis-val.event-id-" + event_id )
       .classed( "selected", !selected );

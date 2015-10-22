@@ -2,6 +2,8 @@ pattern_vis.View = ( function(){
   var id_num = 0;
 
   return function( feature_id ){
+    var that = this;
+
     var event_ids = [];
     for( event_id in Ui.selected_events ){
       event_ids.push( event_id );
@@ -29,14 +31,22 @@ pattern_vis.View = ( function(){
 
     this.create_dom();
 
+    this.$view.find( ".show-history-button" ).on( "click", function(){
+      that.show_history();
+    });
+
     id_num++;
   };
 } )();
 
 pattern_vis.View.prototype.getHeight = function(){
-  return this.svg_height + 50;
+  return this.svg_height * 1.0 + 50.0;
 };
 
 pattern_vis.View.prototype.getWidth = function(){
-  return this.svg_width;
+  return this.svg_width * 1.0;
+};
+
+pattern_vis.View.prototype.getCenter = function(){
+  return [ this.pos_x * 1.0 + this.getWidth() / 2.0, this.pos_y * 1.0 + this.getHeight() / 2 ];
 };

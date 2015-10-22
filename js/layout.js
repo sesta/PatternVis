@@ -1,5 +1,5 @@
 pattern_vis.layout = function(){
-  var min_height = 200;
+  var min_height = 300;
   var area_height = $( ".mdl-layout__content" ).height();
   var area_width = $( ".mdl-layout__content" ).width();
 

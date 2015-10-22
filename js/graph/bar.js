@@ -69,7 +69,11 @@ pattern_vis.View.prototype.barDraw = function(){
   this.d3_graph.selectAll( ".bar" )
     .data( data )
     .enter().append( "rect" )
-    .attr( "class", function( d ){ return "bar vis-val event-id-" + d.id;} );
+    .attr( "class", function( d ){
+      if( that.event_history[ d.id ] )
+        that.event_history[ d.id ].to_d3_vis_val = d3.select( this );
+      return "bar vis-val event-id-" + d.id;
+    } );
 
   this.d3_graph.selectAll( ".bar" )
     .attr( "event-id", function( d ){ return d.id; } )
