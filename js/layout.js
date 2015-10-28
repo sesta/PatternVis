@@ -19,7 +19,7 @@ pattern_vis.layout = function(){
       view.pos_x = prev_view.pos_x + prev_view.getWidth() + MARGIN.view.space;
     }
 
-    view.svg_height = ( max_height - MARGIN.view.space - MARGIN.view.bottom - 50 ) * size_late;
+    view.svg_height = ( max_height - MARGIN.view.space - MARGIN.view.bottom - MARGIN.view.label ) * size_late;
     view.svg_width = view.svg_height / view.size_aspect;
 
     if( ( view.pos_x + view.svg_width + MARGIN.view.right) > area_width ){
@@ -35,7 +35,7 @@ pattern_vis.layout = function(){
           view.pos_x = prev_view.pos_x + prev_view.getWidth() + MARGIN.view.space;
         }
 
-        view.svg_height = ( max_height - MARGIN.view.space - MARGIN.view.bottom - 50 ) * size_late;
+        view.svg_height = ( max_height - MARGIN.view.space - MARGIN.view.bottom - MARGIN.view.label ) * size_late;
         view.svg_width = view.svg_height / view.size_aspect;
 
       }

@@ -24,7 +24,8 @@ var MARGIN = {
     bottom: 30,
     left: 30,
     right: 30,
-    space: 20
+    space: 20,
+    label: 40
   },
   graph: {
     top: 50,

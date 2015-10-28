@@ -40,7 +40,7 @@ pattern_vis.View = ( function(){
 } )();
 
 pattern_vis.View.prototype.getHeight = function(){
-  return this.svg_height * 1.0 + 50.0;
+  return this.svg_height * 1.0 + MARGIN.view.label;
 };
 
 pattern_vis.View.prototype.getWidth = function(){
