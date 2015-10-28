@@ -66,15 +66,21 @@ pattern_vis.View.prototype.scatterDraw = function(){
   this.d3_graph.selectAll( ".dot" )
     .data( data )
     .enter().append( "circle" )
-    .attr( "class", function( d ){ return "dot vis-val event-id-" + d.id;} );
+    .attr( "class", function( d ){
+      if( that.event_history[ d.id ] )
+        that.event_history[ d.id ].to_d3_vis_val = d3.select( this );
+      return "dot vis-val event-id-" + d.id;
+    } );
 
   this.d3_graph.selectAll( ".dot" )
     .attr( "event-id", function( d ){ return d.id; } )
     .attr( "cx", function( d ) { return x( d.value ); } )
     .attr( "cy", function( d ) { return y( d.id ); } )
+    .attr( "center-x", function( d ) { return x( d.value ); } )
+    .attr( "center-y", function( d ) { return y( d.id ); } )
     .attr( "r", 6 )
     .on( "click", function( d, i ){
-      Ui.click_vis_val( d3.select( this, that ) );
+      Ui.click_vis_val( d3.select( this ), that );
     } )
     .on( "mouseover", function( d, i ){
       Ui.over_vis_val( d3.select( this ) );

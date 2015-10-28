@@ -64,6 +64,8 @@ pattern_vis.View.prototype.uniq_matrixDraw = function(){
     .data( data )
     .enter().append( "rect" )
     .attr( "class", function( d ){
+      if( that.event_history[ d.id_1 ] && ( d.id_1 == d.id_2 ) )
+        that.event_history[ d.id_1 ].to_d3_vis_val = d3.select( this );
       return "matrix vis-val event-id-" + d.id_1 + " event-id-" + d.id_2;
     } );
 
@@ -73,9 +75,11 @@ pattern_vis.View.prototype.uniq_matrixDraw = function(){
     .attr( "width", x.rangeBand() )
     .attr( "y", function( d ) { return y( d.id_2 ); } )
     .attr( "height", y.rangeBand() )
+    .attr( "center-x", function( d ){ return x( d.id_1 ) + x.rangeBand() / 2.0; } )
+    .attr( "center-y", function( d ){ return y( d.id_2 ) + y.rangeBand() / 2.0; } )
     .attr( "fill", getGrayScale )
     .on( "click", function( d, i ){
-      Ui.click_vis_val( d3.select( this, that ) );
+      Ui.click_vis_val( d3.select( this ), that );
     } )
     .on( "mouseover", function( d, i ){
       Ui.over_vis_val( d3.select( this ) );

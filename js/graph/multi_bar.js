@@ -74,7 +74,11 @@ pattern_vis.View.prototype.multi_barDraw = function(){
     that.d3_graph.selectAll( ".bar.event-id-" + event_id )
       .data( data )
       .enter().append( "rect" )
-      .attr( "class", "bar vis-val event-id-" + event_id );
+      .attr( "class", function( d ){
+        if( that.event_history[ event_id ] && ( d.id == parseInt( setting.sampling_num / 10, 10 ) ) )
+          that.event_history[ event_id ].to_d3_vis_val = d3.select( this );
+        return "bar vis-val event-id-" + event_id;
+      });
 
     that.d3_graph.selectAll( ".bar.event-id-" + event_id )
       .attr( "event-id", event_id )
@@ -82,8 +86,10 @@ pattern_vis.View.prototype.multi_barDraw = function(){
       .attr( "width", x.rangeBand() )
       .attr( "y", function( d ) { return y( d.value ) + base_height; } )
       .attr( "height", function( d ) { return one_graph_height - y( d.value ); } )
+      .attr( "center-x", function( d ){ return x( d.id ) + x.rangeBand() / 2.0; } )
+      .attr( "center-y", function( d ){ return y( d.value ) + base_height + ( one_graph_height - y( d.value ) ) / 2.0; } )
       .on( "click", function( d, i ){
-        Ui.click_vis_val( d3.select( this, that ) );
+        Ui.click_vis_val( d3.select( this ), that );
       } )
       .on( "mouseover", function( d, i ){
         Ui.over_vis_val( d3.select( this ) );
