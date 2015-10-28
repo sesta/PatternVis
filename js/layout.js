@@ -1,4 +1,6 @@
 pattern_vis.layout = function(){
+  d3.selectAll( ".history-line").remove();
+
   var min_height = 300;
   var area_height = $( ".mdl-layout__content" ).height();
   var area_width = $( ".mdl-layout__content" ).width();

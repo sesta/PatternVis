@@ -81,6 +81,8 @@ pattern_vis.View.prototype.barDraw = function(){
     .attr( "width", x.rangeBand() )
     .attr( "y", function( d ){ return y( d.value ); } )
     .attr( "height", function( d ){ return graph_height - y( d.value ); } )
+    .attr( "center-x", function( d ){ return x( d.id ) + x.rangeBand() / 2.0; } )
+    .attr( "center-y", function( d ){ return y( d.value ) + ( graph_height - y( d.value ) ) / 2.0; } )
     .on( "click", function( d, i ){
       Ui.click_vis_val( d3.select( this ), that );
     } )
