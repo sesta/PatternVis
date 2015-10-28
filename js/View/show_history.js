@@ -26,6 +26,18 @@ pattern_vis.View.prototype.show_history = function(){
       .attr( "x2", parseInt( from_pos_x, 10 ) )
       .attr( "y2", parseInt( from_pos_y, 10 ) );
 
+    d3.select( "#effect-area" ).append( "circle" )
+      .attr( "class", "history-line" )
+      .attr( "r", 6 )
+      .attr( "cx", parseInt( to_pos_x, 10) )
+      .attr( "cy", parseInt( to_pos_y, 10) );
+
+    d3.select( "#effect-area" ).append( "circle" )
+      .attr( "class", "history-line" )
+      .attr( "r", 6 )
+      .attr( "cx", parseInt( from_pos_x, 10) )
+      .attr( "cy", parseInt( from_pos_y, 10) );
+
     from_view.show_history();
   }
 };

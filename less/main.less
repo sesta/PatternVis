@@ -1,28 +1,66 @@
-.avoid-hover-css:hover{
-  background-color: rgb(250, 250, 250) !important;
+.mdl-navigation{
+  .avoid-hover-css:hover{
+    background-color: rgb(250, 250, 250) !important;
+  }
 }
 
 .page-content{
   position: relative;
 }
 
-.view{
-  position: absolute !important;
-
-  min-height: 0 !important;
-
-  .mdl-card__actions{
-    height: 50px;
-  }
-
-  .mdl-card__actions span:hover{
-    background-color: white;
-  }
-}
-
 .viw-area{
   position: absolute;
   z-index: 0;
+
+  .view{
+    position: absolute !important;
+
+    min-height: 0 !important;
+
+    .mdl-card__actions{
+      height: 50px;
+    }
+
+    .mdl-card__actions span:hover{
+      background-color: white;
+    }
+
+    svg{
+      .vis-val:not( .matrix ) {
+        fill: steelblue;
+      }
+
+      .selected{
+        stroke: red;
+        stroke-width: 3px;
+      }
+
+      .hover{
+        stroke: red;
+        stroke-width: 6px;
+      }
+
+      .axis {
+        font: 10px sans-serif;
+      }
+
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
+
+      .x.axis path {
+      }
+
+      .y.axis{
+        .event_name{
+          font-size: 0.7rem;
+        }
+      }
+    }
+  }
 }
 
 #effect-area{
@@ -30,42 +68,13 @@
   z-index: 1;
   pointer-events: none;
 
+  circle{
+    fill: red;
+  }
+
   line{
     stroke: red;
     stroke-width: 3px;
   }
 }
 
-.vis-val:not( .matrix ) {
-  fill: steelblue;
-}
-
-.selected{
-  stroke: red;
-  stroke-width: 3px;
-}
-
-.hover{
-  stroke: red;
-  stroke-width: 6px;
-}
-
-.axis {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.x.axis path {
-}
-
-.y.axis{
-  .event_name{
-    font-size: 0.7rem;
-  }
-}
