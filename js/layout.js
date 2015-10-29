@@ -1,14 +1,12 @@
 pattern_vis.layout = function(){
   d3.selectAll( ".history-line").remove();
+  pattern_vis.updateAreaSize();
 
   var min_height = 300;
-  var area_height = $( ".mdl-layout__content" ).height();
-  var area_width = $( ".mdl-layout__content" ).width();
-
   var base_pos_y = MARGIN.view.top;
   var base_index = 0;
   var size_late = 1;
-  var max_height = area_height;
+  var max_height = pattern_vis.area_height;
 
   views.forEach( function( view, index ){
     view.pos_x = MARGIN.view.left;
@@ -22,8 +20,8 @@ pattern_vis.layout = function(){
     view.svg_height = ( max_height - MARGIN.view.space - MARGIN.view.bottom - MARGIN.view.label ) * size_late;
     view.svg_width = view.svg_height / view.size_aspect;
 
-    if( ( view.pos_x + view.svg_width + MARGIN.view.right) > area_width ){
-      size_late *= area_width / ( view.pos_x + view.svg_width + MARGIN.view.right + MARGIN.view.space * index );
+    if( ( view.pos_x + view.svg_width + MARGIN.view.right) > pattern_vis.area_width ){
+      size_late *= pattern_vis.area_width / ( view.pos_x + view.svg_width + MARGIN.view.right + MARGIN.view.space * index );
 
       for( var i = base_index ; i <= index ; i++ ){
         var view = views[ i ];

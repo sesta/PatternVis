@@ -1,4 +1,15 @@
-var pattern_vis = {};
+var pattern_vis = {
+  area_width: 0,
+  area_height: 0,
+  updateAreaSize: function(){
+    this.area_width = $( ".mdl-layout__content" ).width();
+    this.area_height = $( ".mdl-layout__content" ).height();
+
+    d3.select( "#effect-area" )
+      .attr( "width", this.area_width )
+      .attr( "height", this.area_height );
+  }
+};
 
 var data = {};
 
