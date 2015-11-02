@@ -4,7 +4,8 @@ $( function(){
     .attr( "id", "effect-area" );
   d3.select( "body" )
     .append( "svg" )
-    .attr( "id", "overview-area" );
+    .attr( "id", "overview-area" )
+    .style( "display", "none" );
 
   overview = new pattern_vis.Overview();
 
