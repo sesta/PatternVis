@@ -10,7 +10,7 @@ pattern_vis.Overview = function(){
   this.d3_graph.append( "g" )
     .attr( "class", "y axis" );
 
-  this.draw = function(){
+  this.draw = function( times ){
     var graph_width = $( "body" ).width() - MARGIN.graph.left - MARGIN.graph.right;
     var graph_height = 200 - MARGIN.graph.top - MARGIN.graph.bottom;
 
@@ -28,8 +28,10 @@ pattern_vis.Overview = function(){
       .scale( y )
       .orient( "left" );
 
-    var data = [1, 2, 3];
-    x.domain( [ 0, 24 ] );
+    x.domain( [
+      setting.time.start.getTime(),
+      setting.time.end.getTime()
+    ] );
     y.domain( [ 0 ] );
 
     this.d3_graph.select( ".x.axis" )
@@ -40,7 +42,7 @@ pattern_vis.Overview = function(){
       .call( yAxis );
 
     this.d3_graph.selectAll( ".dot" )
-      .data( data )
+      .data( data.times )
       .enter().append( "circle" )
       .attr( "class", function( d ){
         return "dot vis-val event-id-" + d.id;

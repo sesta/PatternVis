@@ -8,11 +8,13 @@ pattern_vis.input_data = (function(){
       }
 
       var row_data = d3.csv.parseRows( text );
+      var row_times = [];
 
       row_data.forEach( function( record ){
         var time = formatDateString( record[ record.length -1 ] );
 
         record[ record.length - 1 ] = time;
+        row_times.push( time.date.getTime() );
 
         for( var i = 0 ; i < ( record.length - 1 ) ; i++ ){
           var event_name = record[ i ];
@@ -34,6 +36,7 @@ pattern_vis.input_data = (function(){
       } );
 
       data[ data_path ] = row_data;
+      data.times = row_times;
     });
   };
 
