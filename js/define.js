@@ -47,7 +47,7 @@ var MARGIN = {
   }
 };
 
-var views =  []
+var views =  [];
 
 var Feature = {
   event_count: {
