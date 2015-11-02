@@ -26,8 +26,12 @@ pattern_vis.View = ( function(){
       svg_height: 400
     } );
 
-    if( this.event_ids.length == 0 )
-      this.event_ids = event_map.id_list;
+    if( this.event_ids.length == 0 ){
+      this.event_ids = event_map.id_list
+    }else{
+      overview.setHistory( views.length, this.event_ids );
+      overview.draw();
+    }
 
     this.create_dom();
 

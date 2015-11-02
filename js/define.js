@@ -39,10 +39,10 @@ var MARGIN = {
     label: 40
   },
   graph: {
-    top: 50,
+    top: 20,
     bottom: 50,
     left: 70,
-    right: 40,
+    right: 20,
     space: 5
   }
 };

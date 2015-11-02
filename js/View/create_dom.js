@@ -11,7 +11,7 @@ pattern_vis.View.prototype.create_dom = function(){
     "data-view-id": that.id_num
   } ).append( $( "<span></span>", {
     "class": "mdl-button mdl-button--colored",
-  } ).text( this.feature_name ) );
+  } ).text( this.id + ". " + this.feature_name ) );
 
   var $menu = $( "<div></div>", {
     "class": "mdl-card__menu",
