@@ -6,7 +6,8 @@ $( function(){
     .append( "svg" )
     .attr( "id", "overview-area" );
 
-  pattern_vis.updateAreaSize();
   overview = new pattern_vis.Overview();
+
+  pattern_vis.updateAreaSize();
   pattern_vis.input_data( "data/shop_itemTrans.csv" );
 } );

@@ -37,6 +37,8 @@ pattern_vis.input_data = (function(){
 
       data[ data_path ] = row_data;
       data.times = row_times;
+
+      overview.draw();
     });
   };
 
