@@ -29,13 +29,31 @@ pattern_vis.View.prototype.create_dom = function(){
   this.$view.append( $title );
   this.$view.append( $menu );
 
-  $view.draggable( { handle: ".mdl-card__actions" } );
+  $view.draggable( {
+    handle: ".mdl-card__actions",
+    start: function( event, ui ){
+      $( ".history-line" ).remove();
+    },
+    stop: function( event, ui ){
+      self.pos_x = ui.position.left;
+      self.pos_y = ui.position.top;
+
+      if( Ui.history_clicked_view )
+        Ui.history_clicked_view.showHistory();
+    }
+  } );
   $view.resizable( {
+    start: function( event, ui ){
+      $( ".history-line" ).remove();
+    },
     stop: function( event, ui ){
       self.svg_height = $( this ).height() - MARGIN.view.label;
       self.svg_width = $( this ).width();
       self.updateSvgSize();
       self[ self.graph_type + "Draw" ]();
+
+      if( Ui.history_clicked_view )
+        Ui.history_clicked_view.showHistory();
     }
   } );
 };

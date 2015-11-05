@@ -103,5 +103,6 @@ var Feature = {
 };
 
 var Ui = {
-  selected_events: {}
+  selected_events: {},
+  history_clicked_view: null
 };

@@ -1,4 +1,4 @@
-pattern_vis.View.prototype.show_history = function(){
+pattern_vis.View.prototype.showHistory = function(){
   var that = this;
 
   for( event_id in this.event_history ){
@@ -38,6 +38,8 @@ pattern_vis.View.prototype.show_history = function(){
       .attr( "cx", parseInt( from_pos_x, 10) )
       .attr( "cy", parseInt( from_pos_y, 10) );
 
-    from_view.show_history();
+    from_view.showHistory();
   }
+
+  var mousedown = false;
 };

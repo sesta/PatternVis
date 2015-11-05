@@ -36,7 +36,8 @@ pattern_vis.View = ( function(){
     this.create_dom();
 
     this.$view.find( ".show-history-button" ).on( "click", function(){
-      that.show_history();
+      that.showHistory();
+      Ui.history_clicked_view = that;
     });
 
     id_num++;
