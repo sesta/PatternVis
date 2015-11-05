@@ -1,5 +1,5 @@
 pattern_vis.View.prototype.create_dom = function(){
-  var that = this;
+  var self = this;
 
   var $view = $( "<div></div>", {
     id: "view-" + this.id,
@@ -8,7 +8,7 @@ pattern_vis.View.prototype.create_dom = function(){
 
   var $title = $( "<div></div>", {
     "class": "mdl-card__actions mdl-card--border",
-    "data-view-id": that.id_num
+    "data-view-id": self.id_num
   } ).append( $( "<span></span>", {
     "class": "mdl-button mdl-button--colored",
   } ).text( this.id + ". " + this.feature_name ) );
@@ -28,4 +28,14 @@ pattern_vis.View.prototype.create_dom = function(){
 
   this.$view.append( $title );
   this.$view.append( $menu );
+
+  $view.draggable( { handle: ".mdl-card__actions" } );
+  $view.resizable( {
+    stop: function( event, ui ){
+      self.svg_height = $( this ).height() - MARGIN.view.label;
+      self.svg_width = $( this ).width();
+      self.updateSvgSize();
+      self[ self.graph_type + "Draw" ]();
+    }
+  } );
 };

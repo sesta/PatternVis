@@ -51,8 +51,8 @@ pattern_vis.layout = function(){
     view.$view.css( "top", view.pos_y + "px" );
     view.$view.css( "left", view.pos_x + "px" );
     view.$view.css( "width", view.getWidth() + "px" );
-    view.$view.find( "svg" ).css( "height", view.svg_height + "px" );
-    view.$view.find( "svg" ).css( "width", view.svg_width + "px" );
+    view.$view.css( "height", view.getHeight() + "px" );
+    view.updateSvgSize();
 
     view[ view.graph_type + "Draw" ]();
   } );

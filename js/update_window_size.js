@@ -6,7 +6,8 @@ $(function(){
     }
 
     timer = setTimeout( function() {
-      pattern_vis.layout();
+      // pattern_vis.layout();
+      // jquery ui を使うと、viewのサイズを変えるだけで実行されてしまう
     }, 200 );
   });
 });

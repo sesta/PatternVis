@@ -54,3 +54,8 @@ pattern_vis.View.prototype.getWidth = function(){
 pattern_vis.View.prototype.getCenter = function(){
   return [ this.pos_x * 1.0 + this.getWidth() / 2.0, this.pos_y * 1.0 + this.getHeight() / 2 ];
 };
+
+pattern_vis.View.prototype.updateSvgSize = function(){
+  this.$view.find( "svg" ).css( "height", this.svg_height + "px" );
+  this.$view.find( "svg" ).css( "width", this.svg_width + "px" );
+};
