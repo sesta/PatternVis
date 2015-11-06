@@ -9,6 +9,10 @@ $( function(){
 
   overview = new pattern_vis.Overview();
 
+  $( ".relayout" ).on( "click", function(){
+    pattern_vis.layout();
+  } );
+
   pattern_vis.updateAreaSize();
   pattern_vis.input_data( "data/shop_itemTrans.csv" );
 } );
