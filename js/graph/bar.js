@@ -97,8 +97,10 @@ pattern_vis.View.prototype.barDraw = function(){
   $selectable_area.children().remove();
 
   this.d3_graph.selectAll( ".bar" ).each( function( d ){
-    var $selectable_div = $( "<div></div>" )
-      .css( {
+    var $selectable_div = $( "<div></div>", {
+      "event-id": d.id,
+      "class": "event-id-" + d.id
+    } ).css( {
         top: ( MARGIN.graph.top + $( this ).attr( "y" ) * 1.0 ) + "px",
         left: ( MARGIN.graph.left + $( this ).attr( "x" ) * 1.0 ) + "px",
         height: $( this ).attr( "height" ) + "px",
@@ -108,5 +110,18 @@ pattern_vis.View.prototype.barDraw = function(){
     $selectable_area.append( $selectable_div );
   } );
 
-  $selectable_area.selectable();
+  $selectable_area.selectable( {
+    selecting: function( event, ui ){
+      $( this ).children( ".ui-selecting" )
+        .each( function(){
+          Ui.select_vis_val( $( this ), self );
+        } );
+    },
+    stop: function( event, ui ){
+      if( $( this ).children( ".ui-selected" ).length == 0 ){
+        $( ".selected" ).removeClass( "selected" );
+        Ui.selected_events = {};
+      }
+    }
+  } );
 };
