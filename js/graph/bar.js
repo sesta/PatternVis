@@ -39,7 +39,7 @@ pattern_vis.View.prototype.barDraw = function(){
     .orient( "left" )
     .tickFormat( function( d ){
       if( that.feature_id == "sd_time" )
-        return d + "時間";
+        return d + "h";
       return d;
     } );
 

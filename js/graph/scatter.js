@@ -24,7 +24,7 @@ pattern_vis.View.prototype.scatterDraw = function(){
   var graph_width = this.svg_width - MARGIN.graph.left - MARGIN.graph.right;
   var graph_height = this.svg_height - MARGIN.graph.top - MARGIN.graph.bottom;
 
-  var x = d3.scale.linear()
+  var x = d3.time.scale()
     .range( [ 0, graph_width ] );
 
   var y = d3.scale.ordinal()
@@ -33,11 +33,7 @@ pattern_vis.View.prototype.scatterDraw = function(){
   var xAxis = d3.svg.axis()
     .scale( x )
     .orient( "bottom" )
-    .tickFormat( function( d ){
-      if( ( d % 6 ) == 0 )
-        return d + "時";
-      return "";
-    } )
+    .tickFormat( d3.time.format( "%H:%M" ) );
 
   var yAxis = d3.svg.axis()
     .scale( y )
@@ -53,7 +49,7 @@ pattern_vis.View.prototype.scatterDraw = function(){
       } );
     } );
   } );
-  x.domain( [ 0, 24 ] );
+  x.domain( [ new Date( 0, 0, 0, 0 ), new Date( 0, 0, 0, 24 ) ] );
   y.domain( this.event_ids );
 
   this.d3_graph.select( ".x.axis" )
@@ -74,9 +70,9 @@ pattern_vis.View.prototype.scatterDraw = function(){
 
   this.d3_graph.selectAll( ".dot" )
     .attr( "event-id", function( d ){ return d.id; } )
-    .attr( "cx", function( d ) { return x( d.value ); } )
+    .attr( "cx", function( d ) { return x( new Date( 0, 0, 0, d.value ) ); } )
     .attr( "cy", function( d ) { return y( d.id ); } )
-    .attr( "center-x", function( d ) { return x( d.value ); } )
+    .attr( "center-x", function( d ) { return x( new Date( d.value )  ); } )
     .attr( "center-y", function( d ) { return y( d.id ); } )
     .attr( "r", 6 )
     .on( "click", function( d, i ){

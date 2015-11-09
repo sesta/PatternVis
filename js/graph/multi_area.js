@@ -42,8 +42,8 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
   var one_graph_height = graph_height / this.event_ids.length;
   var base_height = 0;
 
-  var x = d3.scale.ordinal()
-    .rangePoints( [ 0, graph_width ] );
+  var x = d3.time.scale()
+    .range( [ 0, graph_width ] );
 
   var y = d3.scale.linear()
     .range( [ one_graph_height, 0 ] );
@@ -51,11 +51,7 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
   var xAxis = d3.svg.axis()
     .scale( x )
     .orient( "bottom" )
-    .tickFormat( function( d ){
-      if( ( d % 6 ) == 0 )
-        return d + "時";
-      return "";
-    } )
+    .tickFormat( d3.time.format( "%H:%M" ) );
 
   var yAxis = d3.svg.axis()
     .scale( y )
@@ -72,11 +68,11 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
     } );
 
     var area = d3.svg.area()
-          .x( function( d ){ return x( d.id ); } )
+          .x( function( d ){ return x( new Date( 0, 0, 0, d.id ) ); } )
           .y0( one_graph_height )
-          .y1( function( d ){ return y( d.value); } );
+          .y1( function( d ){ return y( d.value ); } );
 
-    x.domain( d3.range( data.length ) );
+    x.domain( [ new Date( 0, 0, 0, 0 ), new Date( 0, 0, 0, 24 ) ] );
     y.domain( [ 0, d3.max( data, function(d){ return d.value; } ) ] );
 
     that.d3_graph.select( ".x.axis" )
