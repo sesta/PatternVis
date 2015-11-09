@@ -59,4 +59,7 @@ pattern_vis.View.prototype.getCenter = function(){
 pattern_vis.View.prototype.updateSvgSize = function(){
   this.$view.find( "svg" ).css( "height", this.svg_height + "px" );
   this.$view.find( "svg" ).css( "width", this.svg_width + "px" );
+
+  this.$view.find( ".selectable-area" ).css( "height", this.svg_height + "px" );
+  this.$view.find( ".selectable-area" ).css( "width", this.svg_width + "px" );
 };

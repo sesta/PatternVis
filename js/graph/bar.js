@@ -18,7 +18,7 @@ pattern_vis.View.prototype.barCreate = function(){
 }
 
 pattern_vis.View.prototype.barDraw = function(){
-  var that = this;
+  var self = this;
 
   var graph_width = this.svg_width - MARGIN.graph.left - MARGIN.graph.right;
   var graph_height = this.svg_height - MARGIN.graph.top - MARGIN.graph.bottom;
@@ -38,7 +38,7 @@ pattern_vis.View.prototype.barDraw = function(){
     .scale( y )
     .orient( "left" )
     .tickFormat( function( d ){
-      if( that.feature_id == "sd_time" )
+      if( self.feature_id == "sd_time" )
         return d + "h";
       return d;
     } );
@@ -47,7 +47,7 @@ pattern_vis.View.prototype.barDraw = function(){
   this.event_ids.forEach( function( event_id ){
     data.push( {
       id: event_id,
-      value: Feature.get( that.feature_id, event_id )
+      value: Feature.get( self.feature_id, event_id )
     } );
   } );
 
@@ -70,8 +70,8 @@ pattern_vis.View.prototype.barDraw = function(){
     .data( data )
     .enter().append( "rect" )
     .attr( "class", function( d ){
-      if( that.event_history[ d.id ] )
-        that.event_history[ d.id ].to_d3_vis_val = d3.select( this );
+      if( self.event_history[ d.id ] )
+        self.event_history[ d.id ].to_d3_vis_val = d3.select( this );
       return "bar vis-val event-id-" + d.id;
     } );
 
@@ -84,7 +84,7 @@ pattern_vis.View.prototype.barDraw = function(){
     .attr( "center-x", function( d ){ return x( d.id ) + x.rangeBand() / 2.0; } )
     .attr( "center-y", function( d ){ return y( d.value ) + ( graph_height - y( d.value ) ) / 2.0; } )
     .on( "click", function( d, i ){
-      Ui.click_vis_val( d3.select( this ), that );
+      Ui.click_vis_val( d3.select( this ), self );
     } )
     .on( "mouseover", function( d, i ){
       Ui.over_vis_val( d3.select( this ) );
@@ -92,4 +92,21 @@ pattern_vis.View.prototype.barDraw = function(){
     .on( "mouseout", function( d, i ){
       Ui.out_vis_val( d3.select( this ) );
     } );
+
+  var $selectable_area = self.$view.find( ".selectable-area" );
+  $selectable_area.children().remove();
+
+  this.d3_graph.selectAll( ".bar" ).each( function( d ){
+    var $selectable_div = $( "<div></div>" )
+      .css( {
+        top: ( MARGIN.graph.top + $( this ).attr( "y" ) * 1.0 ) + "px",
+        left: ( MARGIN.graph.left + $( this ).attr( "x" ) * 1.0 ) + "px",
+        height: $( this ).attr( "height" ) + "px",
+        width: $( this ).attr( "width" ) + "px"
+      } );
+
+    $selectable_area.append( $selectable_div );
+  } );
+
+  $selectable_area.selectable();
 };
