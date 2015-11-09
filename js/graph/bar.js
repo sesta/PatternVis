@@ -105,6 +105,10 @@ pattern_vis.View.prototype.barDraw = function(){
         left: ( MARGIN.graph.left + $( this ).attr( "x" ) * 1.0 ) + "px",
         height: $( this ).attr( "height" ) + "px",
         width: $( this ).attr( "width" ) + "px"
+      } ).on( "mouseover", function(){
+        Ui.over_vis_val( $( this ) );
+      } ).on( "mouseout", function(){
+        Ui.out_vis_val( $( this ) );
       } );
 
     $selectable_area.append( $selectable_div );

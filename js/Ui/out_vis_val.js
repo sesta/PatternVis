@@ -1,8 +1,8 @@
-Ui.out_vis_val = function( d3_dom ){
-  var event_ids =  d3_dom.attr( "event-id" ).split( "," );
+Ui.out_vis_val = function( $vis_val ){
+  var event_ids =  $vis_val.attr( "event-id" ).split( "," );
 
   event_ids.forEach( function( event_id ){
-    d3.selectAll( ".vis-val.event-id-" + event_id )
-      .classed( "hover", false );
+    $( ".selectable-area .event-id-" + event_id )
+      .removeClass( "hover" );
   } );
 };
