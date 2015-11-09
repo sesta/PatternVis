@@ -28,7 +28,7 @@ pattern_vis.View.prototype.multi_barDraw = function(){
   var base_height = 0;
 
   var x = d3.scale.ordinal()
-    .rangeRoundBands( [ 0, graph_width ], .7 );
+    .rangeRoundBands( [ 0, graph_width ] );
 
   var y = d3.scale.linear()
     .range( [ one_graph_height, 0 ] );
@@ -39,7 +39,7 @@ pattern_vis.View.prototype.multi_barDraw = function(){
     .tickFormat( function( d ){
       if( ( d % 4 ) != 0 )
         return "";
-      return d * setting.sampling_interval / ( 1000 * 60 * 60 * 24 );
+      return d * setting.sampling_interval / ( 1000 * 60 * 60 * 24 ) + "day";
     } );
 
   var yAxis = d3.svg.axis()
