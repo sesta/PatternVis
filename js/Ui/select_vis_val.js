@@ -5,7 +5,7 @@ Ui.select_vis_val = function( $selected, view ){
     if( !Ui.selected_events[ event_id ] ){
       Ui.selected_events[ event_id ] = {
         from_view: view,
-        $from_vis_val: $selected
+        from_d3_vis_val: view.d3_graph.select( ".val-id-" + $selected.attr( "val-id" ) )
       };
     }
 
