@@ -24,7 +24,8 @@ pattern_vis.Overview = function(){
       data[ event_id ].times.forEach( function( time ){
         records_history.push( {
           id: history_id,
-          value: time.date.getTime()
+          value: time.date,
+          event_id: event_id
         } );
       } );
     } );
@@ -34,7 +35,7 @@ pattern_vis.Overview = function(){
     var graph_width = $( "body" ).width() - MARGIN.graph.left - MARGIN.graph.right;
     var graph_height = 200 - MARGIN.graph.top - MARGIN.graph.bottom / 2;
 
-    var x = d3.scale.linear()
+    var x = d3.time.scale()
       .range( [ 0, graph_width ] );
 
     var y = d3.scale.ordinal()
@@ -42,15 +43,16 @@ pattern_vis.Overview = function(){
 
     var xAxis = d3.svg.axis()
       .scale( x )
-      .orient( "bottom" );
+      .orient( "bottom" )
+      .tickFormat( d3.time.format( "%m/%d" ) );
 
     var yAxis = d3.svg.axis()
       .scale( y )
       .orient( "left" );
 
     x.domain( [
-      setting.time.start.getTime(),
-      setting.time.end.getTime()
+      setting.time.start,
+      setting.time.end
     ] );
 
     y.domain( history_ids.reverse() );
@@ -66,7 +68,16 @@ pattern_vis.Overview = function(){
     d3_graph.selectAll( ".dot" )
       .data( records_history )
       .enter().append( "circle" )
-      .attr( "class", "dot" );
+      .attr( "class", function( d ) {
+        return "dot vis-val event-id-" + d.event_id;
+      } )
+      .attr( "event-id", function( d ){ return d.event_id; } )
+      .on( "mouseover", function( d, i ){
+        Ui.over_vis_val( d3.select( this ) );
+      } )
+      .on( "mouseout", function( d, i ){
+        Ui.out_vis_val( d3.select( this ) );
+      } );
 
     d3_graph.selectAll( ".dot" )
       .attr( "cx", function( d ) { return x( d.value ); } )

@@ -14,10 +14,6 @@ pattern_vis.input_data = (function(){
         var time = formatDateString( record[ record.length -1 ] );
 
         record[ record.length - 1 ] = time;
-        row_times.push( {
-          id:"origin",
-          value:time.date.getTime()
-        } );
 
         for( var i = 0 ; i < ( record.length - 1 ) ; i++ ){
           var event_name = record[ i ];
@@ -33,6 +29,12 @@ pattern_vis.input_data = (function(){
 
             id_num ++;
           }
+
+          row_times.push( {
+            id: "origin",
+            value: time.date,
+            event_id: event_map.name[ event_name ]
+          } );
 
           data[ event_map.name[ event_name ] ].times.push( time );
         }
