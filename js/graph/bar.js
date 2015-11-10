@@ -51,8 +51,15 @@ pattern_vis.View.prototype.barDraw = function(){
     } );
   } );
 
-  x.domain( this.event_ids );
-  y.domain( [ 0, d3.max( data, function(d){ return d.value; } ) ] );
+  if( this.feature_sort )
+    data.sort( function( a, b ){
+      if( a.value > b.value )
+        return -1;
+      return 1;
+    } );
+
+  x.domain( data.map( function( d ){ return d.id; } ) );
+  y.domain( [ 0, d3.max( data, function( d ){ return d.value; } ) ] );
 
   this.d3_graph.select( ".x.axis" )
     .attr( "transform", "translate(0," + graph_height + ")" )

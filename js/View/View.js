@@ -23,7 +23,8 @@ pattern_vis.View = ( function(){
       pos_y: 0,
       size_aspect: Feature[ feature_id ].size_aspect,
       svg_width: 200,
-      svg_height: 400
+      svg_height: 400,
+      feature_sort: false
     } );
 
     if( this.event_ids.length == 0 ){
@@ -44,6 +45,11 @@ pattern_vis.View = ( function(){
       self.$view.remove();
       views.splice( views.indexOf( self ), 1 );
       Ui.cancel_all();
+    } );
+
+    this.$view.find( ".feature-sort-button" ).on( "click", function(){
+      self.feature_sort = !self.feature_sort;
+      self[ self.graph_type + "Draw" ]();
     } );
 
     id_num++;
