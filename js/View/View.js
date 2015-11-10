@@ -2,7 +2,7 @@ pattern_vis.View = ( function(){
   var id_num = 0;
 
   return function( feature_id ){
-    var that = this;
+    var self = this;
 
     var event_ids = [];
     for( event_id in Ui.selected_events ){
@@ -36,9 +36,14 @@ pattern_vis.View = ( function(){
     this.create_dom();
 
     this.$view.find( ".show-history-button" ).on( "click", function(){
-      that.showHistory();
-      Ui.history_clicked_view = that;
+      self.showHistory();
+      Ui.history_clicked_view = self;
     });
+
+    this.$view.find( ".remove-button" ).on( "click", function(){
+      self.$view.remove();
+      views.splice( views.indexOf( self ), 1 );
+    } );
 
     id_num++;
   };

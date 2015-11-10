@@ -21,6 +21,24 @@ pattern_vis.View.prototype.create_dom = function(){
     "class": "material-icons",
   } ).text( "share" ) ) );
 
+  $menu.append( $( "<button></button>", {
+    "class": "mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect feature-sort-button",
+  } ).append( $( "<i></i>", {
+    "class": "material-icons",
+  } ).text( "sort" ) ) );
+
+  $menu.append( $( "<button></button>", {
+    "class": "mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect type-sort-button",
+  } ).append( $( "<i></i>", {
+    "class": "material-icons",
+  } ).text( "sort" ) ) );
+
+  $menu.append( $( "<button></button>", {
+    "class": "mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect remove-button",
+  } ).append( $( "<i></i>", {
+    "class": "material-icons",
+  } ).text( "clear" ).css( "color", "red" ) ) );
+
   var $selectable_area = $( "<div></div>" ,{
     "class": "selectable-area"
   } );
@@ -47,6 +65,7 @@ pattern_vis.View.prototype.create_dom = function(){
         Ui.history_clicked_view.showHistory();
     }
   } );
+
   $view.resizable( {
     start: function( event, ui ){
       $( ".history-line" ).remove();
