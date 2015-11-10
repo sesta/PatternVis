@@ -124,8 +124,7 @@ pattern_vis.View.prototype.scatterDraw = function(){
     },
     stop: function( event, ui ){
       if( $( this ).children( ".ui-selected" ).length == 0 ){
-        $( ".selected" ).removeClass( "selected" );
-        Ui.selected_events = {};
+        Ui.cancel_selecting();
       }
     }
   } );

@@ -1,7 +1,12 @@
 Ui.cancel_all = function(){
-  $( ".selected" ).removeClass( ".selected" );
+  this.cancel_selecting();
 
   Ui.history_clicked_view = null;
+};
+
+Ui.cancel_selecting = function(){
+  $( ".selected" ).removeClass( "selected" );
+  d3.selectAll( "path.vis-val" ).classed( "selected", false );
 
   Ui.selected_events = {};
 };

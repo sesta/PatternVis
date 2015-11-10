@@ -46,8 +46,6 @@ svg{
   }
 
   .selected{
-    stroke: red;
-    stroke-width: 3px;
   }
 
 }
@@ -61,16 +59,20 @@ svg{
   div{
     position: absolute;
   }
+}
 
-  .selected{
-    margin: -3px;
-    border: 3px solid red;
-  }
+.selected{
+  margin: -3px;
+  border: 3px solid red;
+  stroke: red;
+  stroke-width: 3px;
+}
 
-  .hover{
-    margin: -6px;
-    border: 6px solid red;
-  }
+.hover{
+  margin: -6px;
+  border: 6px solid red;
+  stroke: red;
+  stroke-width: 6px;
 }
 
 #effect-area{

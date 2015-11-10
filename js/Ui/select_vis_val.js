@@ -16,7 +16,10 @@ Ui.select_vis_val = function( $selected, view ){
       }
     }
 
-    $( ".selectable-area .event-id-" + event_id )
+    $( '.selectable-area .event-id-' + event_id + ':not(".area")' )
       .addClass( "selected" );
+
+    d3.selectAll( ".area.vis-val.event-id-" + event_id )
+      .classed( "selected", true );
   } );
 };
