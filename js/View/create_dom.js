@@ -21,7 +21,7 @@ pattern_vis.View.prototype.create_dom = function(){
     "class": "material-icons",
   } ).text( "share" ) ) );
 
-  var $ui_area = $( "<div></div>" ,{
+  var $selectable_area = $( "<div></div>" ,{
     "class": "selectable-area"
   } );
 
@@ -32,7 +32,7 @@ pattern_vis.View.prototype.create_dom = function(){
 
   this.$view.append( $title );
   this.$view.append( $menu );
-  this.$view.append( $ui_area );
+  this.$view.append( $selectable_area );
 
   $view.draggable( {
     handle: ".mdl-card__actions",

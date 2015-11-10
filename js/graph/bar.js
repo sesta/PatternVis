@@ -114,7 +114,7 @@ pattern_vis.View.prototype.barDraw = function(){
       } ).on( "mouseout", function(){
         Ui.out_vis_val( $( this ) );
       } );
-      
+
     d3.select( this ).classed( "val-id-" + val_id, true );
 
     val_id++;

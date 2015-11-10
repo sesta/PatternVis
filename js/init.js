@@ -7,6 +7,11 @@ $( function(){
     .attr( "id", "overview-area" )
     .style( "display", "none" );
 
+  var $selectable_area = $( "<div></div>" ,{
+    "class": "selectable-area"
+  } ).css( "display", "none" );
+  $( "body" ).append( $selectable_area );
+
   overview = new pattern_vis.Overview();
 
   $( ".relayout" ).on( "click", function(){

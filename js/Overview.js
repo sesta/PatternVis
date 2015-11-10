@@ -83,5 +83,45 @@ pattern_vis.Overview = function(){
       .attr( "cx", function( d ) { return x( d.value ); } )
       .attr( "cy", function( d ) { return y( d.id ); } )
       .attr( "r", 3 );
+
+   var $selectable_area = $( "#overview-area" ).next( ".selectable-area" );
+    $selectable_area.children().remove();
+
+   d3_graph.selectAll( ".vis-val" ).each( function( d ){
+     var $selectable_div = $( "<div></div>", {
+       "event-id": d.event_id,
+       "class": "event-id-" + d.event_id,
+       "center-y": $( this ).attr( "cy" ),
+       "center-x": $( this ).attr( "cx" ),
+       } ).css( {
+         top: ( MARGIN.graph.top + $( this ).attr( "cy" ) * 1.0 - 5 ) + "px",
+         left: ( MARGIN.graph.left + $( this ).attr( "cx" ) * 1.0 - 3 ) + "px",
+         height: "6px",
+         width: "6px",
+         "border-radius": "12px"
+       } ).on( "mouseover", function(){
+         Ui.over_vis_val( $( this ) );
+       } ).on( "mouseout", function(){
+         Ui.out_vis_val( $( this ) );
+       } );
+
+     $selectable_area.append( $selectable_div );
+   } );
+
+   $selectable_area.selectable( {
+     selecting: function( event, ui ){
+       $( this ).children( ".ui-selecting" )
+         .each( function(){
+           Ui.select_vis_val( $( this ), null );
+         } );
+     },
+     stop: function( event, ui ){
+      if( $( this ).children( ".ui-selected" ).length == 0 ){
+        $( ".selected" ).removeClass( "selected" );
+        Ui.selected_events = {};
+      }
+     }
+   } );
+
   };
 };
