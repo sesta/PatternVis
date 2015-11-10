@@ -1,5 +1,5 @@
 pattern_vis.View.prototype.multi_barCreate = function(){
-  var that = this;
+  var self = this;
 
   this.d3_svg = d3.select( "#view-" + this.id ).append( "svg" );
 
@@ -10,7 +10,7 @@ pattern_vis.View.prototype.multi_barCreate = function(){
       .attr( "class", "x axis" );
 
   this.event_ids.forEach( function( event_id ){
-    that.d3_graph.append( "g" )
+    self.d3_graph.append( "g" )
       .attr( "class", "y axis event-id-" + event_id )
       .append( "text" )
       .attr( "class", "event_name" );
@@ -18,7 +18,7 @@ pattern_vis.View.prototype.multi_barCreate = function(){
 }
 
 pattern_vis.View.prototype.multi_barDraw = function(){
-  var that = this;
+  var self = this;
 
   var graph_width = this.svg_width - MARGIN.graph.left - MARGIN.graph.right;
   var graph_height = this.svg_height - MARGIN.graph.top - MARGIN.graph.bottom;
@@ -49,21 +49,22 @@ pattern_vis.View.prototype.multi_barDraw = function(){
 
   this.event_ids.forEach( function( event_id ){
     var data = [];
-    Feature.get( that.feature_id, event_id ).forEach( function( value, index ){
+    Feature.get( self.feature_id, event_id ).forEach( function( value, index ){
       data.push( {
         id: index,
-        value: value
+        value: value,
+        event_id: event_id
       } );
     } );
 
     x.domain( d3.range( data.length ) );
     y.domain( [ 0, d3.max( data, function(d){ return d.value; } ) ] );
 
-    that.d3_graph.select( ".x.axis" )
+    self.d3_graph.select( ".x.axis" )
       .attr( "transform", "translate(0," + graph_height + ")" )
       .call( xAxis );
 
-    that.d3_graph.select( ".y.axis.event-id-" + event_id )
+    self.d3_graph.select( ".y.axis.event-id-" + event_id )
       .attr( "transform", "translate(0," + base_height + ")" )
       .call( yAxis )
       .select( "text" )
@@ -71,16 +72,16 @@ pattern_vis.View.prototype.multi_barDraw = function(){
       .attr( "dy", one_graph_height / 2 )
       .text( event_map.id[ event_id ].slice( 0, 3 ) + "..."  );
 
-    that.d3_graph.selectAll( ".bar.event-id-" + event_id )
+    self.d3_graph.selectAll( ".bar.event-id-" + event_id )
       .data( data )
       .enter().append( "rect" )
       .attr( "class", function( d ){
-        if( that.event_history[ event_id ] && ( d.id == parseInt( setting.sampling_num / 10, 10 ) ) )
-          that.event_history[ event_id ].to_d3_vis_val = d3.select( this );
+        if( self.event_history[ event_id ] && ( d.id == parseInt( setting.sampling_num / 10, 10 ) ) )
+          self.event_history[ event_id ].to_d3_vis_val = d3.select( this );
         return "bar vis-val event-id-" + event_id;
       });
 
-    that.d3_graph.selectAll( ".bar.event-id-" + event_id )
+    self.d3_graph.selectAll( ".bar.event-id-" + event_id )
       .attr( "event-id", event_id )
       .attr( "x", function( d ) { return x( d.id ); } )
       .attr( "width", x.rangeBand() )
@@ -89,7 +90,7 @@ pattern_vis.View.prototype.multi_barDraw = function(){
       .attr( "center-x", function( d ){ return x( d.id ) + x.rangeBand() / 2.0; } )
       .attr( "center-y", function( d ){ return y( d.value ) + base_height + ( one_graph_height - y( d.value ) ) / 2.0; } )
       .on( "click", function( d, i ){
-        Ui.click_vis_val( d3.select( this ), that );
+        Ui.click_vis_val( d3.select( this ), self );
       } )
       .on( "mouseover", function( d, i ){
         Ui.over_vis_val( d3.select( this ) );
@@ -99,5 +100,48 @@ pattern_vis.View.prototype.multi_barDraw = function(){
       } );
 
     base_height += one_graph_height + MARGIN.graph.space;
+  } );
+
+  var $selectable_area = self.$view.find( ".selectable-area" );
+  $selectable_area.children().remove();
+
+  var val_id = 0;
+  this.d3_graph.selectAll( ".vis-val" ).each( function( d ){
+    var $selectable_div = $( "<div></div>", {
+      "event-id": d.event_id,
+      "class": "event-id-" + d.event_id,
+      "center-y": $( this ).attr( "center-y" ),
+      "center-x": $( this ).attr( "center-x" ),
+      "val-id": val_id
+    } ).css( {
+        top: ( MARGIN.graph.top + $( this ).attr( "y" ) * 1.0 ) + "px",
+        left: ( MARGIN.graph.left + $( this ).attr( "x" ) * 1.0 ) + "px",
+        height: $( this ).attr( "height" ) + "px",
+        width: $( this ).attr( "width" ) + "px"
+      } ).on( "mouseover", function(){
+        Ui.over_vis_val( $( this ) );
+      } ).on( "mouseout", function(){
+        Ui.out_vis_val( $( this ) );
+      } );
+
+    d3.select( this ).classed( "val-id-" + val_id, true );
+
+    val_id++;
+
+    $selectable_area.append( $selectable_div );
+  } );
+
+  $selectable_area.selectable( {
+    selecting: function( event, ui ){
+      $( this ).children( ".ui-selecting" )
+        .each( function(){
+          Ui.select_vis_val( $( this ), self );
+        } );
+    },
+    stop: function( event, ui ){
+      if( $( this ).children( ".ui-selected" ).length == 0 ){
+        Ui.cancel_selecting();
+      }
+    }
   } );
 };
