@@ -43,6 +43,7 @@ pattern_vis.View = ( function(){
     this.$view.find( ".remove-button" ).on( "click", function(){
       self.$view.remove();
       views.splice( views.indexOf( self ), 1 );
+      Ui.cancel_all();
     } );
 
     id_num++;

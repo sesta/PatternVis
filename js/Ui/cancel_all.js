@@ -1,6 +1,7 @@
 Ui.cancel_all = function(){
   this.cancel_selecting();
 
+  $( ".history-line" ).remove();
   Ui.history_clicked_view = null;
 };
 
