@@ -18,7 +18,7 @@ pattern_vis.View.prototype.scatterCreate = function(){
 }
 
 pattern_vis.View.prototype.scatterDraw = function(){
-  var that = this;
+  var self = this;
   var circle_size = 6;
 
   var graph_width = this.svg_width - MARGIN.graph.left - MARGIN.graph.right;
@@ -42,7 +42,7 @@ pattern_vis.View.prototype.scatterDraw = function(){
 
   var data = [];
   this.event_ids.forEach( function( event_id ){
-    Feature.get( that.feature_id, event_id ).forEach( function( value ){
+    Feature.get( self.feature_id, event_id ).forEach( function( value ){
       data.push( {
         id: event_id,
         value: value
@@ -63,8 +63,8 @@ pattern_vis.View.prototype.scatterDraw = function(){
     .data( data )
     .enter().append( "circle" )
     .attr( "class", function( d ){
-      if( that.event_history[ d.id ] )
-        that.event_history[ d.id ].to_d3_vis_val = d3.select( this );
+      if( self.event_history[ d.id ] )
+        self.event_history[ d.id ].to_d3_vis_val = d3.select( this );
       return "dot vis-val event-id-" + d.id;
     } );
 
@@ -72,11 +72,11 @@ pattern_vis.View.prototype.scatterDraw = function(){
     .attr( "event-id", function( d ){ return d.id; } )
     .attr( "cx", function( d ) { return x( new Date( 0, 0, 0, d.value ) ); } )
     .attr( "cy", function( d ) { return y( d.id ); } )
-    .attr( "center-x", function( d ) { return x( new Date( d.value )  ); } )
+    .attr( "center-x", function( d ) { return x( new Date( 0, 0, 0, d.value )  ); } )
     .attr( "center-y", function( d ) { return y( d.id ); } )
     .attr( "r", 6 )
     .on( "click", function( d, i ){
-      Ui.click_vis_val( d3.select( this ), that );
+      Ui.click_vis_val( d3.select( this ), self );
     } )
     .on( "mouseover", function( d, i ){
       Ui.over_vis_val( d3.select( this ) );
@@ -84,4 +84,49 @@ pattern_vis.View.prototype.scatterDraw = function(){
     .on( "mouseout", function( d, i ){
       Ui.out_vis_val( d3.select( this ) );
     } );
+
+  var $selectable_area = self.$view.find( ".selectable-area" );
+  $selectable_area.children().remove();
+
+  var val_id = 0;
+  this.d3_graph.selectAll( ".vis-val" ).each( function( d ){
+    var $selectable_div = $( "<div></div>", {
+      "event-id": d.id,
+      "class": "event-id-" + d.id,
+      "center-y": $( this ).attr( "center-y" ),
+      "center-x": $( this ).attr( "center-x" ),
+      "val-id": val_id
+    } ).css( {
+        top: ( MARGIN.graph.top + $( this ).attr( "cy" ) * 1.0 - 6 ) + "px",
+        left: ( MARGIN.graph.left + $( this ).attr( "cx" ) * 1.0 - 6 ) + "px",
+        height: "12px",
+        width: "12px",
+        "border-radius": "12px",
+      } ).on( "mouseover", function(){
+        Ui.over_vis_val( $( this ) );
+      } ).on( "mouseout", function(){
+        Ui.out_vis_val( $( this ) );
+      } );
+
+    d3.select( this ).classed( "val-id-" + val_id, true );
+
+    val_id++;
+
+    $selectable_area.append( $selectable_div );
+  } );
+
+  $selectable_area.selectable( {
+    selecting: function( event, ui ){
+      $( this ).children( ".ui-selecting" )
+        .each( function(){
+          Ui.select_vis_val( $( this ), self );
+        } );
+    },
+    stop: function( event, ui ){
+      if( $( this ).children( ".ui-selected" ).length == 0 ){
+        $( ".selected" ).removeClass( "selected" );
+        Ui.selected_events = {};
+      }
+    }
+  } );
 };
