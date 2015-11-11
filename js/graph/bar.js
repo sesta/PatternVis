@@ -51,14 +51,19 @@ pattern_vis.View.prototype.barDraw = function(){
     } );
   } );
 
+  var copy_event_ids = this.event_ids.concat();
+
   if( this.feature_sort )
-    data.sort( function( a, b ){
-      if( a.value > b.value )
+    copy_event_ids.sort( function( a, b ){
+      var count_a = Feature.get( self.feature_id, a );
+      var count_b = Feature.get( self.feature_id, b );
+
+      if( count_a > count_b )
         return -1;
       return 1;
     } );
 
-  x.domain( data.map( function( d ){ return d.id; } ) );
+  x.domain( copy_event_ids );
   y.domain( [ 0, d3.max( data, function( d ){ return d.value; } ) ] );
 
   this.d3_graph.select( ".x.axis" )

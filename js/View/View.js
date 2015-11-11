@@ -48,8 +48,10 @@ pattern_vis.View = ( function(){
     } );
 
     this.$view.find( ".feature-sort-button" ).on( "click", function(){
+      $( ".history-line" ).remove();
       self.feature_sort = !self.feature_sort;
       self[ self.graph_type + "Draw" ]();
+      Ui.history_clicked_view.showHistory();
     } );
 
     id_num++;

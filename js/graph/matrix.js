@@ -45,8 +45,19 @@ pattern_vis.View.prototype.matrixDraw = function(){
   } );
   var max_value = d3.max( data, function( d ){ return d.value; } );
 
-  x.domain( this.event_ids );
-  y.domain( this.event_ids );
+  var copy_event_ids = this.event_ids.concat();
+
+  if( this.feature_sort )
+    copy_event_ids.sort( function( a, b ){
+      var count_a = Feature.get( "event_count", a );
+      var count_b = Feature.get( "event_count", b );
+
+      if( count_a > count_b ) return -1;
+      return 1;
+    } );
+
+  x.domain( copy_event_ids );
+  y.domain( copy_event_ids );
 
   this.d3_graph.select( ".x.axis" )
     .attr( "transform", "translate(0," + graph_height + ")" )

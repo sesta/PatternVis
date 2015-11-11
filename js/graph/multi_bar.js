@@ -47,7 +47,18 @@ pattern_vis.View.prototype.multi_barDraw = function(){
     .orient( "left" )
     .tickFormat( "" );
 
-  this.event_ids.forEach( function( event_id ){
+  var copy_event_ids = this.event_ids.concat();
+
+  if( this.feature_sort )
+    copy_event_ids.sort( function( a, b ){
+      var count_a = Feature.get( "event_count", a );
+      var count_b = Feature.get( "event_count", b );
+
+      if( count_a > count_b ) return -1;
+      return 1;
+    } );
+
+  copy_event_ids.forEach( function( event_id ){
     var data = [];
     Feature.get( self.feature_id, event_id ).forEach( function( value, index ){
       data.push( {

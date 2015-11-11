@@ -49,8 +49,21 @@ pattern_vis.View.prototype.scatterDraw = function(){
       } );
     } );
   } );
+
+  var copy_event_ids = this.event_ids.concat();
+
+  if( this.feature_sort )
+    copy_event_ids.sort( function( a, b ){
+      var count_a = Feature.get( self.feature_id, a );
+      var count_b = Feature.get( self.feature_id, b );
+
+      if( count_a > count_b )
+        return -1;
+      return 1;
+    } );
+
   x.domain( [ new Date( 0, 0, 0, 0 ), new Date( 0, 0, 0, 24 ) ] );
-  y.domain( this.event_ids );
+  y.domain( copy_event_ids );
 
   this.d3_graph.select( ".x.axis" )
     .attr( "transform", "translate(0," + graph_height + ")" )
