@@ -10,24 +10,40 @@ pattern_vis.Overview = function(){
   d3_graph.append( "g" )
     .attr( "class", "y axis" );
 
-  var record_history = [];
+  var records_history = [];
   var history_ids = [];
 
   this.setHistory = function( history_id, event_ids ){
     history_ids.push( history_id );
+    var records = [];
+
     if( event_ids.length == 0 ){
-      records_history = data.times;
-      return;
+      records = data.times;
     }
 
     event_ids.forEach( function( event_id ){
       data[ event_id ].times.forEach( function( time ){
-        records_history.push( {
+        records.push( {
           id: history_id,
           value: time.date,
-          event_id: event_id
+          event_ids: [ event_id ]
         } );
       } );
+    } );
+
+    records.sort( function( a, b ){
+      if( a.value < b.value ) return -1;
+      return 1;
+    } );
+
+    var last_date = new Date( 0 );
+    records.forEach( function( record ){
+      if( Math.abs( record.value - last_date ) > ( 6 * 60 * 60 * 1000 ) ){
+        records_history.push( record );
+        last_date = record.value;
+      }else{
+        records_history[ records_history.length - 1 ].event_ids.push( record.event_ids[ 0 ] );
+      }
     } );
   };
 
@@ -69,9 +85,13 @@ pattern_vis.Overview = function(){
       .data( records_history )
       .enter().append( "circle" )
       .attr( "class", function( d ) {
-        return "dot vis-val event-id-" + d.event_id;
+        var class_string = "dot vis-val"
+        d.event_ids.forEach( function( id ){
+          class_string += " event-id-" + id;
+        } );
+        return  class_string;
       } )
-      .attr( "event-id", function( d ){ return d.event_id; } )
+      .attr( "event-id", function( d ){ return d.event_ids.toString(); } )
       .on( "mouseover", function( d, i ){
         Ui.over_vis_val( d3.select( this ) );
       } )
@@ -88,9 +108,14 @@ pattern_vis.Overview = function(){
     $selectable_area.children().remove();
 
    d3_graph.selectAll( ".vis-val" ).each( function( d ){
+     var event_id_class_string = "";
+     d.event_ids.forEach( function( id ){
+       event_id_class_string += " event-id-" + id;
+     } );
+
      var $selectable_div = $( "<div></div>", {
-       "event-id": d.event_id,
-       "class": "event-id-" + d.event_id,
+       "event-id": d.event_ids.toString(),
+       "class": event_id_class_string,
        "center-y": $( this ).attr( "cy" ),
        "center-x": $( this ).attr( "cx" ),
        } ).css( {

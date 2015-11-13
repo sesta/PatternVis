@@ -33,7 +33,7 @@ pattern_vis.input_data = (function(){
           row_times.push( {
             id: "origin",
             value: time.date,
-            event_id: event_map.name[ event_name ]
+            event_ids: [ event_map.name[ event_name ] ]
           } );
 
           data[ event_map.name[ event_name ] ].times.push( time );
