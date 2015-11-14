@@ -26,7 +26,8 @@ pattern_vis.Overview = function(){
         records.push( {
           id: history_id,
           value: time.date,
-          event_ids: [ event_id ]
+          event_ids: [ event_id ],
+          count: 1
         } );
       } );
     } );
@@ -38,11 +39,12 @@ pattern_vis.Overview = function(){
 
     var last_date = new Date( 0 );
     records.forEach( function( record ){
-      if( Math.abs( record.value - last_date ) > ( 6 * 60 * 60 * 1000 ) ){
+      if( Math.abs( record.value - last_date ) > ( setting.time.end - setting.time.start ) / 300 ){
         records_history.push( record );
         last_date = record.value;
       }else{
         records_history[ records_history.length - 1 ].event_ids.push( record.event_ids[ 0 ] );
+        records_history[ records_history.length - 1 ].count ++;
       }
     } );
   };
@@ -102,7 +104,7 @@ pattern_vis.Overview = function(){
     d3_graph.selectAll( ".dot" )
       .attr( "cx", function( d ) { return x( d.value ); } )
       .attr( "cy", function( d ) { return y( d.id ); } )
-      .attr( "r", 3 );
+      .attr( "r", function( d ) { return Math.sqrt( d.count ) * 2; } );
 
    var $selectable_area = $( "#overview-area" ).next( ".selectable-area" );
     $selectable_area.children().remove();
