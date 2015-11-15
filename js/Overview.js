@@ -119,14 +119,13 @@ pattern_vis.Overview = function(){
      var $selectable_div = $( "<div></div>", {
        "event-id": d.event_ids.toString(),
        "class": event_id_class_string,
-       "center-y": $( this ).attr( "cy" ),
-       "center-x": $( this ).attr( "cx" ),
+       "center-y": $( this ).attr( "y" ) * 1.0 + $( this ).attr( "height" ) / 2,
+       "center-x": $( this ).attr( "x" ) * 1.0 + $( this ).attr( "width" ) / 2,
        } ).css( {
-         top: ( MARGIN.graph.top + $( this ).attr( "cy" ) * 1.0 - 5 ) + "px",
-         left: ( MARGIN.graph.left + $( this ).attr( "cx" ) * 1.0 - 3 ) + "px",
-         height: "6px",
-         width: "6px",
-         "border-radius": "12px"
+         top: ( MARGIN.graph.top + $( this ).attr( "y" ) * 1.0 - 2 ) + "px",
+         left: ( MARGIN.graph.left + $( this ).attr( "x" ) * 1.0 ) + "px",
+         height: $( this ).attr( "height" ) + "px",
+         width: $( this ).attr( "width" ) + "px"
        } ).on( "mouseover", function(){
          Ui.over_vis_val( $( this ) );
        } ).on( "mouseout", function(){
