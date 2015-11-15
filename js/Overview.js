@@ -85,7 +85,7 @@ pattern_vis.Overview = function(){
 
     d3_graph.selectAll( ".dot" )
       .data( records_history )
-      .enter().append( "circle" )
+      .enter().append( "rect" )
       .attr( "class", function( d ) {
         var class_string = "dot vis-val"
         d.event_ids.forEach( function( id ){
@@ -102,9 +102,10 @@ pattern_vis.Overview = function(){
       } );
 
     d3_graph.selectAll( ".dot" )
-      .attr( "cx", function( d ) { return x( d.value ); } )
-      .attr( "cy", function( d ) { return y( d.id ); } )
-      .attr( "r", function( d ) { return Math.sqrt( d.count ) * 2; } );
+      .attr( "x", function( d ) { return x( d.value ); } )
+      .attr( "y", function( d ) { return y( d.id ) - d.count; } )
+      .attr( "width", graph_width / 300 )
+      .attr( "height", function( d ) { return d.count; } );
 
    var $selectable_area = $( "#overview-area" ).next( ".selectable-area" );
     $selectable_area.children().remove();
