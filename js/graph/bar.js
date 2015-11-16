@@ -92,14 +92,15 @@ pattern_vis.View.prototype.barDraw = function(){
       if( self.event_history[ d.id ] )
         self.event_history[ d.id ].to_d3_vis_val = d3.select( this );
       return "bar vis-val event-id-" + d.id;
-    } );
+    } ).attr( "fill", "white" );
 
   var $selectable_area = self.$view.find( ".selectable-area" );
   $selectable_area.children().remove();
 
   var val_id = 0;
 
-  this.d3_graph.selectAll( ".bar" ).transition()
+  this.d3_graph.selectAll( ".bar" ).transition().duration( 500 )
+    .delay( function( d, i ){ return i * 10; } )
     .attr( "event-id", function( d ){ return d.id; } )
     .attr( "fill", function( d ){ return event_map.color[ d.id ]; } )
     .attr( "x", function( d ){ return x( d.id ); } )
