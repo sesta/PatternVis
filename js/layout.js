@@ -1,12 +1,11 @@
 pattern_vis.layout = function(){
   d3.selectAll( ".history-line").remove();
-  pattern_vis.updateAreaSize();
 
-  var min_height = 300;
+  var min_height = 400;
   var base_pos_y = MARGIN.view.top;
   var base_index = 0;
   var size_late = 1;
-  var max_height = pattern_vis.area_height;
+  var max_height = 600;
 
   views.forEach( function( view, index ){
     view.pos_x = MARGIN.view.left;
@@ -42,10 +41,12 @@ pattern_vis.layout = function(){
         base_pos_y += view.getHeight() + MARGIN.view.space;
         base_index = index + 1;
         size_late = 1;
-        max_height -= min_height;
       }
     }
   } );
+
+  $( "#padding-area" ).css( "top", base_pos_y + max_height );
+  $( "#view-area" ).css( "height", base_pos_y + max_height );
 
   views.forEach( function( view, index ){
     view.$view.css( "top", view.pos_y + "px" );
@@ -56,4 +57,6 @@ pattern_vis.layout = function(){
 
     view[ view.graph_type + "Draw" ]();
   } );
+
+  pattern_vis.updateAreaSize();
 };

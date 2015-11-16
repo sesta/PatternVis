@@ -3,7 +3,7 @@ var pattern_vis = {
   area_height: 0,
   updateAreaSize: function(){
     this.area_width = $( ".mdl-layout__content" ).width();
-    this.area_height = $( ".mdl-layout__content" ).height();
+    this.area_height = $( "#view-area" ).height() + 200;
 
     d3.select( "#effect-area" )
       .attr( "width", this.area_width )
