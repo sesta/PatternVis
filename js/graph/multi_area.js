@@ -69,6 +69,13 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
       return 1;
     } );
 
+  if( this.type_sort )
+    copy_event_ids.sort( function( a, b ){
+      if( event_map.type[ a ] > event_map.type[ b ] )
+        return -1;
+      return 1;
+    } );
+
   copy_event_ids.forEach( function( event_id ){
     var data = [];
     Feature.get( self.feature_id, event_id ).forEach( function( value, index ){

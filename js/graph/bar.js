@@ -63,6 +63,13 @@ pattern_vis.View.prototype.barDraw = function(){
       return 1;
     } );
 
+  if( this.type_sort )
+    copy_event_ids.sort( function( a, b ){
+      if( event_map.type[ a ] > event_map.type[ b ] )
+        return -1;
+      return 1;
+    } );
+
   x.domain( copy_event_ids );
   y.domain( [ 0, d3.max( data, function( d ){ return d.value; } ) ] );
 

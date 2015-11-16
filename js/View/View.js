@@ -24,7 +24,8 @@ pattern_vis.View = ( function(){
       size_aspect: Feature[ feature_id ].size_aspect,
       svg_width: 200,
       svg_height: 400,
-      feature_sort: false
+      feature_sort: false,
+      type_sort: false
     } );
 
     if( this.event_ids.length == 0 ){
@@ -51,7 +52,18 @@ pattern_vis.View = ( function(){
       $( ".history-line" ).remove();
       self.feature_sort = !self.feature_sort;
       self[ self.graph_type + "Draw" ]();
-      Ui.history_clicked_view.showHistory();
+
+      if( Ui.history_clicked_view )
+        Ui.history_clicked_view.showHistory();
+    } );
+
+    this.$view.find( ".type-sort-button" ).on( "click", function(){
+      $( ".history-line" ).remove();
+      self.type_sort = !self.type_sort;
+      self[ self.graph_type + "Draw" ]();
+
+      if( Ui.history_clicked_view )
+        Ui.history_clicked_view.showHistory();
     } );
 
     id_num++;
