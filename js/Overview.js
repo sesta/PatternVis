@@ -142,17 +142,15 @@ pattern_vis.Overview = function(){
    } );
 
    $selectable_area.selectable( {
-     selecting: function( event, ui ){
-       $( this ).children( ".ui-selecting" )
+     stop: function( event, ui ){
+       $( this ).children( ".ui-selected" )
          .each( function(){
            Ui.select_vis_val( $( this ), null );
          } );
-     },
-     stop: function( event, ui ){
-      if( $( this ).children( ".ui-selected" ).length == 0 ){
-        $( ".selected" ).removeClass( "selected" );
-        Ui.selected_events = {};
-      }
+       if( $( this ).children( ".ui-selected" ).length == 0 ){
+         $( ".selected" ).removeClass( "selected" );
+         Ui.selected_events = {};
+       }
      }
    } );
 

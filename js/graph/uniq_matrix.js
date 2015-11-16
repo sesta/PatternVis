@@ -136,13 +136,11 @@ pattern_vis.View.prototype.uniq_matrixDraw = function(){
   } );
 
   $selectable_area.selectable( {
-    selecting: function( event, ui ){
-      $( this ).children( ".ui-selecting" )
+    stop: function( event, ui ){
+      $( this ).children( ".ui-selected" )
         .each( function(){
           Ui.select_vis_val( $( this ), self );
         } );
-    },
-    stop: function( event, ui ){
       if( $( this ).children( ".ui-selected" ).length == 0 ){
         Ui.cancel_selecting();
       }
