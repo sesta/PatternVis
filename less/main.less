@@ -68,8 +68,8 @@ svg{
 
 .selected{
   margin: -3px;
-  border: 3px solid red;
-  stroke: red;
+  border: 3px solid green;
+  stroke: green;
   stroke-width: 3px;
 }
 
@@ -112,6 +112,18 @@ svg{
   z-index: 3;
   height: 200px;
   width: 100%;
+
+  .selected{
+    margin: 0;
+    border: none;
+    background-color: green;
+  }
+
+  .hover{
+    margin: 0;
+    border: none;
+    background-color: red;
+  }
 }
 
 .axis {

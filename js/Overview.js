@@ -76,6 +76,11 @@ pattern_vis.Overview = function(){
     y.domain( history_ids.reverse() );
     history_ids.reverse();
 
+    var max_count = d3.max( records_history, function( d ){ return d.count; } );
+    var barHeight = function( count ){
+      return graph_height / history_ids.length * count / max_count;
+    };
+
     d3_graph.select( ".x.axis" )
       .attr( "transform", "translate(0," + graph_height + ")" )
       .call( xAxis );
@@ -103,9 +108,10 @@ pattern_vis.Overview = function(){
 
     d3_graph.selectAll( ".dot" )
       .attr( "x", function( d ) { return x( d.value ); } )
-      .attr( "y", function( d ) { return y( d.id ) - d.count; } )
-      .attr( "width", graph_width / 300 )
-      .attr( "height", function( d ) { return d.count; } );
+      .attr( "y", function( d ) {
+        return y( d.id ) - barHeight( d.count ) / 2;
+      } ).attr( "width", graph_width / 300 + 1 )
+      .attr( "height", function( d ) { return barHeight( d.count ); } );
 
    var $selectable_area = $( "#overview-area" ).next( ".selectable-area" );
     $selectable_area.children().remove();
