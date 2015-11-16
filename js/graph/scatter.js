@@ -83,6 +83,7 @@ pattern_vis.View.prototype.scatterDraw = function(){
 
   this.d3_graph.selectAll( ".dot" )
     .attr( "event-id", function( d ){ return d.id; } )
+    .attr( "fill", function( d ){ return event_map.color[ d.id ]; } )
     .attr( "cx", function( d ) { return x( new Date( 0, 0, 0, d.value ) ); } )
     .attr( "cy", function( d ) { return y( d.id ); } )
     .attr( "center-x", function( d ) { return x( new Date( 0, 0, 0, d.value )  ); } )

@@ -94,6 +94,7 @@ pattern_vis.View.prototype.multi_barDraw = function(){
 
     self.d3_graph.selectAll( ".bar.event-id-" + event_id )
       .attr( "event-id", event_id )
+      .attr( "fill", function( d ){ return event_map.color[ event_id ]; } )
       .attr( "x", function( d ) { return x( d.id ); } )
       .attr( "width", x.rangeBand() )
       .attr( "y", function( d ) { return y( d.value ) + base_height; } )

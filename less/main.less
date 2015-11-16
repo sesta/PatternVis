@@ -47,7 +47,6 @@ body{
 
 svg{
   .vis-val:not( .matrix ) {
-    fill: steelblue;
   }
 
   .selected{
@@ -68,8 +67,8 @@ svg{
 
 .selected{
   margin: -3px;
-  border: 3px solid green;
-  stroke: green;
+  border: 3px solid #F75D68;
+  stroke: #F75D68;
   stroke-width: 3px;
 }
 
@@ -103,6 +102,10 @@ svg{
   width: 100%;
   border-top: 2px solid gray;
   background-color: white;
+
+  .vis-val{
+    fill: #666666;
+  }
 }
 
 #overview-area+.selectable-area{
@@ -116,7 +119,7 @@ svg{
   .selected{
     margin: 0;
     border: none;
-    background-color: green;
+    background-color: #F75D68;
   }
 
   .hover{

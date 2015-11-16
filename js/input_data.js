@@ -20,6 +20,8 @@ pattern_vis.input_data = (function(){
           if( !( event_name in event_map.name ) ){
             event_map.name[ event_name ] = id_num;
             event_map.id[ id_num ] = event_name;
+            event_map.type[ id_num ] = i;
+            event_map.color[ id_num ] = event_map.colors( i );
             event_map.id_list.push( id_num );
             data[ id_num ] = {
               data_path: data_path,

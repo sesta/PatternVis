@@ -14,9 +14,12 @@ var pattern_vis = {
 var data = {};
 
 var event_map = {
+  colors: d3.scale.category10(),
   name: {},
   id: {},
-  id_list: []
+  id_list: [],
+  type: {},
+  color: {}
 };
 
 var setting = {

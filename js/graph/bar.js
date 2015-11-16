@@ -89,6 +89,7 @@ pattern_vis.View.prototype.barDraw = function(){
 
   this.d3_graph.selectAll( ".bar" )
     .attr( "event-id", function( d ){ return d.id; } )
+    .attr( "fill", function( d ){ return event_map.color[ d.id ]; } )
     .attr( "x", function( d ){ return x( d.id ); } )
     .attr( "width", x.rangeBand() )
     .attr( "y", function( d ){ return y( d.value ); } )
