@@ -88,11 +88,11 @@ pattern_vis.Overview = function(){
     d3_graph.select( ".y.axis" )
       .call( yAxis );
 
-    d3_graph.selectAll( ".dot" )
+    d3_graph.selectAll( ".rect" )
       .data( records_history )
       .enter().append( "rect" )
       .attr( "class", function( d ) {
-        var class_string = "dot vis-val"
+        var class_string = "rect vis-val"
         d.event_ids.forEach( function( id ){
           class_string += " event-id-" + id;
         } );
@@ -106,7 +106,7 @@ pattern_vis.Overview = function(){
         Ui.out_vis_val( d3.select( this ) );
       } );
 
-    d3_graph.selectAll( ".dot" )
+    d3_graph.selectAll( ".rect" )
       .attr( "x", function( d ) { return x( d.value ); } )
       .attr( "y", function( d ) {
         return y( d.id ) - barHeight( d.count ) / 2;

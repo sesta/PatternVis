@@ -20,6 +20,11 @@ pattern_vis.input_data = (function(){
           if( !( event_name in event_map.name ) ){
             event_map.name[ event_name ] = id_num;
             event_map.id[ id_num ] = event_name;
+            event_map.type[ id_num ] = i;
+            if( !event_map.same_type_ids[ i ] )
+              event_map.same_type_ids[ i ] = [];
+            event_map.same_type_ids[ i ].push( id_num );
+            event_map.color[ id_num ] = event_map.colors( i );
             event_map.id_list.push( id_num );
             data[ id_num ] = {
               data_path: data_path,
@@ -46,6 +51,17 @@ pattern_vis.input_data = (function(){
 
       overview.setHistory( "origin", [] );
       overview.draw();
+
+      for( type in event_map.same_type_ids ){
+        $( ".action-buttons" ).append( $( "<li></li>", {
+          "class": "mdl-menu__item mdl-js-ripple-effect"
+        } ).css( "color", event_map.colors( type ) )
+        .text( "Select Type " + type )
+        .data( "type", type )
+        .on( "click", function(){
+          Ui.select_type( $( this ).data( "type" ) );
+        } ) );
+      }
     });
   };
 

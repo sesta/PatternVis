@@ -62,6 +62,13 @@ pattern_vis.View.prototype.scatterDraw = function(){
       return 1;
     } );
 
+  if( this.type_sort )
+    copy_event_ids.sort( function( a, b ){
+      if( event_map.type[ a ] > event_map.type[ b ] )
+        return -1;
+      return 1;
+    } );
+
   x.domain( [ new Date( 0, 0, 0, 0 ), new Date( 0, 0, 0, 24 ) ] );
   y.domain( copy_event_ids );
 
@@ -83,6 +90,7 @@ pattern_vis.View.prototype.scatterDraw = function(){
 
   this.d3_graph.selectAll( ".dot" )
     .attr( "event-id", function( d ){ return d.id; } )
+    .attr( "fill", function( d ){ return event_map.color[ d.id ]; } )
     .attr( "cx", function( d ) { return x( new Date( 0, 0, 0, d.value ) ); } )
     .attr( "cy", function( d ) { return y( d.id ); } )
     .attr( "center-x", function( d ) { return x( new Date( 0, 0, 0, d.value )  ); } )

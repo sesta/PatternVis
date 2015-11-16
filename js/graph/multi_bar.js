@@ -58,6 +58,13 @@ pattern_vis.View.prototype.multi_barDraw = function(){
       return 1;
     } );
 
+  if( this.type_sort )
+    copy_event_ids.sort( function( a, b ){
+      if( event_map.type[ a ] > event_map.type[ b ] )
+        return -1;
+      return 1;
+    } );
+
   copy_event_ids.forEach( function( event_id ){
     var data = [];
     Feature.get( self.feature_id, event_id ).forEach( function( value, index ){
@@ -94,6 +101,7 @@ pattern_vis.View.prototype.multi_barDraw = function(){
 
     self.d3_graph.selectAll( ".bar.event-id-" + event_id )
       .attr( "event-id", event_id )
+      .attr( "fill", function( d ){ return event_map.color[ event_id ]; } )
       .attr( "x", function( d ) { return x( d.id ); } )
       .attr( "width", x.rangeBand() )
       .attr( "y", function( d ) { return y( d.value ) + base_height; } )
