@@ -45,9 +45,6 @@ pattern_vis.layout = function(){
     }
   } );
 
-  $( "#padding-area" ).css( "top", base_pos_y + max_height );
-  $( "#view-area" ).css( "height", base_pos_y + max_height );
-
   views.forEach( function( view, index ){
     view.$view.css( "top", view.pos_y + "px" );
     view.$view.css( "left", view.pos_x + "px" );
@@ -56,6 +53,9 @@ pattern_vis.layout = function(){
     view.updateSvgSize();
 
     view[ view.graph_type + "Draw" ]();
+
+    $( "#padding-area" ).css( "top", view.pos_y + view.getHeight() + "px" );
+    $( "#view-area" ).css( "height", view.pos_y + view.getHeight() + "px" );
   } );
 
   pattern_vis.updateAreaSize();
