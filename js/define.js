@@ -19,6 +19,7 @@ var event_map = {
   id: {},
   id_list: [],
   type: {},
+  same_type_ids: {},
   color: {}
 };
 

@@ -21,6 +21,9 @@ pattern_vis.input_data = (function(){
             event_map.name[ event_name ] = id_num;
             event_map.id[ id_num ] = event_name;
             event_map.type[ id_num ] = i;
+            if( !event_map.same_type_ids[ i ] )
+              event_map.same_type_ids[ i ] = [];
+            event_map.same_type_ids[ i ].push( id_num );
             event_map.color[ id_num ] = event_map.colors( i );
             event_map.id_list.push( id_num );
             data[ id_num ] = {
