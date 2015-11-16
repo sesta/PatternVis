@@ -51,6 +51,17 @@ pattern_vis.input_data = (function(){
 
       overview.setHistory( "origin", [] );
       overview.draw();
+
+      for( type in event_map.same_type_ids ){
+        $( ".action-buttons" ).append( $( "<li></li>", {
+          "class": "mdl-menu__item mdl-js-ripple-effect"
+        } ).css( "color", event_map.colors( type ) )
+        .text( "Select Type " + type )
+        .data( "type", type )
+        .on( "click", function(){
+          Ui.select_type( $( this ).data( "type" ) );
+        } ) );
+      }
     });
   };
 
