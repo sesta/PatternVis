@@ -94,7 +94,7 @@ pattern_vis.View.prototype.scatterDraw = function(){
   var val_id = 0;
 
   this.d3_graph.selectAll( ".dot" ).transition().duration( 500 )
-    .delay( function( d, i ){ return i * 10; } )
+    .delay( function( d, i ){ return i * 3; } )
     .attr( "event-id", function( d ){ return d.id; } )
     .attr( "fill", function( d ){ return event_map.color[ d.id ]; } )
     .attr( "cx", function( d ) { return x( new Date( 0, 0, 0, d.value ) ); } )
