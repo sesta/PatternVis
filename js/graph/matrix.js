@@ -63,6 +63,11 @@ pattern_vis.View.prototype.matrixDraw = function(){
       return 1;
     } );
 
+  var $selectable_area = self.$view.find( ".selectable-area" );
+  $selectable_area.children().remove();
+
+  var val_id = 0;
+
   x.domain( copy_event_ids );
   y.domain( copy_event_ids );
 
@@ -85,9 +90,10 @@ pattern_vis.View.prototype.matrixDraw = function(){
       if( self.event_history[ d.id_1 ] && ( d.id_1 == d.id_2 ) )
         self.event_history[ d.id_1 ].to_d3_vis_val = d3.select( this );
       return "matrix vis-val event-id-" + d.id_1 + " event-id-" + d.id_2;
-    } );
+    } ).attr( "fill", "white" );
 
   this.d3_graph.selectAll( ".matrix" )
+    .transition().duration( 500 )
     .attr( "event-id", function( d ){ return d.id_1 + "," + d.id_2; } )
     .attr( "x", function( d ) { return x( d.id_1 ); } )
     .attr( "width", x.rangeBand() )
@@ -96,44 +102,30 @@ pattern_vis.View.prototype.matrixDraw = function(){
     .attr( "center-x", function( d ){ return x( d.id_1 ) + x.rangeBand() / 2.0; } )
     .attr( "center-y", function( d ){ return y( d.id_2 ) + y.rangeBand() / 2.0; } )
     .attr( "fill", getGrayScale )
-    .on( "click", function( d, i ){
-      Ui.click_vis_val( d3.select( this ), self );
-    } )
-    .on( "mouseover", function( d, i ){
-      Ui.over_vis_val( d3.select( this ) );
-    } )
-    .on( "mouseout", function( d, i ){
-      Ui.out_vis_val( d3.select( this ) );
+    .each( "end", function( d ){
+      var $selectable_div = $( "<div></div>", {
+        "event-id": d.id_1 + "," + d.id_2,
+        "class": "event-id-" + d.id_1 + " event-id-" + d.id_2,
+        "center-y": $( this ).attr( "center-y" ),
+        "center-x": $( this ).attr( "center-x" ),
+        "val-id": val_id
+      } ).css( {
+          top: ( MARGIN.graph.top + $( this ).attr( "y" ) * 1.0 ) + "px",
+          left: ( MARGIN.graph.left + $( this ).attr( "x" ) * 1.0 ) + "px",
+          height: $( this ).attr( "height" ) + "px",
+          width: $( this ).attr( "width" ) + "px"
+        } ).on( "mouseover", function(){
+          Ui.over_vis_val( $( this ) );
+        } ).on( "mouseout", function(){
+          Ui.out_vis_val( $( this ) );
+        } );
+
+      d3.select( this ).classed( "val-id-" + val_id, true );
+
+      val_id++;
+
+      $selectable_area.append( $selectable_div );
     } );
-
-  var $selectable_area = self.$view.find( ".selectable-area" );
-  $selectable_area.children().remove();
-
-  var val_id = 0;
-  this.d3_graph.selectAll( ".vis-val" ).each( function( d ){
-    var $selectable_div = $( "<div></div>", {
-      "event-id": d.id_1 + "," + d.id_2,
-      "class": "event-id-" + d.id_1 + " event-id-" + d.id_2,
-      "center-y": $( this ).attr( "center-y" ),
-      "center-x": $( this ).attr( "center-x" ),
-      "val-id": val_id
-    } ).css( {
-        top: ( MARGIN.graph.top + $( this ).attr( "y" ) * 1.0 ) + "px",
-        left: ( MARGIN.graph.left + $( this ).attr( "x" ) * 1.0 ) + "px",
-        height: $( this ).attr( "height" ) + "px",
-        width: $( this ).attr( "width" ) + "px"
-      } ).on( "mouseover", function(){
-        Ui.over_vis_val( $( this ) );
-      } ).on( "mouseout", function(){
-        Ui.out_vis_val( $( this ) );
-      } );
-
-    d3.select( this ).classed( "val-id-" + val_id, true );
-
-    val_id++;
-
-    $selectable_area.append( $selectable_div );
-  } );
 
   $selectable_area.selectable( {
     stop: function( event, ui ){
