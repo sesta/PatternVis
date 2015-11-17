@@ -92,9 +92,15 @@ pattern_vis.View.prototype.barDraw = function(){
       if( self.event_history[ d.id ] )
         self.event_history[ d.id ].to_d3_vis_val = d3.select( this );
       return "bar vis-val event-id-" + d.id;
-    } );
+    } ).attr( "fill", "white" );
 
-  this.d3_graph.selectAll( ".bar" )
+  var $selectable_area = self.$view.find( ".selectable-area" );
+  $selectable_area.children().remove();
+
+  var val_id = 0;
+
+  this.d3_graph.selectAll( ".bar" ).transition().duration( 500 )
+    .delay( function( d, i ){ return i * 10; } )
     .attr( "event-id", function( d ){ return d.id; } )
     .attr( "fill", function( d ){ return event_map.color[ d.id ]; } )
     .attr( "x", function( d ){ return x( d.id ); } )
@@ -103,28 +109,14 @@ pattern_vis.View.prototype.barDraw = function(){
     .attr( "height", function( d ){ return graph_height - y( d.value ); } )
     .attr( "center-x", function( d ){ return x( d.id ) + x.rangeBand() / 2.0; } )
     .attr( "center-y", function( d ){ return y( d.value ) + ( graph_height - y( d.value ) ) / 2.0; } )
-    .on( "click", function( d, i ){
-      Ui.click_vis_val( d3.select( this ), self );
-    } )
-    .on( "mouseover", function( d, i ){
-      Ui.over_vis_val( d3.select( this ) );
-    } )
-    .on( "mouseout", function( d, i ){
-      Ui.out_vis_val( d3.select( this ) );
-    } );
-
-  var $selectable_area = self.$view.find( ".selectable-area" );
-  $selectable_area.children().remove();
-
-  var val_id = 0;
-  this.d3_graph.selectAll( ".vis-val" ).each( function( d ){
-    var $selectable_div = $( "<div></div>", {
-      "event-id": d.id,
-      "class": "event-id-" + d.id,
-      "center-y": $( this ).attr( "center-y" ),
-      "center-x": $( this ).attr( "center-x" ),
-      "val-id": val_id
-    } ).css( {
+    .each( "end", function( d ){
+      var $selectable_div = $( "<div></div>", {
+        "event-id": d.id,
+        "class": "event-id-" + d.id,
+        "center-y": $( this ).attr( "center-y" ),
+        "center-x": $( this ).attr( "center-x" ),
+        "val-id": val_id
+      } ).css( {
         top: ( MARGIN.graph.top + $( this ).attr( "y" ) * 1.0 ) + "px",
         left: ( MARGIN.graph.left + $( this ).attr( "x" ) * 1.0 ) + "px",
         height: $( this ).attr( "height" ) + "px",
@@ -135,12 +127,12 @@ pattern_vis.View.prototype.barDraw = function(){
         Ui.out_vis_val( $( this ) );
       } );
 
-    d3.select( this ).classed( "val-id-" + val_id, true );
+      d3.select( this ).classed( "val-id-" + val_id, true );
 
-    val_id++;
+      val_id++;
 
-    $selectable_area.append( $selectable_div );
-  } );
+      $selectable_area.append( $selectable_div );
+    });
 
   $selectable_area.selectable( {
     selecting: function( event, ui ){

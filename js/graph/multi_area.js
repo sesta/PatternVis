@@ -18,15 +18,7 @@ pattern_vis.View.prototype.multi_areaCreate = function(){
     var d3_vis_val = self.d3_graph.append( "path" )
       .attr( "event-id", event_id )
       .attr( "class", "area vis-val event-id-" + event_id )
-      .on( "click", function( d, i ){
-        Ui.click_vis_val( d3.select( this ), self );
-      } )
-      .on( "mouseover", function( d, i ){
-        Ui.over_vis_val( d3.select( this ) );
-      } )
-      .on( "mouseout", function( d, i ){
-        Ui.out_vis_val( d3.select( this ) );
-      } );
+      .attr( "fill", "white" );
 
     if( self.event_history[ event_id ] )
       self.event_history[ event_id ].to_d3_vis_val = d3_vis_val;
@@ -76,6 +68,11 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
       return 1;
     } );
 
+  var $selectable_area = self.$view.find( ".selectable-area" );
+  $selectable_area.children().remove();
+
+  var val_id = 0;
+
   copy_event_ids.forEach( function( event_id ){
     var data = [];
     Feature.get( self.feature_id, event_id ).forEach( function( value, index ){
@@ -108,42 +105,38 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
 
     self.d3_graph.selectAll( ".area.event-id-" + event_id )
       .datum( data )
+      .transition().duration( 500 )
+      .delay( function( d, i ){ return i * 10; } )
       .attr( "transform", "translate(0," + base_height + ")" )
       .attr( "d", area )
       .attr( "fill", function( d ){ return event_map.color[ event_id ]; } )
       .attr( "center-x", function( d ){ return graph_width / 2.0; } )
-      .attr( "center-y", function( d ){ return base_height + one_graph_height / 2.0; } );
+      .attr( "center-y", function( d ){ return base_height + one_graph_height / 2.0; } )
+      .each( "end", function( d ){
+        var $selectable_div = $( "<div></div>", {
+          "event-id": d[0].event_id,
+          "class": "area event-id-" + d[0].event_id,
+          "center-y": $( this ).attr( "center-y" ),
+          "center-x": $( this ).attr( "center-x" ),
+          "val-id": val_id
+        } ).css( {
+            top: ( MARGIN.graph.top + $( this ).attr( "center-y" ) * 1.0 ) + "px",
+            left:  MARGIN.graph.left + "px",
+            height: ( one_graph_height / 3 ) + "px",
+            width: graph_width + "px"
+          } ).on( "mouseover", function(){
+            Ui.over_vis_val( $( this ) );
+          } ).on( "mouseout", function(){
+            Ui.out_vis_val( $( this ) );
+          } );
+        d3.select( this ).classed( "val-id-" + val_id, true );
 
-    base_height += one_graph_height;
-  } );
+        val_id++;
 
-  var $selectable_area = self.$view.find( ".selectable-area" );
-  $selectable_area.children().remove();
-
-  var val_id = 0;
-  this.d3_graph.selectAll( ".vis-val" ).each( function( d ){
-    var $selectable_div = $( "<div></div>", {
-      "event-id": d[0].event_id,
-      "class": "area event-id-" + d[0].event_id,
-      "center-y": $( this ).attr( "center-y" ),
-      "center-x": $( this ).attr( "center-x" ),
-      "val-id": val_id
-    } ).css( {
-        top: ( MARGIN.graph.top + $( this ).attr( "center-y" ) * 1.0 ) + "px",
-        left:  MARGIN.graph.left + "px",
-        height: ( one_graph_height / 3 ) + "px",
-        width: graph_width + "px"
-      } ).on( "mouseover", function(){
-        Ui.over_vis_val( $( this ) );
-      } ).on( "mouseout", function(){
-        Ui.out_vis_val( $( this ) );
+        $selectable_area.append( $selectable_div );
       } );
 
-    d3.select( this ).classed( "val-id-" + val_id, true );
-
-    val_id++;
-
-    $selectable_area.append( $selectable_div );
+    base_height += one_graph_height;
   } );
 
   $selectable_area.selectable( {
