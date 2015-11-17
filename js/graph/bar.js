@@ -117,15 +117,15 @@ pattern_vis.View.prototype.barDraw = function(){
         "center-x": $( this ).attr( "center-x" ),
         "val-id": val_id
       } ).css( {
-          top: ( MARGIN.graph.top + $( this ).attr( "y" ) * 1.0 ) + "px",
-          left: ( MARGIN.graph.left + $( this ).attr( "x" ) * 1.0 ) + "px",
-          height: $( this ).attr( "height" ) + "px",
-          width: $( this ).attr( "width" ) + "px"
-        } ).on( "mouseover", function(){
-          Ui.over_vis_val( $( this ) );
-        } ).on( "mouseout", function(){
-          Ui.out_vis_val( $( this ) );
-        } );
+        top: ( MARGIN.graph.top + $( this ).attr( "y" ) * 1.0 ) + "px",
+        left: ( MARGIN.graph.left + $( this ).attr( "x" ) * 1.0 ) + "px",
+        height: $( this ).attr( "height" ) + "px",
+        width: $( this ).attr( "width" ) + "px"
+      } ).on( "mouseover", function(){
+        Ui.over_vis_val( $( this ) );
+      } ).on( "mouseout", function(){
+        Ui.out_vis_val( $( this ) );
+      } );
 
       d3.select( this ).classed( "val-id-" + val_id, true );
 
