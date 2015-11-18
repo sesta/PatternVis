@@ -45,6 +45,7 @@ pattern_vis.View = ( function(){
     this.$view.find( ".remove-button" ).on( "click", function(){
       self.$view.remove();
       views.splice( views.indexOf( self ), 1 );
+
       views.forEach( function( view ){
         var ids = [];
         for( history in view.event_history ){
@@ -56,6 +57,8 @@ pattern_vis.View = ( function(){
           delete view.event_history[ id ];
         } );
       } );
+
+      pattern_vis.layout();
       Ui.cancel_all();
     } );
 
