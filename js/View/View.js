@@ -31,7 +31,7 @@ pattern_vis.View = ( function(){
     if( this.event_ids.length == 0 ){
       this.event_ids = event_map.id_list
     }else{
-      overview.setHistory( views.length, this.event_ids );
+      overview.setHistory( this.id, this.event_ids );
       overview.draw();
     }
 
@@ -48,10 +48,12 @@ pattern_vis.View = ( function(){
 
       views.forEach( function( view ){
         var ids = [];
-        for( history in view.event_history ){
-          if( view.event_history[ history ].from_view == self )
-            ids.push( history );
-        }
+
+        if( view == "break_line" )
+          for( history in view.event_history ){
+            if( view.event_history[ history ].from_view == self )
+              ids.push( history );
+          }
 
         ids.forEach( function( id ){
           delete view.event_history[ id ];
