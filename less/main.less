@@ -101,6 +101,31 @@ svg{
   }
 }
 
+#layoutview-area{
+  position: absolute;
+  top: 64px;
+  left: 0;
+  z-index: 2;
+  width: 240px;
+  overflow: scroll;
+  border-right: 2px solid gray;
+  background-color: white;
+  font-size: 0.8rem;
+
+  #layoutview{
+    width: 100%;
+
+    line{
+      stroke: gray;
+      stroke-width: 3px;
+    }
+
+    circle{
+      fill: gray;
+    }
+  }
+}
+
 #overview-area{
   position: absolute;
   bottom: 0;

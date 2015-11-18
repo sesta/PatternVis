@@ -8,6 +8,9 @@ var pattern_vis = {
     d3.select( "#effect-area" )
       .attr( "width", this.area_width )
       .attr( "height", this.area_height );
+
+    $( "#layoutview-area" )
+      .css( "height", $( "body" ).height() - 64 )
   }
 };
 
@@ -37,7 +40,7 @@ var MARGIN = {
   view: {
     top: 30,
     bottom: 30,
-    left: 30,
+    left: 270,
     right: 30,
     space: 20,
     label: 40
