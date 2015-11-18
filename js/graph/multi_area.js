@@ -73,7 +73,7 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
 
   var val_id = 0;
 
-  copy_event_ids.forEach( function( event_id ){
+  copy_event_ids.forEach( function( event_id, event_id_index ){
     var data = [];
     Feature.get( self.feature_id, event_id ).forEach( function( value, index ){
       data.push( {
@@ -106,7 +106,7 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
     self.d3_graph.selectAll( ".area.event-id-" + event_id )
       .datum( data )
       .transition().duration( 500 )
-      .delay( function( d, i ){ return i * 10; } )
+      .delay( function(){ return event_id_index * 10; } )
       .attr( "transform", "translate(0," + base_height + ")" )
       .attr( "d", area )
       .attr( "fill", function( d ){ return event_map.color[ event_id ]; } )

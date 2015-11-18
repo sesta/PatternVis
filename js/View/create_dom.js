@@ -79,7 +79,9 @@ pattern_vis.View.prototype.create_dom = function(){
       self[ self.graph_type + "Draw" ]();
 
       if( Ui.history_clicked_view )
-        Ui.history_clicked_view.showHistory();
+        setTimeout( function(){
+          Ui.history_clicked_view.showHistory();
+        }, self.event_ids.length * 10 + 500 );
     }
   } );
 };
