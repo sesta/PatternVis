@@ -37,7 +37,7 @@ var MARGIN = {
   view: {
     top: 30,
     bottom: 30,
-    left: 30,
+    left: 270,
     right: 30,
     space: 20,
     label: 40

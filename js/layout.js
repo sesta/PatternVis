@@ -19,8 +19,8 @@ pattern_vis.layout = function(){
     view.svg_height = ( max_height - MARGIN.view.space - MARGIN.view.bottom - MARGIN.view.label ) * size_late;
     view.svg_width = view.svg_height / view.size_aspect;
 
-    if( ( view.pos_x + view.svg_width + MARGIN.view.right) > pattern_vis.area_width ){
-      size_late *= pattern_vis.area_width / ( view.pos_x + view.svg_width + MARGIN.view.right + MARGIN.view.space * index );
+    if( ( view.pos_x + view.svg_width + MARGIN.view.right ) > pattern_vis.area_width ){
+      size_late *= ( pattern_vis.area_width - MARGIN.view.left - MARGIN.view.right - MARGIN.view.space * ( index - base_index ) ) / ( view.pos_x + view.svg_width - MARGIN.view.left - MARGIN.view.space * ( index - base_index ) );
 
       for( var i = base_index ; i <= index ; i++ ){
         var view = views[ i ];
