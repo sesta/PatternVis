@@ -92,8 +92,10 @@ pattern_vis.View.prototype.uniq_matrixDraw = function(){
     .data( data )
     .enter().append( "rect" )
     .attr( "class", function( d ){
-      if( self.event_history[ d.id_1 ] && ( d.id_1 == d.id_2 ) )
+      if( self.event_history[ d.id_1 ] )
         self.event_history[ d.id_1 ].to_d3_vis_val = d3.select( this );
+      if( self.event_history[ d.id_2 ] )
+        self.event_history[ d.id_2 ].to_d3_vis_val = d3.select( this );
       return "matrix vis-val event-id-" + d.id_1 + " event-id-" + d.id_2;
     } ).attr( "fill", "white" );
 
