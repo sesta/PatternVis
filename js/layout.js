@@ -20,6 +20,12 @@ pattern_vis.layout = function(){
       continue;
     }
 
+    if( prev_view && prev_view.svg_height < min_height ){
+      base_pos_y += prev_view.getHeight() + MARGIN.view.space;
+      base_index = index;
+      size_late = 1;
+    }
+
     view.pos_x = MARGIN.view.left;
     view.pos_y = base_pos_y;
 
@@ -47,26 +53,44 @@ pattern_vis.layout = function(){
         view.svg_width = view.svg_height / view.size_aspect;
 
       }
-
-      if( view.svg_height < min_height ){
-        base_pos_y += view.getHeight() + MARGIN.view.space;
-        base_index = index + 1;
-        size_late = 1;
-      }
     }
 
     prev_view = view;
   }
 
   d3.selectAll( "#layoutview-area .small-view" ).remove();
+  d3.selectAll( ".divide-line" ).remove();
   var small_late = 240.0 / ( pattern_vis.area_width - MARGIN.view.left + MARGIN.view.top );
   var small_view_margin = 7;
 
   for( var index = 0 ; index < views.length ; index++ ){
     var view = views[ index ];
+    var prev_view = views[ index - 1 ];
 
-    if( view == "break_line" && prev_view )
+    if( prev_view == "break_line" ) prev_view = null;
+
+    if( view == "break_line" ){
+      if( prev_view ){
+        d3.select( "#effect-area" )
+          .append( "line" )
+          .classed( "divide-line", true )
+          .attr( "x1", MARGIN.view.left + MARGIN.view.space * 4 )
+          .attr( "y1", prev_view.pos_y + prev_view.getHeight() + MARGIN.view.space * 4 )
+          .attr( "x2", pattern_vis.area_width - MARGIN.view.right - MARGIN.view.space * 4 )
+          .attr( "y2", prev_view.pos_y + prev_view.getHeight() + MARGIN.view.space * 4 );
+
+        d3.select( "#layoutview" )
+          .append( "line" )
+          .classed( "divide-line", true )
+          .attr( "stroke", "black" )
+          .attr( "x1", ( MARGIN.view.top + MARGIN.view.space * 4 ) * small_late )
+          .attr( "y1", ( prev_view.pos_y + prev_view.getHeight() + MARGIN.view.space * 4 ) * small_late )
+          .attr( "x2", ( pattern_vis.area_width - MARGIN.view.left - MARGIN.view.right - MARGIN.view.space * 4 ) * small_late )
+          .attr( "y2", ( prev_view.pos_y + prev_view.getHeight() + MARGIN.view.space * 4 ) * small_late );
+      }
+
       continue;
+    }
 
     if( view.$view.css( "top" ) == "auto" )
       view.$view.css( "top", base_pos_y + max_height + "px" );
