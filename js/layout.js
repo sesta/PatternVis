@@ -7,10 +7,21 @@ pattern_vis.layout = function(){
   var size_late = 1;
   var max_height = 600;
 
-  views.forEach( function( view, index ){
+  for( var index = 0 ; index < views.length ; index++ ){
+    var view = views[ index ];
+    var prev_view = views[ index - 1 ];
+
+    if( view == "break_line" && prev_view ){
+      base_pos_y += prev_view.getHeight() + MARGIN.view.space * 8;
+      base_index = index + 1;
+      size_late = 1;
+      prev_view = null;
+
+      continue;
+    }
+
     view.pos_x = MARGIN.view.left;
     view.pos_y = base_pos_y;
-    var prev_view = views[ index - 1 ];
 
     if( prev_view && ( index != base_index )){
       view.pos_x = prev_view.pos_x + prev_view.getWidth() + MARGIN.view.space;
@@ -43,13 +54,20 @@ pattern_vis.layout = function(){
         size_late = 1;
       }
     }
-  } );
+
+    prev_view = view;
+  }
 
   d3.selectAll( "#layoutview-area .small-view" ).remove();
   var small_late = 240.0 / ( pattern_vis.area_width - MARGIN.view.left + MARGIN.view.top );
   var small_view_margin = 7;
 
-  views.forEach( function( view, index ){
+  for( var index = 0 ; index < views.length ; index++ ){
+    var view = views[ index ];
+
+    if( view == "break_line" && prev_view )
+      continue;
+
     if( view.$view.css( "top" ) == "auto" )
       view.$view.css( "top", base_pos_y + max_height + "px" );
 
@@ -129,7 +147,7 @@ pattern_vis.layout = function(){
         .attr( "x2", to_x )
         .attr( "y2", to_y );
     }
-  } );
+  }
 
   pattern_vis.updateAreaSize();
 };
