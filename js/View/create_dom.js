@@ -55,6 +55,7 @@ pattern_vis.View.prototype.create_dom = function(){
   $view.draggable( {
     handle: ".mdl-card__actions",
     start: function( event, ui ){
+      $( "#view-area" ).append( self.$view );
       $( ".history-line" ).remove();
     },
     stop: function( event, ui ){
@@ -68,6 +69,7 @@ pattern_vis.View.prototype.create_dom = function(){
 
   $view.resizable( {
     start: function( event, ui ){
+      $( "#view-area" ).append( self.$view );
       $( ".history-line" ).remove();
     },
     stop: function( event, ui ){
