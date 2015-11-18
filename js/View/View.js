@@ -45,6 +45,20 @@ pattern_vis.View = ( function(){
     this.$view.find( ".remove-button" ).on( "click", function(){
       self.$view.remove();
       views.splice( views.indexOf( self ), 1 );
+
+      views.forEach( function( view ){
+        var ids = [];
+        for( history in view.event_history ){
+          if( view.event_history[ history ].from_view == self )
+            ids.push( history );
+        }
+
+        ids.forEach( function( id ){
+          delete view.event_history[ id ];
+        } );
+      } );
+
+      pattern_vis.layout();
       Ui.cancel_all();
     } );
 

@@ -87,9 +87,9 @@ pattern_vis.layout = function(){
       } ).text( view.id + ". " +  view.feature_name )
       .data( "scroll-y", view.pos_y - MARGIN.view.top )
       .on( "click", function(){
-        $( ".mdl-layout__content" ).scrollTop(
-          $( this ).data( "scroll-y" )
-        );
+        $( ".mdl-layout__content" ).animate( {
+          scrollTop: $( this ).data( "scroll-y" )
+        } );
       } ) );
 
     for( history in view.event_history ){
