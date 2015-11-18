@@ -2,6 +2,13 @@ $( function(){
   d3.select( ".page-content" )
     .append( "svg" )
     .attr( "id", "effect-area" );
+
+  d3.select( "body" )
+    .append( "div" )
+    .attr( "id", "layoutview-area" )
+    .append( "svg" )
+    .attr( "id", "layoutview" );
+
   d3.select( "body" )
     .append( "svg" )
     .attr( "id", "overview-area" )

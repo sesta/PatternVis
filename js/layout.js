@@ -45,6 +45,9 @@ pattern_vis.layout = function(){
     }
   } );
 
+  d3.selectAll( "#layoutview-area .small-view" ).remove();
+  var small_late = 240.0 / ( pattern_vis.area_width - MARGIN.view.left + MARGIN.view.top );
+
   views.forEach( function( view, index ){
     view.$view.css( "top", view.pos_y + "px" );
     view.$view.css( "left", view.pos_x + "px" );
@@ -56,6 +59,17 @@ pattern_vis.layout = function(){
 
     $( "#padding-area" ).css( "top", view.pos_y + view.getHeight() + "px" );
     $( "#view-area" ).css( "height", view.pos_y + view.getHeight() + "px" );
+
+    d3.select( "#layoutview" )
+      .attr( "height", ( view.pos_y + view.getHeight() ) * small_late + 220 )
+      .append( "rect" )
+      .style( "fill", "gray" )
+      .style( "opacity", "0.6" )
+      .classed( "small-view", true )
+      .attr( "x", ( view.pos_x - MARGIN.view.left + MARGIN.view.top ) * small_late + 5 )
+      .attr( "y", view.pos_y * small_late + 5 )
+      .attr( "width", view.getWidth() * small_late - 10 )
+      .attr( "height", view.getHeight() * small_late - 10 );
   } );
 
   pattern_vis.updateAreaSize();
