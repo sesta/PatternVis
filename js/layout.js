@@ -63,13 +63,27 @@ pattern_vis.layout = function(){
     d3.select( "#layoutview" )
       .attr( "height", ( view.pos_y + view.getHeight() ) * small_late + 220 )
       .append( "rect" )
-      .style( "fill", "gray" )
-      .style( "opacity", "0.6" )
       .classed( "small-view", true )
+      .style( "fill", "none" )
+      .style( "stroke", "gray" )
+      .style( "stroke-width", "3px" )
+      .style( "opacity", "0.6" )
       .attr( "x", ( view.pos_x - MARGIN.view.left + MARGIN.view.top ) * small_late + 5 )
       .attr( "y", view.pos_y * small_late + 5 )
       .attr( "width", view.getWidth() * small_late - 10 )
       .attr( "height", view.getHeight() * small_late - 10 );
+
+    $( "#layoutview-area" )
+      .append( $( "<div></div>", {
+        "class": "small-view"
+      } ).css( {
+        "position": "absolute",
+        "padding": "10px",
+        "left": ( view.pos_x - MARGIN.view.left + MARGIN.view.top ) * small_late + 5,
+        "top": view.pos_y * small_late + 5,
+        "width": view.getWidth() * small_late - 30,
+        "height": view.getHeight() * small_late - 30
+      } ).text( view.feature_name ) );
   } );
 
   pattern_vis.updateAreaSize();
