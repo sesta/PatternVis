@@ -50,10 +50,16 @@ pattern_vis.layout = function(){
   var small_view_margin = 7;
 
   views.forEach( function( view, index ){
-    view.$view.css( "top", view.pos_y + "px" );
-    view.$view.css( "left", view.pos_x + "px" );
-    view.$view.css( "width", view.getWidth() + "px" );
-    view.$view.css( "height", view.getHeight() + "px" );
+    if( view.$view.css( "top" ) == "auto" )
+      view.$view.css( "top", base_pos_y + max_height + "px" );
+
+    view.$view.animate( {
+      "top": view.pos_y + "px",
+      "left": view.pos_x + "px",
+      "width": view.getWidth() + "px",
+      "height": view.getHeight() + "px"
+    } );
+
     view.updateSvgSize();
 
     view[ view.graph_type + "Draw" ]();
