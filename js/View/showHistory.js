@@ -4,8 +4,6 @@ pattern_vis.View.prototype.showHistory = function(){
   for( event_id in this.event_history ){
     var from_view = this.event_history[ event_id ].from_view;
 
-    if( !from_view ) continue;
-
     var from_d3_vis_val = this.event_history[ event_id ].from_d3_vis_val;
     var from_pos_x = from_view.pos_x * 1.0
                     + MARGIN.graph.left
