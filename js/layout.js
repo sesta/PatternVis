@@ -83,7 +83,13 @@ pattern_vis.layout = function(){
         "top": view.pos_y * small_late + 5,
         "width": view.getWidth() * small_late - 30,
         "height": view.getHeight() * small_late - 30
-      } ).text( view.feature_name ) );
+      } ).text( view.id + ". " +  view.feature_name )
+      .data( "scroll-y", view.pos_y - MARGIN.view.top )
+      .on( "click", function(){
+        $( ".mdl-layout__content" ).scrollTop(
+          $( this ).data( "scroll-y" )
+        );
+      } ) );
   } );
 
   pattern_vis.updateAreaSize();
