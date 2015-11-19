@@ -11,12 +11,17 @@ pattern_vis.layout = function(){
     var view = views[ index ];
     var prev_view = views[ index - 1 ];
 
-    if( view == "break_line" && prev_view ){
-      base_pos_y += prev_view.getHeight() + MARGIN.view.space * 8;
-      base_index = index + 1;
-      size_late = 1;
+    if( prev_view == "break_line" )
       prev_view = null;
 
+    if( view == "break_line" ){
+      if( prev_view ){
+        base_pos_y += prev_view.getHeight() + MARGIN.view.space * 8;
+        size_late = 1;
+        prev_view = null;
+      }
+
+      base_index = index + 1;
       continue;
     }
 
@@ -37,7 +42,8 @@ pattern_vis.layout = function(){
     view.svg_width = view.svg_height / view.size_aspect;
 
     if( ( view.pos_x + view.svg_width + MARGIN.view.right ) > pattern_vis.area_width ){
-      size_late *= ( pattern_vis.area_width - MARGIN.view.left - MARGIN.view.right - MARGIN.view.space * ( index - base_index ) ) / ( view.pos_x + view.svg_width - MARGIN.view.left - MARGIN.view.space * ( index - base_index ) );
+      size_late *= ( pattern_vis.area_width - MARGIN.view.left - MARGIN.view.right - MARGIN.view.space * ( index - base_index ) )
+                   / ( view.pos_x + view.svg_width - MARGIN.view.left - MARGIN.view.space * ( index - base_index ) );
 
       for( var i = base_index ; i <= index ; i++ ){
         var view = views[ i ];
