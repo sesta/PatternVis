@@ -143,6 +143,8 @@ pattern_vis.layout = function(){
     for( history in view.event_history ){
       var from_view = view.event_history[ history ].from_view;
 
+      if( !from_view ) continue;
+
       var from_x = ( from_view.pos_x - MARGIN.view.left + MARGIN.view.top + from_view.getWidth() ) * small_late - small_view_margin;
       var from_y = ( from_view.pos_y + from_view.getHeight() ) * small_late - small_view_margin;
 
