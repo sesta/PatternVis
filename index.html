@@ -59,10 +59,19 @@
 
       <nav class="mdl-navigation">
         <span class="mdl-navigation__link avoid-hover-css">
-          開始時刻 : <span>2014年</span>
+          開始時刻 : <span class="start-time-span">2014年</span>
         </span>
-        <input class="mdl-slider mdl-js-slider" type="range"
+        <input class="mdl-slider mdl-js-slider start-time-slider"
+              type="range"
                min="0" max="100" value="0" tabindex="0"/>
+
+        <span class="mdl-navigation__link avoid-hover-css">
+          開始時刻 : <span class="end-time-span">2014年</span>
+        </span>
+        <input class="mdl-slider mdl-js-slider end-time-slider"
+              type="range"
+               min="0" max="100" value="0" tabindex="0"/>
+
         <span class="mdl-navigation__link avoid-hover-css">
           <div style="float:left; line-height:24px;">Linking Line</div>
           <div style="float:right;">
@@ -109,6 +118,7 @@
   <script type="text/javascript" src="js/Ui/select_type.js"></script>
   <script type="text/javascript" src="js/Ui/cancel_all.js"></script>
   <script type="text/javascript" src="js/Ui/action_event.js"></script>
+  <script type="text/javascript" src="js/Ui/change_time.js"></script>
 
   <script type="text/javascript" src="js/layout.js"></script>
   <script type="text/javascript" src="js/update_window_size.js"></script>

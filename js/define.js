@@ -14,7 +14,12 @@ var pattern_vis = {
   }
 };
 
-var data = {};
+var data = {
+  time: {
+    start: new Date(),
+    end: new Date(0)
+  }
+};
 
 var event_map = {
   colors: d3.scale.category10(),
@@ -30,7 +35,7 @@ var setting = {
   time: {
     step: 1000 * 60 * 60 * 24,
     start: new Date(),
-    end: new Date(0)
+    end: new Date(0),
   },
   sampling_num: 200,
   sampling_interval: 1000 * 60 * 60 * 6
