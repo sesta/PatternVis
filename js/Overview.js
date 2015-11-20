@@ -10,6 +10,7 @@ pattern_vis.Overview = function(){
   d3_graph.append( "g" )
     .attr( "class", "y axis" );
 
+  var row_records_history = [];
   var records_history = [];
   var history_ids = [];
 
@@ -39,6 +40,31 @@ pattern_vis.Overview = function(){
 
     var last_date = new Date( 0 );
     records.forEach( function( record ){
+      row_records_history.push( record );
+
+      if( ( setting.time.start <= record.value )
+            && ( record.value <= setting.time.end ) ){
+        if( Math.abs( record.value - last_date ) > ( setting.time.end - setting.time.start ) / 300 ){
+          records_history.push( record );
+          last_date = record.value;
+        }else{
+          records_history[ records_history.length - 1 ].event_ids.push( record.event_ids[ 0 ] );
+          records_history[ records_history.length - 1 ].count ++;
+        }
+      }
+    } );
+  };
+
+  this.filterRecordsByTime = function(){
+    var records = row_records_history.filter( function( record ){
+      return ( setting.time.start <= record.value )
+            && ( record.value <= setting.time.end );
+    } );
+
+    records_history = [];
+
+    var last_date = new Date( 0 );
+    records.forEach( function( record ){
       if( Math.abs( record.value - last_date ) > ( setting.time.end - setting.time.start ) / 300 ){
         records_history.push( record );
         last_date = record.value;
@@ -47,6 +73,8 @@ pattern_vis.Overview = function(){
         records_history[ records_history.length - 1 ].count ++;
       }
     } );
+
+    this.draw();
   };
 
   this.draw = function(){

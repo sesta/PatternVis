@@ -3,7 +3,8 @@ Feature.compute_event_counts = function( event_id ){
   for( var i = 0 ; i < 24 ; i++ )
     counts.push( 0 );
 
-  data[ event_id ].times.forEach( function( time ){
+  data[ event_id ].times.filter( utility.inSettingTime )
+  .forEach( function( time ){
     counts[  time.date.getHours() ]++;
   } );
 

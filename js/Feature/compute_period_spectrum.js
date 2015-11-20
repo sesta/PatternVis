@@ -6,7 +6,8 @@ Feature.compute_period_spectrum = function( event_id ){
     ft.push( 0 );
   }
 
-  data[ event_id ].times.forEach( function( time ){
+  data[ event_id ].times.filter( utility.inSettingTime )
+  .forEach( function( time ){
     ft[ parseInt( ( time.date - setting.time.start ) / setting.sampling_interval, 10 ) ]++;
   } );
 

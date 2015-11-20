@@ -46,8 +46,29 @@ pattern_vis.input_data = (function(){
         }
       } );
 
-      data[ data_path ] = row_data;
+      data.paths[ data_path ] = row_data;
       data.times = row_times;
+
+      setting.time.start = data.time.start;
+      setting.time.end = data.time.end;
+
+      $( ".start-time-span" )
+        .text( d3.time.format( "%Y/%m/%d" )( setting.time.start ) );
+      $( ".end-time-span" )
+        .text( d3.time.format( "%Y/%m/%d" )( setting.time.end ) );
+
+      $( ".start-time-slider" )
+        .attr( {
+          "min": setting.time.start.getTime(),
+          "max": setting.time.end.getTime(),
+          "value": setting.time.start.getTime()
+        } );
+      $( ".end-time-slider" )
+        .attr( {
+          "min": setting.time.start.getTime(),
+          "max": setting.time.end.getTime(),
+          "value": setting.time.end.getTime()
+        } );
 
       overview.setHistory( "origin", [] );
       overview.draw();
@@ -76,11 +97,11 @@ pattern_vis.input_data = (function(){
       }
     });
 
-    if( date > setting.time.end )
-      setting.time.end = date;
+    if( date > data.time.end )
+      data.time.end = date;
 
     if( date < setting.time.start )
-      setting.time.start = date;
+      data.time.start = date;
 
     return {
       ms: date.getTime(),

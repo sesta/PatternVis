@@ -8,3 +8,8 @@ utility.formatSecondsToDate = function( seconds ){
   var date = new Date( seconds );
   return date.getMonth() + "/" + date.getDate();
 };
+
+utility.inSettingTime = function( time ){
+  return ( setting.time.start <= time.date )
+          && ( time.date <= setting.time.end );
+};
