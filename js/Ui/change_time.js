@@ -20,6 +20,8 @@ $( function(){
     }
 
     overview.filterRecordsByTime();
+    updateDataByTime();
+    pattern_vis.layout();
   } );
 
   $( ".end-time-slider" ).on( "change", function(){
@@ -33,5 +35,27 @@ $( function(){
     }
 
     overview.filterRecordsByTime();
+    updateDataByTime();
+    pattern_vis.layout();
   } );
+
+  var updateDataByTime = function(){
+    /*
+    for( id in event_map.id ){
+      data[ id ].times = [];
+    }
+
+    for( path in data.paths ){
+      data.paths[ path ].forEach( function( record ){
+        for( var i = 0 ; i < ( record.length - 1 ) ; i++ ){
+          data[ event_map.name[ event_name ] ].times.push( time );
+      } );
+    }
+
+    */
+
+    for( type in Feature ){
+      Feature[ type ].values = {};
+    }
+  };
 } );

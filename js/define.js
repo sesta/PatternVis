@@ -18,7 +18,8 @@ var data = {
   time: {
     start: new Date(),
     end: new Date(0)
-  }
+  },
+  paths: {}
 };
 
 var event_map = {
@@ -65,52 +66,62 @@ var Feature = {
   event_count: {
     name_ja: "発生頻度",
     size_aspect: 1.5,
-    graph_type: "bar"
+    graph_type: "bar",
+    values: {}
   },
   event_counts: {
     name_ja: "発生分布",
     size_aspect: 1.0,
-    graph_type: "multi_area"
+    graph_type: "multi_area",
+    values: {}
   },
   event_count_max_time: {
     name_ja: "最頻時間帯",
     size_aspect: 1.0,
-    graph_type: "scatter"
+    graph_type: "scatter",
+    values: {}
   },
   average_time: {
     name_ja: "発生しやすい時刻",
     size_aspect: 1.0,
-    graph_type: "scatter"
+    graph_type: "scatter",
+    values: {}
   },
   sd_time: {
     name_ja: "発生時刻のばらつき",
     size_aspect: 1.0,
-    graph_type: "bar"
+    graph_type: "bar",
+    values: {}
   },
   period_spectrum: {
     name_ja: "周期性の強さ",
     size_aspect: 1.0,
-    graph_type: "multi_bar"
+    graph_type: "multi_bar",
+    values: {}
   },
   average_time_difference: {
     name_ja: "発生しやすい時刻の近さ",
     size_aspect: 1.0,
-    graph_type: "matrix"
+    graph_type: "matrix",
+    values: {}
   },
   similar: {
     name_ja: "発生時間帯の類似性",
     size_aspect: 1.0,
-    graph_type: "matrix"
+    graph_type: "matrix",
+    values: {}
   },
   crowd_time: {
     name_ja: "特に多く発生している時間帯",
     size_aspect: 1.0,
-    graph_type: "scatter"
+    graph_type: "scatter",
+    values: {}
   },
   with_happen_count: {
     name_ja: "同時に発生した回数",
     size_aspect: 1.0,
-    graph_type: "uniq_matrix"
+    graph_type: "uniq_matrix",
+    values: {}
   }
 };
 
