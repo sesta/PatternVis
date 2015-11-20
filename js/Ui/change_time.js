@@ -9,6 +9,8 @@ $( function(){
 
     $( ".start-time-span" )
       .text( d3.time.format( "%Y/%m/%d" )( setting.time.start ) );
+
+    overview.filterRecordsByTime();
   } );
 
   $( ".end-time-slider" ).on( "change", function(){
@@ -21,5 +23,7 @@ $( function(){
 
     $( ".end-time-span" )
       .text( d3.time.format( "%Y/%m/%d" )( setting.time.end ) );
+
+    overview.filterRecordsByTime();
   } );
 } );
