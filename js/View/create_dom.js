@@ -62,6 +62,8 @@ pattern_vis.View.prototype.create_dom = function(){
       self.pos_x = ui.position.left;
       self.pos_y = ui.position.top;
 
+      pattern_vis.layoutSmallView();
+
       if( Ui.history_clicked_view )
         Ui.history_clicked_view.showHistory();
     }
@@ -77,6 +79,8 @@ pattern_vis.View.prototype.create_dom = function(){
       self.svg_width = $( this ).width();
       self.updateSvgSize();
       self[ self.graph_type + "Draw" ]();
+
+      pattern_vis.layoutSmallView();
 
       if( Ui.history_clicked_view )
         setTimeout( function(){

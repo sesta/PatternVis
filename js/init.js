@@ -5,9 +5,9 @@ $( function(){
 
   d3.select( "body" )
     .append( "div" )
-    .attr( "id", "layoutview-area" )
+    .attr( "id", "smallview-area" )
     .append( "svg" )
-    .attr( "id", "layoutview" );
+    .attr( "id", "smallview" );
 
   d3.select( "body" )
     .append( "svg" )
