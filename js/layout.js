@@ -64,9 +64,7 @@ pattern_vis.layout = function(){
     prev_view = view;
   }
 
-  d3.selectAll( "#layoutview-area .small-view" ).remove();
   d3.selectAll( ".divide-line" ).remove();
-  var small_late = 240.0 / ( pattern_vis.area_width - MARGIN.view.left + MARGIN.view.top );
 
   for( var index = 0 ; index < views.length ; index++ ){
     var view = views[ index ];
@@ -83,15 +81,6 @@ pattern_vis.layout = function(){
           .attr( "y1", prev_view.pos_y + prev_view.getHeight() + MARGIN.view.space * 4 )
           .attr( "x2", pattern_vis.area_width - MARGIN.view.right - MARGIN.view.space * 4 )
           .attr( "y2", prev_view.pos_y + prev_view.getHeight() + MARGIN.view.space * 4 );
-
-        d3.select( "#layoutview" )
-          .append( "line" )
-          .classed( "divide-line", true )
-          .attr( "stroke", "black" )
-          .attr( "x1", ( MARGIN.view.top + MARGIN.view.space * 4 ) * small_late )
-          .attr( "y1", ( prev_view.pos_y + prev_view.getHeight() + MARGIN.view.space * 4 ) * small_late )
-          .attr( "x2", ( pattern_vis.area_width - MARGIN.view.left - MARGIN.view.right - MARGIN.view.space * 4 ) * small_late )
-          .attr( "y2", ( prev_view.pos_y + prev_view.getHeight() + MARGIN.view.space * 4 ) * small_late );
       }
 
       continue;
@@ -113,9 +102,9 @@ pattern_vis.layout = function(){
 
     $( "#padding-area" ).css( "top", view.pos_y + view.getHeight() + "px" );
     $( "#view-area" ).css( "height", view.pos_y + view.getHeight() + "px" );
-
-    pattern_vis.layoutSmallView( view );
   }
+
+  pattern_vis.layoutSmallView();
 
   pattern_vis.updateAreaSize();
 };
