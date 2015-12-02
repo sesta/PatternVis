@@ -80,6 +80,8 @@ pattern_vis.View.prototype.create_dom = function(){
       self.updateSvgSize();
       self[ self.graph_type + "Draw" ]();
 
+      pattern_vis.layoutSmallView();
+
       if( Ui.history_clicked_view )
         setTimeout( function(){
           Ui.history_clicked_view.showHistory();

@@ -9,7 +9,7 @@ var pattern_vis = {
       .attr( "width", this.area_width )
       .attr( "height", this.area_height );
 
-    $( "#layoutview-area" )
+    $( "#smallview-area" )
       .css( "height", $( "body" ).height() - 64 )
   }
 };
