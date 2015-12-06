@@ -61,7 +61,9 @@ var MARGIN = {
 };
 
 var views = [];
-var views_map = {};
+var views_map = {
+  origin: { feature_name: "origin" }
+};
 
 var Feature = {
   event_count: {

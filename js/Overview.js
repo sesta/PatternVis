@@ -155,6 +155,8 @@ pattern_vis.Overview = function(){
        "class": event_id_class_string,
        "center-y": $( this ).attr( "y" ) * 1.0 + $( this ).attr( "height" ) / 2,
        "center-x": $( this ).attr( "x" ) * 1.0 + $( this ).attr( "width" ) / 2,
+       "feature-name": views_map[ d.id ].feature_name,
+       "value": d.count
        } ).css( {
          top: ( MARGIN.graph.top + $( this ).attr( "y" ) * 1.0 - 2 ) + "px",
          left: ( MARGIN.graph.left + $( this ).attr( "x" ) * 1.0 ) + "px",
@@ -164,6 +166,9 @@ pattern_vis.Overview = function(){
          Ui.over_vis_val( $( this ) );
        } ).on( "mouseout", function(){
          Ui.out_vis_val( $( this ) );
+         Ui.hiddenDetail();
+       } ).on( "mousemove", function( event ){
+         Ui.showDetail( $( this ), event );
        } );
 
      $selectable_area.append( $selectable_div );

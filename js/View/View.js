@@ -32,7 +32,6 @@ pattern_vis.View = ( function(){
       this.event_ids = event_map.id_list
     }else{
       overview.setHistory( this.id, this.event_ids );
-      overview.draw();
     }
 
     this.create_dom();
