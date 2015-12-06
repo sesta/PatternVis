@@ -39,6 +39,11 @@ pattern_vis.layoutSmallView = function(){
       .attr( "width", view.getWidth() * small_late - small_view_margin * 2 )
       .attr( "height", view.getHeight() * small_late - small_view_margin * 2 );
 
+    var view_width = view.getWidth() * small_late - small_view_margin * 2 - 4;
+    var view_height = view.getHeight() * small_late - small_view_margin * 2 - 4;
+    var view_left = ( view.pos_x - MARGIN.view.left + MARGIN.view.top ) * small_late + small_view_margin;
+    var view_top = view.pos_y * small_late + small_view_margin;
+
     $( "#smallview-area" )
       .append( $( "<div></div>", {
         "class": "small-view",
@@ -46,17 +51,45 @@ pattern_vis.layoutSmallView = function(){
       } ).css( {
         "position": "absolute",
         "padding": "10px",
-        "left": ( view.pos_x - MARGIN.view.left + MARGIN.view.top ) * small_late + small_view_margin,
-        "top": view.pos_y * small_late + small_view_margin,
+        "left": view_left,
+        "top": view_top,
         "width": view.getWidth() * small_late - small_view_margin - 20,
         "height": view.getHeight() * small_late - small_view_margin - 20
-      } ).text( view.id + ". " +  view.feature_name )
-      .data( "scroll-y", view.pos_y - MARGIN.view.top )
+      } ).data( "scroll-y", view.pos_y - MARGIN.view.top )
       .on( "click", function(){
         $( ".mdl-layout__content" ).animate( {
           scrollTop: $( this ).data( "scroll-y" )
         } );
       } ) );
+
+    var base_i = 0;
+
+    var tile_num_y = parseInt( Math.sqrt( view.event_ids.length * view_height / view_width ) + 0.5, 10 );
+    var tile_num_x = Math.ceil( view.event_ids.length / tile_num_y );
+
+    var tile_size_x = view_width / tile_num_x;
+    var tile_size_y = view_height / tile_num_y;
+
+    view.event_ids.forEach( function( id, index ){
+      $( "#smallview-area" )
+        .append( $( "<div></div>", {
+          "class": "small-view",
+        } ).css( {
+          "background": event_map.color[ id ],
+          "position": "absolute",
+          "left": view_left + 3,
+          "top": view_top + tile_size_y * base_i + 3,
+          "width": tile_size_x - 2,
+          "height": tile_size_y - 2,
+        } ) );
+
+      base_i ++;
+
+      if( base_i >= tile_num_y ){
+        base_i = 0;
+        view_left += tile_size_x;
+      }
+    } );
 
     for( history in view.event_history ){
       var from_view = view.event_history[ history ].from_view;
