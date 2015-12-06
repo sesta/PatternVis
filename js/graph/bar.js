@@ -115,16 +115,21 @@ pattern_vis.View.prototype.barDraw = function(){
         "class": "event-id-" + d.id,
         "center-y": $( this ).attr( "center-y" ),
         "center-x": $( this ).attr( "center-x" ),
-        "val-id": val_id
+        "val-id": val_id,
+        "feature-name": self.feature_name,
+        "value": d.value
       } ).css( {
         top: ( MARGIN.graph.top + $( this ).attr( "y" ) * 1.0 ) + "px",
         left: ( MARGIN.graph.left + $( this ).attr( "x" ) * 1.0 ) + "px",
         height: $( this ).attr( "height" ) + "px",
         width: $( this ).attr( "width" ) + "px"
-      } ).on( "mouseover", function(){
+      } ).on( "mouseover", function( event ){
         Ui.over_vis_val( $( this ) );
       } ).on( "mouseout", function(){
         Ui.out_vis_val( $( this ) );
+        Ui.hiddenDetail();
+      } ).on( "mousemove", function(){
+        Ui.showDetail( $( this ), event );
       } );
 
       d3.select( this ).classed( "val-id-" + val_id, true );
