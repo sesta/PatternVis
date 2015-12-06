@@ -44,12 +44,12 @@ pattern_vis.View = ( function(){
 
     this.$view.find( ".remove-button" ).on( "click", function(){
       self.$view.remove();
-      views[ views.id ] = null;
+      views.splice( views.indexOf( self ), 1 );
 
       views.forEach( function( view ){
         var ids = [];
 
-        if( view == "break_line" )
+        if( view != "break_line" )
           for( history in view.event_history ){
             if( view.event_history[ history ].from_view == self )
               ids.push( history );

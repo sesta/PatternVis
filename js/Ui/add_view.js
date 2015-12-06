@@ -1,8 +1,9 @@
 $( function(){
   $( ".add-feature-button" ).on( "click", function(){
-    views.push(
-      new pattern_vis.View( $( this ).data( "feature-name" ) )
-    );
+    var view = new pattern_vis.View( $( this ).data( "feature-name" ) );
+    views.push( view );
+
+    views_map[ view.id ] = view;
 
     Ui.cancel_all();
     pattern_vis.layout();

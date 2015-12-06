@@ -141,7 +141,7 @@ pattern_vis.layoutSmallView = function(){
     selecting: function( event, ui ){
       $( this ).children( ".ui-selecting.vis-val" )
         .each( function(){
-          var from_view = views[ $( this ).attr( "view-id" ) ];
+          var from_view = views_map[ $( this ).attr( "view-id" ) ];
           var $selected = from_view.$view.find( "div.event-id-" + $( this ).attr( "event-id" ) );
           Ui.select_vis_val( $selected, from_view );
         } );
