@@ -100,13 +100,14 @@ pattern_vis.layoutSmallView = function(){
         return 1;
       } );
 
-
     copy_event_ids.forEach( function( id, index ){
       $( "#smallview-area" )
         .append( $( "<div></div>", {
           "class": "small-view vis-val view-id-" + view.id + " event-id-" + id,
           "event-id": id,
-          "view-id": view.id
+          "view-id": view.id,
+          "feature-name": view.feature_name,
+          "value": ""
         } ).css( {
           "background": event_map.color[ id ],
           "position": "absolute",
@@ -119,6 +120,9 @@ pattern_vis.layoutSmallView = function(){
           Ui.over_vis_val( $( this ) );
         } ).on( "mouseout", function(){
           Ui.out_vis_val( $( this ) );
+          Ui.hiddenDetail();
+        } ).on( "mousemove", function( event ){
+          Ui.showDetail( $( this ), event );
         } ) );
 
       base_i ++;

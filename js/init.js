@@ -15,6 +15,8 @@ $( function(){
     .attr( "id", "overview-area" )
     .style( "display", "none" );
 
+  $( "#detail-area" ).hide();
+
   var $selectable_area = $( "<div></div>" ,{
     "class": "selectable-area"
   } ).css( "display", "none" );
