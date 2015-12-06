@@ -73,7 +73,9 @@ pattern_vis.layoutSmallView = function(){
     view.event_ids.forEach( function( id, index ){
       $( "#smallview-area" )
         .append( $( "<div></div>", {
-          "class": "small-view view-id-" + view.id + " event-id-" + id,
+          "class": "small-view vis-val view-id-" + view.id + " event-id-" + id,
+          "event-id": id,
+          "view-id": view.id
         } ).css( {
           "background": event_map.color[ id ],
           "position": "absolute",
@@ -101,8 +103,6 @@ pattern_vis.layoutSmallView = function(){
       if( from_d3_vis_val )
         $( ".small-view.view-id-" + from_view.id + ".event-id-" + from_d3_vis_val.attr( "event-id" ) )
           .css( "opacity", "1" );
-
-      console.log( ".small-view.view-id-" + from_view.id + ".event-id-" + from_d3_vis_val.attr( "event-id" ) ); 
 
       var from_x = ( from_view.pos_x - MARGIN.view.left + MARGIN.view.top + from_view.getWidth() ) * small_late - small_view_margin;
       var from_y = ( from_view.pos_y + from_view.getHeight() ) * small_late - small_view_margin;
@@ -136,4 +136,21 @@ pattern_vis.layoutSmallView = function(){
         .attr( "y2", to_y );
     }
   }
+
+  $( "#smallview-area" ).selectable( {
+    selecting: function( event, ui ){
+      $( this ).children( ".ui-selecting.vis-val" )
+        .each( function(){
+          var from_view = views[ $( this ).attr( "view-id" ) ];
+          var $selected = from_view.$view.find( "div.event-id-" + $( this ).attr( "event-id" ) );
+          Ui.select_vis_val( $selected, from_view );
+        } );
+    },
+    stop: function( event, ui ){
+      if( $( this ).children( ".ui-selected.vis-val" ).length == 0 ){
+        Ui.cancel_selecting();
+      }
+    }
+  } );
+
 };
