@@ -6,6 +6,7 @@ $( function(){
   d3.select( "body" )
     .append( "div" )
     .attr( "id", "smallview-area" )
+    .attr( "class", "selectable-area" )
     .append( "svg" )
     .attr( "id", "smallview" );
 

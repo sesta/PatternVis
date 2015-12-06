@@ -39,11 +39,6 @@ pattern_vis.layoutSmallView = function(){
       .attr( "width", view.getWidth() * small_late - small_view_margin * 2 )
       .attr( "height", view.getHeight() * small_late - small_view_margin * 2 );
 
-    var view_width = view.getWidth() * small_late - small_view_margin * 2 - 4;
-    var view_height = view.getHeight() * small_late - small_view_margin * 2 - 4;
-    var view_left = ( view.pos_x - MARGIN.view.left + MARGIN.view.top ) * small_late + small_view_margin;
-    var view_top = view.pos_y * small_late + small_view_margin;
-
     $( "#smallview-area" )
       .append( $( "<div></div>", {
         "class": "small-view",
@@ -62,7 +57,10 @@ pattern_vis.layoutSmallView = function(){
         } );
       } ) );
 
-    var base_i = 0;
+    var view_width = view.getWidth() * small_late - small_view_margin * 2 - 4;
+    var view_height = view.getHeight() * small_late - small_view_margin * 2 - 4;
+    var view_left = ( view.pos_x - MARGIN.view.left + MARGIN.view.top ) * small_late + small_view_margin;
+    var view_top = view.pos_y * small_late + small_view_margin;
 
     var tile_num_y = parseInt( Math.sqrt( view.event_ids.length * view_height / view_width ) + 0.5, 10 );
     var tile_num_x = Math.ceil( view.event_ids.length / tile_num_y );
@@ -70,10 +68,12 @@ pattern_vis.layoutSmallView = function(){
     var tile_size_x = view_width / tile_num_x;
     var tile_size_y = view_height / tile_num_y;
 
+    var base_i = 0;
+
     view.event_ids.forEach( function( id, index ){
       $( "#smallview-area" )
         .append( $( "<div></div>", {
-          "class": "small-view",
+          "class": "small-view event-id-" + id,
         } ).css( {
           "background": event_map.color[ id ],
           "position": "absolute",
