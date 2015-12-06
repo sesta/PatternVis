@@ -46,22 +46,63 @@ pattern_vis.layoutSmallView = function(){
       } ).css( {
         "position": "absolute",
         "padding": "10px",
-        "left": ( view.pos_x - MARGIN.view.left + MARGIN.view.top ) * small_late + small_view_margin,
-        "top": view.pos_y * small_late + small_view_margin,
+        "left": view_left,
+        "top": view_top,
         "width": view.getWidth() * small_late - small_view_margin - 20,
         "height": view.getHeight() * small_late - small_view_margin - 20
-      } ).text( view.id + ". " +  view.feature_name )
-      .data( "scroll-y", view.pos_y - MARGIN.view.top )
+      } ).data( "scroll-y", view.pos_y - MARGIN.view.top )
       .on( "click", function(){
         $( ".mdl-layout__content" ).animate( {
           scrollTop: $( this ).data( "scroll-y" )
         } );
       } ) );
 
+    var view_width = view.getWidth() * small_late - small_view_margin * 2 - 4;
+    var view_height = view.getHeight() * small_late - small_view_margin * 2 - 4;
+    var view_left = ( view.pos_x - MARGIN.view.left + MARGIN.view.top ) * small_late + small_view_margin;
+    var view_top = view.pos_y * small_late + small_view_margin;
+
+    var tile_num_y = parseInt( Math.sqrt( view.event_ids.length * view_height / view_width ) + 0.5, 10 );
+    var tile_num_x = Math.ceil( view.event_ids.length / tile_num_y );
+
+    var tile_size_x = view_width / tile_num_x;
+    var tile_size_y = view_height / tile_num_y;
+
+    var base_i = 0;
+
+    view.event_ids.forEach( function( id, index ){
+      $( "#smallview-area" )
+        .append( $( "<div></div>", {
+          "class": "small-view vis-val view-id-" + view.id + " event-id-" + id,
+          "event-id": id,
+          "view-id": view.id
+        } ).css( {
+          "background": event_map.color[ id ],
+          "position": "absolute",
+          "left": view_left + 3,
+          "top": view_top + tile_size_y * base_i + 3,
+          "width": tile_size_x - 2,
+          "height": tile_size_y - 2,
+          "opacity": "0.2"
+        } ) );
+
+      base_i ++;
+
+      if( base_i >= tile_num_y ){
+        base_i = 0;
+        view_left += tile_size_x;
+      }
+    } );
+
     for( history in view.event_history ){
       var from_view = view.event_history[ history ].from_view;
+      var from_d3_vis_val = view.event_history[ history ].from_d3_vis_val;
 
       if( !from_view ) continue;
+
+      if( from_d3_vis_val )
+        $( ".small-view.view-id-" + from_view.id + ".event-id-" + from_d3_vis_val.attr( "event-id" ) )
+          .css( "opacity", "1" );
 
       var from_x = ( from_view.pos_x - MARGIN.view.left + MARGIN.view.top + from_view.getWidth() ) * small_late - small_view_margin;
       var from_y = ( from_view.pos_y + from_view.getHeight() ) * small_late - small_view_margin;
@@ -95,4 +136,21 @@ pattern_vis.layoutSmallView = function(){
         .attr( "y2", to_y );
     }
   }
+
+  $( "#smallview-area" ).selectable( {
+    selecting: function( event, ui ){
+      $( this ).children( ".ui-selecting.vis-val" )
+        .each( function(){
+          var from_view = views_map[ $( this ).attr( "view-id" ) ];
+          var $selected = from_view.$view.find( "div.event-id-" + $( this ).attr( "event-id" ) );
+          Ui.select_vis_val( $selected, from_view );
+        } );
+    },
+    stop: function( event, ui ){
+      if( $( this ).children( ".ui-selected.vis-val" ).length == 0 ){
+        Ui.cancel_selecting();
+      }
+    }
+  } );
+
 };

@@ -49,7 +49,7 @@ pattern_vis.View = ( function(){
       views.forEach( function( view ){
         var ids = [];
 
-        if( view == "break_line" )
+        if( view != "break_line" )
           for( history in view.event_history ){
             if( view.event_history[ history ].from_view == self )
               ids.push( history );
