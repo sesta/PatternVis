@@ -73,7 +73,7 @@ pattern_vis.layoutSmallView = function(){
     view.event_ids.forEach( function( id, index ){
       $( "#smallview-area" )
         .append( $( "<div></div>", {
-          "class": "small-view event-id-" + id,
+          "class": "small-view view-id-" + view.id + " event-id-" + id,
         } ).css( {
           "background": event_map.color[ id ],
           "position": "absolute",
@@ -81,6 +81,7 @@ pattern_vis.layoutSmallView = function(){
           "top": view_top + tile_size_y * base_i + 3,
           "width": tile_size_x - 2,
           "height": tile_size_y - 2,
+          "opacity": "0.2"
         } ) );
 
       base_i ++;
@@ -93,8 +94,15 @@ pattern_vis.layoutSmallView = function(){
 
     for( history in view.event_history ){
       var from_view = view.event_history[ history ].from_view;
+      var from_d3_vis_val = view.event_history[ history ].from_d3_vis_val;
 
       if( !from_view ) continue;
+
+      if( from_d3_vis_val )
+        $( ".small-view.view-id-" + from_view.id + ".event-id-" + from_d3_vis_val.attr( "event-id" ) )
+          .css( "opacity", "1" );
+
+      console.log( ".small-view.view-id-" + from_view.id + ".event-id-" + from_d3_vis_val.attr( "event-id" ) ); 
 
       var from_x = ( from_view.pos_x - MARGIN.view.left + MARGIN.view.top + from_view.getWidth() ) * small_late - small_view_margin;
       var from_y = ( from_view.pos_y + from_view.getHeight() ) * small_late - small_view_margin;
