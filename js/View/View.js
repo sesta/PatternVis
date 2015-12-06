@@ -71,6 +71,8 @@ pattern_vis.View = ( function(){
 
       if( Ui.history_clicked_view )
         Ui.history_clicked_view.showHistory();
+
+      pattern_vis.layoutSmallView();
     } );
 
     this.$view.find( ".type-sort-button" ).on( "click", function(){
@@ -80,6 +82,8 @@ pattern_vis.View = ( function(){
 
       if( Ui.history_clicked_view )
         Ui.history_clicked_view.showHistory();
+
+      pattern_vis.layoutSmallView();
     } );
 
     id_num++;

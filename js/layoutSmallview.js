@@ -70,7 +70,38 @@ pattern_vis.layoutSmallView = function(){
 
     var base_i = 0;
 
-    view.event_ids.forEach( function( id, index ){
+    var copy_event_ids = view.event_ids.concat();
+
+    if( view.feature_sort )
+      copy_event_ids.sort( function( a, b ){
+        var feature_id = view.feature_id;
+        var ather_feature_graph_types = [
+          "matrix",
+          "multi_area",
+          "multi_bar",
+          "uniq_matrix"
+        ];
+
+        if( ather_feature_graph_types.indexOf( view.graph_type ) > -1 )
+          feature_id = "event_count";
+
+        var count_a = Feature.get( feature_id, a );
+        var count_b = Feature.get( feature_id, b );
+
+        if( count_a > count_b )
+          return -1;
+        return 1;
+      } );
+
+    if( view.type_sort )
+      copy_event_ids.sort( function( a, b ){
+        if( event_map.type[ a ] > event_map.type[ b ] )
+          return -1;
+        return 1;
+      } );
+
+
+    copy_event_ids.forEach( function( id, index ){
       $( "#smallview-area" )
         .append( $( "<div></div>", {
           "class": "small-view vis-val view-id-" + view.id + " event-id-" + id,
@@ -84,6 +115,10 @@ pattern_vis.layoutSmallView = function(){
           "width": tile_size_x - 2,
           "height": tile_size_y - 2,
           "opacity": "0.2"
+        } ).on( "mouseover", function(){
+          Ui.over_vis_val( $( this ) );
+        } ).on( "mouseout", function(){
+          Ui.out_vis_val( $( this ) );
         } ) );
 
       base_i ++;
