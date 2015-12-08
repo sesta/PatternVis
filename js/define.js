@@ -38,7 +38,7 @@ var setting = {
     start: new Date(),
     end: new Date(0),
   },
-  sampling_num: 200,
+  sampling_num: 300,
   sampling_interval: 1000 * 60 * 60 * 6
 };
 

@@ -144,6 +144,7 @@ pattern_vis.Overview = function(){
    var $selectable_area = $( "#overview-area" ).next( ".selectable-area" );
     $selectable_area.children().remove();
 
+   if( false )
    d3_graph.selectAll( ".vis-val" ).each( function( d ){
      var event_id_class_string = "";
      d.event_ids.forEach( function( id ){

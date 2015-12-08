@@ -74,10 +74,11 @@ pattern_vis.input_data = (function(){
       overview.draw();
 
       for( type in event_map.same_type_ids ){
+        var size = event_map.same_type_ids[ type ].length;
         $( ".action-buttons" ).append( $( "<li></li>", {
           "class": "mdl-menu__item mdl-js-ripple-effect"
         } ).css( "color", event_map.colors( type ) )
-        .text( "Select Type " + type )
+        .text( "Select Type " + type + " ( " + size + " events )" )
         .data( "type", type )
         .on( "click", function(){
           Ui.select_type( $( this ).data( "type" ) );
@@ -88,10 +89,17 @@ pattern_vis.input_data = (function(){
 
   function formatDateString( string ){
     var regx = /(\d+)-(\d+)-(\d+)T(\d+):(\d+):(\d+)/g;
+    // var regx = /(\d+)\/(\d+)\/(\d+) (\d+):(\d+):(\d+) ([AP]M)/g;
     var date;
     string.replace(regx,function(match,p1,p2,p3,p4,p5,p6){
+    //string.replace(regx,function(match,p1,p2,p3,p4,p5,p6,p7){
       try{
         date = new Date(p1,p2-1,p3,p4,p5,p6);
+        //date = new Date(p3,p1-1,p2,p4,p5,p6);
+        if( p7 == "AM" && p4 == "12" )
+          date = new Date(p3,p1-1,p2,0,p5,p6);
+        if( p7 == "PM" && p4 != "12" )
+          date = new Date(p3,p1-1,p2,p4 * 1.0 + 12,p5,p6);
       }catch(err){
         console.log(match);
       }
