@@ -150,7 +150,8 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
     selecting: function( event, ui ){
       $( this ).children( ".ui-selecting" )
         .each( function(){
-          Ui.select_vis_val( $( this ), self );
+          if( !$( this ).hasClass( ".selected" ) )
+            Ui.select_vis_val( $( this ), self );
         } );
     },
     stop: function( event, ui ){

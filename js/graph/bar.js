@@ -141,7 +141,7 @@ pattern_vis.View.prototype.barDraw = function(){
 
   $selectable_area.selectable( {
     selecting: function( event, ui ){
-      $( this ).children( ".ui-selecting" )
+      $( this ).children( ".ui-selecting:not( .selected )" )
         .each( function(){
           Ui.select_vis_val( $( this ), self );
         } );
