@@ -29,9 +29,9 @@ $( function(){
   } );
 
   pattern_vis.updateAreaSize();
-  pattern_vis.input_data( "data/shop_itemTrans.csv" );
+  // pattern_vis.input_data( "data/shop_itemTrans.csv" );
   // pattern_vis.input_data( "data/Crimes_10000_fix.csv" );
-  // pattern_vis.input_data( "data/Crimes_7_9.csv" );
+  pattern_vis.input_data( "data/Crimes_7_9.csv" );
   // pattern_vis.input_data( "data/Crimes_20150901_20151130_location_type.csv" );
   // pattern_vis.input_data( "data/Crimes_20150901_20151130_avenue_type.csv" );
 } );

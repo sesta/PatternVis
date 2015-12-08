@@ -151,7 +151,8 @@ pattern_vis.View.prototype.multi_barDraw = function(){
     stop: function( event, ui ){
       $( this ).children( ".ui-selected" )
         .each( function(){
-          Ui.select_vis_val( $( this ), self );
+          if( !$( this ).hasClass( ".selected" ) )
+            Ui.select_vis_val( $( this ), self );
         } );
       if( $( this ).children( ".ui-selected" ).length == 0 ){
         Ui.cancel_selecting();
