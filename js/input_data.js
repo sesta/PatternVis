@@ -2,6 +2,10 @@ pattern_vis.input_data = (function(){
   var id_num = 1;
 
   return function( data_path ){
+    var is_crime = false;
+    if( data_path.indexOf( "crime" ) > -1 )
+      is_crime = true;
+
     d3.text( data_path, function( err, text ){
       if( err ){
         throw err;
@@ -11,7 +15,7 @@ pattern_vis.input_data = (function(){
       var row_times = [];
 
       row_data.forEach( function( record ){
-        var time = formatDateString( record[ record.length -1 ] );
+        var time = formatDateString( record[ record.length -1 ], is_crime );
 
         record[ record.length - 1 ] = time;
 
@@ -87,23 +91,32 @@ pattern_vis.input_data = (function(){
     });
   };
 
-  function formatDateString( string ){
-    var regx = /(\d+)-(\d+)-(\d+)T(\d+):(\d+):(\d+)/g;
-    // var regx = /(\d+)\/(\d+)\/(\d+) (\d+):(\d+):(\d+) ([AP]M)/g;
+  function formatDateString( string, is_crime ){
     var date;
-    string.replace(regx,function(match,p1,p2,p3,p4,p5,p6){
-    //string.replace(regx,function(match,p1,p2,p3,p4,p5,p6,p7){
-      try{
-        date = new Date(p1,p2-1,p3,p4,p5,p6);
-        //date = new Date(p3,p1-1,p2,p4,p5,p6);
-        if( p7 == "AM" && p4 == "12" )
-          date = new Date(p3,p1-1,p2,0,p5,p6);
-        if( p7 == "PM" && p4 != "12" )
-          date = new Date(p3,p1-1,p2,p4 * 1.0 + 12,p5,p6);
-      }catch(err){
-        console.log(match);
-      }
-    });
+
+    if( is_crime ){
+      var regx = /(\d+)\/(\d+)\/(\d+) (\d+):(\d+):(\d+) ([AP]M)/g;
+      string.replace(regx,function(match,p1,p2,p3,p4,p5,p6,p7){
+        try{
+          date = new Date(p3,p1-1,p2,p4,p5,p6);
+          if( p7 == "AM" && p4 == "12" )
+            date = new Date(p3,p1-1,p2,0,p5,p6);
+          if( p7 == "PM" && p4 != "12" )
+            date = new Date(p3,p1-1,p2,p4 * 1.0 + 12,p5,p6);
+        }catch( err ){
+          console.log(match);
+        }
+      } );
+    }else{
+      var regx = /(\d+)-(\d+)-(\d+)T(\d+):(\d+):(\d+)/g;
+      string.replace(regx,function(match,p1,p2,p3,p4,p5,p6){
+        try{
+          date = new Date(p1,p2-1,p3,p4,p5,p6);
+        }catch( err ){
+          console.log(match);
+        }
+      } );
+    }
 
     if( date > data.time.end )
       data.time.end = date;
