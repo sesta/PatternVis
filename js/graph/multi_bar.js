@@ -106,7 +106,7 @@ pattern_vis.View.prototype.multi_barDraw = function(){
 
     self.d3_graph.selectAll( ".bar.event-id-" + event_id )
       .transition().duration( 500 )
-      .delay( function(){ return event_id_index * 10; } )
+      .delay( function(){ return event_id_index * Ui.animation_time / copy_event_ids.length; } )
       .attr( "event-id", event_id )
       .attr( "fill", function( d ){ return event_map.color[ event_id ]; } )
       .attr( "x", function( d ) { return x( d.id ); } )
