@@ -135,6 +135,7 @@ var Feature = {
 };
 
 var Ui = {
+  animation_time: 500,
   selected_events: {},
   history_clicked_view: null
 };

@@ -106,7 +106,7 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
     self.d3_graph.selectAll( ".area.event-id-" + event_id )
       .datum( data )
       .transition().duration( 500 )
-      .delay( function(){ return event_id_index * 10; } )
+      .delay( function(){ return event_id_index * Ui.animation_time / copy_event_ids.length; } )
       .attr( "transform", "translate(0," + base_height + ")" )
       .attr( "d", area )
       .attr( "fill", function( d ){ return event_map.color[ event_id ]; } )
@@ -148,7 +148,7 @@ pattern_vis.View.prototype.multi_areaDraw = function(){
 
   $selectable_area.selectable( {
     selecting: function( event, ui ){
-      $( this ).children( ".ui-selecting" )
+      $( this ).children( ".ui-selecting:not( .selected )" )
         .each( function(){
           if( !$( this ).hasClass( ".selected" ) )
             Ui.select_vis_val( $( this ), self );

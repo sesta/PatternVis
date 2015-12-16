@@ -101,6 +101,7 @@ pattern_vis.View.prototype.uniq_matrixDraw = function(){
 
   this.d3_graph.selectAll( ".matrix" )
     .transition().duration( 500 )
+    .delay( function( d, i ){ return i * Ui.animation_time / data.length; } )
     .attr( "event-id", function( d ){ return d.id_1 + "," + d.id_2; } )
     .attr( "x", function( d ) { return x( d.id_1 ); } )
     .attr( "width", x.rangeBand() )

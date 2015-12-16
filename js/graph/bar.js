@@ -100,7 +100,7 @@ pattern_vis.View.prototype.barDraw = function(){
   var val_id = 0;
 
   this.d3_graph.selectAll( ".bar" ).transition().duration( 500 )
-    .delay( function( d, i ){ return i * 10; } )
+    .delay( function( d, i ){ return i * Ui.animation_time / data.length; } )
     .attr( "event-id", function( d ){ return d.id; } )
     .attr( "fill", function( d ){ return event_map.color[ d.id ]; } )
     .attr( "x", function( d ){ return x( d.id ); } )
