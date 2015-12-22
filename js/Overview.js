@@ -144,7 +144,6 @@ pattern_vis.Overview = function(){
    var $selectable_area = $( "#overview-area" ).next( ".selectable-area" );
     $selectable_area.children().remove();
 
-   if( false )
    d3_graph.selectAll( ".vis-val" ).each( function( d ){
      var event_id_class_string = "";
      d.event_ids.forEach( function( id ){
@@ -164,9 +163,9 @@ pattern_vis.Overview = function(){
          height: $( this ).attr( "height" ) + "px",
          width: $( this ).attr( "width" ) + "px"
        } ).on( "mouseover", function(){
-         Ui.over_vis_val( $( this ) );
+         // Ui.over_vis_val( $( this ) );
        } ).on( "mouseout", function(){
-         Ui.out_vis_val( $( this ) );
+         // Ui.out_vis_val( $( this ) );
          Ui.hiddenDetail();
        } ).on( "mousemove", function( event ){
          Ui.showDetail( $( this ), event );
@@ -175,6 +174,7 @@ pattern_vis.Overview = function(){
      $selectable_area.append( $selectable_div );
    } );
 
+   if( false )
    $selectable_area.selectable( {
      stop: function( event, ui ){
        $( this ).children( ".ui-selected" )
