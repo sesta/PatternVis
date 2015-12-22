@@ -19,19 +19,21 @@ pattern_vis.View.prototype.create_dom = function(){
     "class": "mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect show-history-button",
   } ).append( $( "<i></i>", {
     "class": "material-icons",
-  } ).text( "share" ) ) );
+  } ).text( "history" ) ) );
 
   $menu.append( $( "<button></button>", {
     "class": "mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect feature-sort-button",
-  } ).append( $( "<i></i>", {
-    "class": "material-icons",
-  } ).text( "sort" ) ) );
+  } ).append( $( "<img>", {
+    "src": "images/sort_feature.png",
+    "width": "32px"
+  } ) ) );
 
   $menu.append( $( "<button></button>", {
     "class": "mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect type-sort-button",
-  } ).append( $( "<i></i>", {
-    "class": "material-icons",
-  } ).text( "sort" ) ) );
+  } ).append( $( "<img>", {
+    "src": "images/sort_type.png",
+    "width": "32px"
+  } ) ) );
 
   $menu.append( $( "<button></button>", {
     "class": "mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect remove-button",
