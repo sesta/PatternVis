@@ -52,7 +52,7 @@ var MARGIN = {
     label: 40
   },
   graph: {
-    top: 20,
+    top: 50,
     bottom: 50,
     left: 70,
     right: 20,
