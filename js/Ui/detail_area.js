@@ -7,10 +7,6 @@ Ui.showDetail = function( $vis_val, event ){
     event_names.push( event_map.id[ event_id ] );
   } )
 
-  event_names.filter(function (x, i, self) {
-                return self.indexOf(x) === i;
-                        });
-
   $detail.find( ".detail-event-name" )
     .text( event_names.filter( function( name, index, self ){
       return self.indexOf( name ) === index;

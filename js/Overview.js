@@ -2,7 +2,7 @@ pattern_vis.Overview = function(){
   var d3_svg = d3.select( "#overview-area" );
 
   var d3_graph = d3_svg.append( "g" )
-    .attr( "transform", "translate(" + MARGIN.graph.left + "," + MARGIN.graph.top + ")");
+    .attr( "transform", "translate(" + MARGIN.graph.left + "," + MARGIN.graph.top / 2 + ")");
 
   d3_graph.append( "g" )
     .attr( "class", "x axis" );
@@ -79,7 +79,7 @@ pattern_vis.Overview = function(){
 
   this.draw = function(){
     var graph_width = $( "body" ).width() - MARGIN.graph.left - MARGIN.graph.right;
-    var graph_height = 200 - MARGIN.graph.top - MARGIN.graph.bottom / 2;
+    var graph_height = 200 - MARGIN.graph.top / 2 - MARGIN.graph.bottom / 2;
 
     var x = d3.time.scale()
       .range( [ 0, graph_width ] );
@@ -144,7 +144,6 @@ pattern_vis.Overview = function(){
    var $selectable_area = $( "#overview-area" ).next( ".selectable-area" );
     $selectable_area.children().remove();
 
-   if( false )
    d3_graph.selectAll( ".vis-val" ).each( function( d ){
      var event_id_class_string = "";
      d.event_ids.forEach( function( id ){
@@ -159,14 +158,14 @@ pattern_vis.Overview = function(){
        "feature-name": views_map[ d.id ].feature_name,
        "value": d.count
        } ).css( {
-         top: ( MARGIN.graph.top + $( this ).attr( "y" ) * 1.0 - 2 ) + "px",
+         top: ( MARGIN.graph.top / 2 + $( this ).attr( "y" ) * 1.0 - 2 ) + "px",
          left: ( MARGIN.graph.left + $( this ).attr( "x" ) * 1.0 ) + "px",
          height: $( this ).attr( "height" ) + "px",
          width: $( this ).attr( "width" ) + "px"
        } ).on( "mouseover", function(){
-         Ui.over_vis_val( $( this ) );
+         // Ui.over_vis_val( $( this ) );
        } ).on( "mouseout", function(){
-         Ui.out_vis_val( $( this ) );
+         // Ui.out_vis_val( $( this ) );
          Ui.hiddenDetail();
        } ).on( "mousemove", function( event ){
          Ui.showDetail( $( this ), event );
@@ -175,6 +174,7 @@ pattern_vis.Overview = function(){
      $selectable_area.append( $selectable_div );
    } );
 
+   if( false )
    $selectable_area.selectable( {
      stop: function( event, ui ){
        $( this ).children( ".ui-selected" )
