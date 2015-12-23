@@ -57,7 +57,7 @@ pattern_vis.View.prototype.scatterDraw = function(){
       var count_a = Feature.get( self.feature_id, a );
       var count_b = Feature.get( self.feature_id, b );
 
-      if( count_a > count_b )
+      if( count_a[ 0 ] > count_b[ 0 ] )
         return -1;
       return 1;
     } );
