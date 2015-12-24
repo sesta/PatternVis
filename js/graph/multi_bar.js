@@ -123,7 +123,7 @@ pattern_vis.View.prototype.multi_barDraw = function(){
           "center-x": $( this ).attr( "center-x" ),
           "val-id": val_id,
           "feature-name": self.feature_name,
-          "value": d.value
+          "value": ( d.id / 4 ) + "day"
         } ).css( {
             top: ( MARGIN.graph.top + $( this ).attr( "y" ) * 1.0 ) + "px",
             left: ( MARGIN.graph.left + $( this ).attr( "x" ) * 1.0 ) + "px",
