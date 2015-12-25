@@ -73,7 +73,7 @@ var Feature = {
     values: {}
   },
   event_counts: {
-    name_ja: "発生分布",
+    name_ja: "発生頻度分布",
     size_aspect: 1.0,
     graph_type: "multi_area",
     values: {}
@@ -96,6 +96,12 @@ var Feature = {
     graph_type: "bar",
     values: {}
   },
+  crowd_time: {
+    name_ja: "特に多く発生している時間帯",
+    size_aspect: 1.0,
+    graph_type: "scatter",
+    values: {}
+  },
   period_spectrum: {
     name_ja: "周期性の強さ",
     size_aspect: 1.0,
@@ -114,24 +120,20 @@ var Feature = {
     graph_type: "matrix",
     values: {}
   },
-  crowd_time: {
-    name_ja: "特に多く発生している時間帯",
-    size_aspect: 1.0,
-    graph_type: "scatter",
-    values: {}
-  },
   with_happen_count: {
     name_ja: "同時に発生した回数",
     size_aspect: 1.0,
     graph_type: "uniq_matrix",
     values: {}
-  },
+  }
+  /*
   with_happen_rate: {
     name_ja: "同時に発生する確率",
     size_aspect: 1.0,
     graph_type: "uniq_matrix",
     values: {}
   }
+  */
 };
 
 var Ui = {
