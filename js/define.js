@@ -125,13 +125,15 @@ var Feature = {
     size_aspect: 1.0,
     graph_type: "uniq_matrix",
     values: {}
-  },
+  }
+  /*
   with_happen_rate: {
     name_ja: "同時に発生する確率",
     size_aspect: 1.0,
     graph_type: "uniq_matrix",
     values: {}
   }
+  */
 };
 
 var Ui = {
